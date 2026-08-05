@@ -1,0 +1,9 @@
+{
+	"OutputFiles": [
+		"LicenseManager.cpp.o",
+		"SWebNativeBrowser.cpp.o",
+		"WebNativeBrowserCoreModule.cpp.o",
+		"WebNativeBrowserRHIHelper.cpp.o",
+		"WebNativeLibCppStub.cpp.o"
+	]
+}
