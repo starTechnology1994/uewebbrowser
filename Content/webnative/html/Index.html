@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebNative Browser — Demo Suite</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif;
+  font-size:14px;color:#c9d1d9;background:#0d1117;
+  width:100vw;height:100vh;overflow-y:auto;overflow-x:hidden;
+  user-select:none;-webkit-user-select:none;
+}
+input,textarea{user-select:text;-webkit-user-select:text;}
+/* 滚动条 */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:#21262d;border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:#30363d;}
+
+/* ====== 滚动跑马灯 ====== */
+.marquee{
+  overflow:hidden;
+  background:#0a0e14;
+  border-top:1px solid #21262d;
+  border-bottom:1px solid #21262d;
+  padding:20px 0;
+}
+.marquee-row{
+  overflow:hidden;
+  white-space:nowrap;
+  width:100%;
+}
+.marquee-track{
+  display:inline-block;
+  white-space:nowrap;
+  animation:marquee 90s linear infinite;
+}
+.marquee-row.en .marquee-track{
+  animation:marquee 90s linear infinite;
+}
+.marquee-track span{
+  display:inline-block;
+  padding:0 20px;
+  font-size:13px;
+  font-weight:500;
+  color:#8b949e;
+}
+.marquee-track span b{
+  color:#58a6ff;
+  margin-right:6px;
+}
+.marquee-track span::after{
+  content:'·';
+  margin-left:20px;
+  color:#30363d;
+}
+.marquee-track span:last-child::after{
+  content:'';
+}
+@keyframes marquee{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
+
+/* ====== Hero ====== */
+.hero{
+  position:sticky;top:0;z-index:100;
+  padding:20px 40px;
+  background:linear-gradient(180deg,#161b22 0%,#0d1117 100%);
+  border-bottom:1px solid #21262d;
+}
+.hero-inner{
+  display:flex;align-items:center;gap:16px;justify-content:center;
+}
+.hero .logo{
+  width:48px;height:48px;border-radius:12px;flex-shrink:0;
+  background:linear-gradient(135deg,#1a3a5f,#0d2137);
+  border:1px solid #30363d;
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;
+  box-shadow:0 4px 24px rgba(0,168,255,0.12);
+}
+.hero h1{
+  font-size:20px;font-weight:700;color:#58a6ff;
+  letter-spacing:-0.5px;
+}
+.hero .tagline{
+  font-size:12px;color:#8b949e;margin-top:2px;
+}
+.hero .tagline .en{
+  font-size:11px;color:#6e7681;display:block;margin-top:1px;
+}
+
+/* ====== 案例列表 ====== */
+.demos{
+  padding:16px 40px;max-width:1400px;margin:0 auto;
+}
+.demo-row{
+  display:flex;align-items:center;gap:10px;margin-bottom:8px;
+}
+.demo-row .cat-badge{
+  font-size:10px;padding:3px 10px;border-radius:12px;
+  font-weight:600;letter-spacing:1px;text-transform:uppercase;
+  flex-shrink:0;width:100px;text-align:center;
+}
+.cat-badge.start{background:rgba(63,185,80,0.12);color:#3fb950;}
+.cat-badge.basic{background:rgba(88,166,255,0.12);color:#58a6ff;}
+.cat-badge.adv{background:rgba(210,168,255,0.12);color:#d2a8ff;}
+.cat-badge.scene{background:rgba(240,136,62,0.12);color:#f0883e;}
+.cat-badge.tool{background:rgba(248,81,73,0.12);color:#f85149;}
+
+/* 卡片网格 - 紧凑布局 */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:8px;
+  margin-bottom:16px;
+}
+.card{
+  background:#161b22;border:1px solid #21262d;border-radius:10px;
+  padding:12px 14px;cursor:pointer;transition:all .12s;
+  display:flex;gap:10px;align-items:center;
+  text-decoration:none;color:inherit;
+}
+.card{user-drag:none;-webkit-user-drag:none;}
+.card:hover{border-color:#30363d;background:#1a1e26;transform:translateY(-1px);}
+.card:active{transform:translateY(0);}
+.card .c-icon{
+  flex-shrink:0;width:36px;height:36px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;
+}
+.c-icon.green{background:rgba(63,185,80,0.12);color:#3fb950;}
+.c-icon.blue{background:rgba(88,166,255,0.12);color:#58a6ff;}
+.c-icon.purple{background:rgba(210,168,255,0.12);color:#d2a8ff;}
+.c-icon.orange{background:rgba(240,136,62,0.12);color:#f0883e;}
+.c-icon.red{background:rgba(248,81,73,0.12);color:#f85149;}
+.card .c-info{flex:1;min-width:0;}
+.card .c-name{font-size:13px;font-weight:600;color:#e8ecf1;margin-bottom:1px;}
+.card .c-desc{font-size:11px;color:#8b949e;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.card .c-arrow{flex-shrink:0;color:#484f58;font-size:14px;}
+
+/* 页脚 */
+.footer{
+  padding:16px 40px;text-align:center;color:#484f58;font-size:11px;
+  border-top:1px solid #21262d;margin-top:8px;
+}
+.footer b{color:#8b949e;}
+
+@media(max-width:768px){
+  .hero{padding:14px 16px 16px;}
+  .hero h1{font-size:16px;}
+  .demos{padding:12px 16px;}
+  .cards{grid-template-columns:1fr;}
+  .demo-row{flex-direction:column;align-items:flex-start;}
+  .demo-row .cat-badge{width:auto;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="logo">🌐</div>
+    <div>
+      <h1>WebNative Browser — 演示中心</h1>
+      <div class="tagline">
+        原生级嵌入式浏览器 · 国产化适配 · 跨平台部署
+        <span class="en">Native Embedded Browser · Domestic OS Support · Cross-Platform Deployment</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 滚动特色 -->
+<div class="marquee">
+  <div class="marquee-row">
+    <div class="marquee-track">
+      <span><b>原生级性能</b>GPU 硬件加速，丝滑流畅</span>
+      <span><b>毫秒级消息通道</b>UE 与 JS 双向通信，延迟极低</span>
+      <span><b>消息吞吐</b>1,000 条 / 7ms · 10,000 条 / 30ms · 100,000 条 / 200ms</span>
+      <span><b>透明 HUD 叠加</b>Alpha 0-255 透明穿透，叠加 UE 场景</span>
+      <span><b>多实例并发</b>独立 WebView 互不干扰，随意创建</span>
+      <span><b>键鼠全交互</b>104 键键盘 + 鼠标完整支持</span>
+      <span><b>国产化适配</b>统信 UOS / 麒麟 / 龙芯 / 飞腾</span>
+      <span><b>跨平台部署</b>Windows + Linux x64/ARM64</span>
+      <span><b>数字孪生</b>工业级实时数据可视化</span>
+      <span><b>地图集成</b>Leaflet 瓦片 + 标注 + 热力图</span>
+      <span><b>3D 渲染</b>Three.js / WebGL 完整支持</span>
+      <span><b>实时通信</b>WebSocket 双向数据流</span>
+      <span><b>视频播放</b>iframe 嵌入任意网页</span>
+      <span><b>性能监控</b>FPS / 内存 / DOM 实时基准</span>
+      <span><b>输入法支持</b>中文输入法完整兼容</span>
+      <span><b>原生级性能</b>GPU 硬件加速，丝滑流畅</span>
+      <span><b>毫秒级消息通道</b>UE 与 JS 双向通信，延迟极低</span>
+      <span><b>消息吞吐</b>1,000 条 / 7ms · 10,000 条 / 30ms · 100,000 条 / 200ms</span>
+      <span><b>透明 HUD 叠加</b>Alpha 0-255 透明穿透，叠加 UE 场景</span>
+      <span><b>多实例并发</b>独立 WebView 互不干扰，随意创建</span>
+      <span><b>键鼠全交互</b>104 键键盘 + 鼠标完整支持</span>
+      <span><b>国产化适配</b>统信 UOS / 麒麟 / 龙芯 / 飞腾</span>
+      <span><b>跨平台部署</b>Windows + Linux x64/ARM64</span>
+      <span><b>数字孪生</b>工业级实时数据可视化</span>
+      <span><b>地图集成</b>Leaflet 瓦片 + 标注 + 热力图</span>
+      <span><b>3D 渲染</b>Three.js / WebGL 完整支持</span>
+      <span><b>实时通信</b>WebSocket 双向数据流</span>
+      <span><b>视频播放</b>iframe 嵌入任意网页</span>
+      <span><b>性能监控</b>FPS / 内存 / DOM 实时基准</span>
+      <span><b>输入法支持</b>中文输入法完整兼容</span>
+    </div>
+  </div>
+  <div class="marquee-row en">
+    <div class="marquee-track">
+      <span><b>Native Performance</b>GPU Hardware Accelerated Rendering</span>
+      <span><b>Millisecond Channel</b>UE ↔ JS Bidirectional Messaging</span>
+      <span><b>Message Throughput</b>1,000 msgs / 7ms · 10,000 msgs / 30ms · 100,000 msgs / 200ms</span>
+      <span><b>Transparent HUD</b>Alpha 0-255 Transparency Overlay</span>
+      <span><b>Multi-Instance</b>Independent WebView Instances</span>
+      <span><b>Full Input</b>104-Key Keyboard + Mouse Support</span>
+      <span><b>Domestic OS</b>UOS / Kylin / Loongson / Phytium</span>
+      <span><b>Cross-Platform</b>Windows + Linux x64/ARM64</span>
+      <span><b>Digital Twin</b>Industrial Real-Time Visualization</span>
+      <span><b>Map Integration</b>Leaflet Tiles + Markers + Heatmap</span>
+      <span><b>3D Rendering</b>Three.js / WebGL Full Support</span>
+      <span><b>Realtime Communication</b>WebSocket Bidirectional Stream</span>
+      <span><b>Video Playback</b>iframe Embedding Any Website</span>
+      <span><b>Performance Monitor</b>FPS / Memory / DOM Benchmark</span>
+      <span><b>IME Support</b>Chinese Input Method Compatible</span>
+      <span><b>Native Performance</b>GPU Hardware Accelerated Rendering</span>
+      <span><b>Millisecond Channel</b>UE ↔ JS Bidirectional Messaging</span>
+      <span><b>Message Throughput</b>1,000 msgs / 7ms · 10,000 msgs / 30ms · 100,000 msgs / 200ms</span>
+      <span><b>Transparent HUD</b>Alpha 0-255 Transparency Overlay</span>
+      <span><b>Multi-Instance</b>Independent WebView Instances</span>
+      <span><b>Full Input</b>104-Key Keyboard + Mouse Support</span>
+      <span><b>Domestic OS</b>UOS / Kylin / Loongson / Phytium</span>
+      <span><b>Cross-Platform</b>Windows + Linux x64/ARM64</span>
+      <span><b>Digital Twin</b>Industrial Real-Time Visualization</span>
+      <span><b>Map Integration</b>Leaflet Tiles + Markers + Heatmap</span>
+      <span><b>3D Rendering</b>Three.js / WebGL Full Support</span>
+      <span><b>Realtime Communication</b>WebSocket Bidirectional Stream</span>
+      <span><b>Video Playback</b>iframe Embedding Any Website</span>
+      <span><b>Performance Monitor</b>FPS / Memory / DOM Benchmark</span>
+      <span><b>IME Support</b>Chinese Input Method Compatible</span>
+    </div>
+  </div>
+</div>
+
+<div class="demos">
+
+  <!-- Basic -->
+  <div class="demo-row"><span class="cat-badge basic">Basic</span></div>
+  <div class="cards">
+    <a class="card" href="0_WebViewLoader.html">
+      <div class="c-icon green">🌐</div>
+      <div class="c-info">
+        <div class="c-name">0 — WebView Loader</div>
+        <div class="c-desc">输入 URL 加载任意网页，学习 WebView 的第一步</div>
+      </div>
+      <div class="c-arrow">→</div>
+    </a>
+    <a class="card" href="1_MessageChannel.html">
+      <div class="c-icon blue">💬</div>
+      <div class="c-info">
+        <div class="c-name">1 — Message Channel</div>
+        <div class="c-desc">UE ↔ JS 双向消息通道，收发消息</div>
+      </div>
+      <div class="c-arrow">→</div>
+    </a>
+    <a class="card" href="2_Interaction.html">
+      <div class="c-icon blue">🎮</div>
+      <div class="c-info">
+        <div class="c-name">2 — Native Interaction</div>
+        <div class="c-desc">按钮、滑动条、拖拽树、CSS 性能测试</div>
+      </div>
+      <div class="c-arrow">→</div>
+    </a>
+    <a class="card" href="3_digitaltwin.html">
+      <div class="c-icon blue">🏭</div>
+      <div class="c-info">
+        <div class="c-name">3 — Digital Twin</div>
+        <div class="c-desc">数字孪生场景，模型拖拽 + ECharts 监控</div>
+      </div>
+      <div class="c-arrow">→</div>
+    </a>
+  </div>
+
+  <!-- Advanced -->
+  <div class="demo-row"><span class="cat-badge adv">Advanced</span></div>
+  <div class="cards">
+    <a class="card" href="4_PlayVideo.html">
+      <div class="c-icon purple">🎬</div>
+      <div class="c-info">
+        <div class="c-name">4 — Play Video</div>
+        <div class="c-desc">iframe 嵌入网页，视频/新闻/文档</div>
+      </div>
+      <div class="c-arrow">→</div>
+    </a>
+    <a class="card" href="5_InputTester.html">
+      <div class="c-icon purple">⌨️</div>
+      <div class="c-info">
+        <div class="c-name">5 — Input Tester</div>
+        <div class="c-desc">104 键视觉键盘，组合键和鼠标状态</div>
+      </div>
+      <div class="c-arrow">→</div>
+    </a>
+    <a class="card" href="6_IframeLoader.html">
+      <div class="c-icon purple">🪟</div>
+      <div class="c-info">
+        <div class="c-name">6 — Multi Iframe Loader</div>
+        <div class="c-desc">四区域独立 iframe，互不干扰</div>
+      </div>
+      <div class="c-arrow">→</div>
+    </a>
+  </div>
+
+  <!-- Scenarios -->
+  <div class="demo-row"><span class="cat-badge scene">Scenarios</span></div>
+  <div class="cards">
+    <a class="card" href="7_DataDashboard.html">
+      <div class="c-icon orange">📊</div>
+      <div class="c-info">
+        <div class="c-name">7 — Data Dashboard</div>
+        <div class="c-desc">ECharts 实时数据大屏，6 维度工业可视化</div>
+      </div>
+      <div class="c-arrow">→</div>
+    </a>
+    <a class="card" href="8_GISDemo.html">
+      <div class="c-icon orange">🌍</div>
+      <div class="c-info">
+        <div class="c-name">8 — 3D Globe GIS</div>
+        <div class="c-desc">全球站点监控，数据飞线 + 告警波纹</div>
+      </div>
+      <div class="c-arrow">→</div>
+    </a>
+    <a class="card" href="9_WebGLDemo.html">
+      <div class="c-icon orange">🎨</div>
+      <div class="c-info">
+        <div class="c-name">9 — WebGL 3D Demo</div>
+        <div class="c-desc">Three.js 3D 场景，4 种切换</div>
+      </div>
+      <div class="c-arrow">→</div>
+    </a>
+    <a class="card" href="10_TransparentOverlay.html">
+      <div class="c-icon orange">🫧</div>
+      <div class="c-info">
+        <div class="c-name">10 — Transparent Overlay</div>
+        <div class="c-desc">透明 HUD 叠加层，Alpha 0–255 控制</div>
+      </div>
+      <div class="c-arrow">→</div>
+    </a>
+    <a class="card" href="11_WebSocketRealtime.html">
+      <div class="c-icon orange">🔌</div>
+      <div class="c-info">
+        <div class="c-name">11 — WebSocket Realtime</div>
+        <div class="c-desc">WebSocket 实时通信，延迟监控</div>
+      </div>
+      <div class="c-arrow">→</div>
+    </a>
+  </div>
+
+  <!-- Tools -->
+  <div class="demo-row"><span class="cat-badge tool">Tools</span></div>
+  <div class="cards">
+    <a class="card" href="12_PerformanceBench.html">
+      <div class="c-icon red">⚡</div>
+      <div class="c-info">
+        <div class="c-name">12 — Performance Benchmark</div>
+        <div class="c-desc">性能基准测试，FPS/内存/DOM 监控</div>
+      </div>
+      <div class="c-arrow">→</div>
+    </a>
+    <a class="card" href="13_WebRTCDemo.html">
+      <div class="c-icon red">📹</div>
+      <div class="c-info">
+        <div class="c-name">13 — WebRTC Capabilities</div>
+        <div class="c-desc">摄像头/麦克风/屏幕分享检测</div>
+      </div>
+      <div class="c-arrow">→</div>
+    </a>
+    <a class="card" href="14_IframeBridge.html">
+      <div class="c-icon red">🔗</div>
+      <div class="c-info">
+        <div class="c-name">14 — Iframe ↔ UE Bridge</div>
+        <div class="c-desc">同源/跨域/postMessage 三种 iframe 通信方案</div>
+      </div>
+      <div class="c-arrow">→</div>
+    </a>
+  </div>
+
+</div>
+
+<div class="footer">
+  <b>WebNative Browser</b> — 原生级嵌入式浏览器 · 国产化适配 · 跨平台部署<br>
+  兼容 UE 5.1–5.8 · Windows + Linux x64/ARM64 · 统信 UOS / 麒麟 / 龙芯 / 飞腾 · GPU 硬件加速 · 透明渲染 · 原生输入
+</div>
+
+<script>
+// 禁止拖拽卡片的怪异行为
+document.addEventListener('dragstart', function(e) { e.preventDefault(); });
+
+// 点击卡片时通知 UE 加载对应案例，并显示加载进度提示
+(function() {
+  // 注入 spin 动画样式
+  var styleEl = document.createElement('style');
+  styleEl.textContent = '@keyframes wn-spin{to{transform:rotate(360deg);}}';
+  document.head.appendChild(styleEl);
+
+  function showLoading(text) {
+    // 全屏半透明覆盖层
+    var overlay = document.createElement('div');
+    overlay.id = 'wn-loading-overlay';
+    overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(13,17,23,0.85);z-index:99998;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;';
+
+    var spinner = document.createElement('div');
+    spinner.style.cssText = 'width:40px;height:40px;border:3px solid #30363d;border-top-color:#58a6ff;border-radius:50%;animation:wn-spin 0.8s linear infinite;';
+
+    var label = document.createElement('div');
+    label.style.cssText = 'color:#8b949e;font-size:14px;';
+    label.textContent = text || '加载中...';
+
+    overlay.appendChild(spinner);
+    overlay.appendChild(label);
+    document.body.appendChild(overlay);
+
+    // 顶部进度条
+    var bar = document.createElement('div');
+    bar.id = 'wn-loading-bar';
+    bar.style.cssText = 'position:fixed;top:0;left:0;right:0;height:3px;z-index:99999;background:transparent;pointer-events:none;';
+    var fill = document.createElement('div');
+    fill.style.cssText = 'height:100%;width:0%;background:linear-gradient(90deg,#58a6ff,#1a73e8);transition:width 0.3s ease;';
+    bar.appendChild(fill);
+    document.body.appendChild(bar);
+
+    // 模拟进度（渐进到 85%，导航完成时浏览器自动替换页面）
+    var progress = 0;
+    var timer = setInterval(function() {
+      progress += (85 - progress) * 0.08;
+      fill.style.width = progress + '%';
+    }, 200);
+  }
+
+  var cards = document.querySelectorAll('.cards .card');
+  for (var i = 0; i < cards.length; i++) {
+    cards[i].addEventListener('click', function(e) {
+      e.preventDefault();
+      var href = this.getAttribute('href');
+      if (!href) return;
+
+      var cardName = this.querySelector('.c-name');
+      var displayName = cardName ? cardName.textContent : '案例';
+      showLoading('正在加载 ' + displayName + ' ...');
+
+      if (window.WebNative && window.WebNative.send) {
+        window.WebNative.send('loadDemo', { name: href });
+      }
+
+      window.location.href = href;
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
