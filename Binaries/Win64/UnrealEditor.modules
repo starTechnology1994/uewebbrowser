@@ -1,0 +1,9 @@
+{
+	"BuildId": "23058290",
+	"Modules": 
+	{
+		"WebNativeBrowser": "UnrealEditor-WebNativeBrowser.dll",
+		"WebNativeBrowserCore": "UnrealEditor-WebNativeBrowserCore.dll",
+		"WebNativeBrowserEditor": "UnrealEditor-WebNativeBrowserEditor.dll"
+	}
+}
