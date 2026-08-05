@@ -1,0 +1,62 @@
+{
+    "FileVersion":  3,
+    "Version":  1,
+    "VersionName":  "1.0.0",
+    "FriendlyName":  "WebNative Browser",
+    "Description":  "High-performance enterprise-grade cross-platform Web UI and Chromium browser solution for Unreal Engine 5.1-5.8. Brings Vue, React and modern web apps into UE5 with efficient JavaScript to Blueprint/C++ messaging, Web-to-scene drag or click placement, video, transparency, iframes, file workflows, Chinese IME, multi-widget and multi-instance support on Windows, Linux x86_64 and Linux ARM64.",
+    "Category":  "Web Browser",
+    "CreatedBy":  "StarTechnology",
+    "CreatedByURL":  "https://github.com/starTechnology1994/uewebbrowser",
+    "DocsURL":  "https://github.com/starTechnology1994/uewebbrowser/wiki",
+    "MarketplaceURL":  "",
+    "SupportURL":  "https://github.com/starTechnology1994/uewebbrowser/issues",
+    "EngineVersion":  "5.1.0",
+    "CanContainContent":  true,
+    "Installed":  true,
+    "SupportedTargetPlatforms":  [
+                                     "Win64",
+                                     "Linux",
+                                     "LinuxArm64"
+                                 ],
+    "Modules":  [
+                    {
+                        "Name":  "WebNativeBrowserVulkanBootstrap",
+                        "Type":  "Runtime",
+                        "LoadingPhase":  "PostConfigInit",
+                        "PlatformAllowList":  [
+                                                  "Linux",
+                                                  "LinuxArm64"
+                                              ]
+                    },
+                    {
+                        "Name":  "WebNativeBrowserFileDialog",
+                        "Type":  "Runtime",
+                        "LoadingPhase":  "Default",
+                        "PlatformAllowList":  [
+                                                  "Linux",
+                                                  "LinuxArm64"
+                                              ]
+                    },
+                    {
+                        "Name":  "WebNativeBrowserCore",
+                        "Type":  "Runtime",
+                        "LoadingPhase":  "Default"
+                    },
+                    {
+                        "Name":  "WebNativeBrowser",
+                        "Type":  "Runtime",
+                        "LoadingPhase":  "Default"
+                    },
+                    {
+                        "Name":  "WebNativeBrowserEditor",
+                        "Type":  "Editor",
+                        "LoadingPhase":  "PostEngineInit"
+                    }
+                ],
+    "Plugins":  [
+                    {
+                        "Name":  "JsonBlueprintUtilities",
+                        "Enabled":  true
+                    }
+                ]
+}
