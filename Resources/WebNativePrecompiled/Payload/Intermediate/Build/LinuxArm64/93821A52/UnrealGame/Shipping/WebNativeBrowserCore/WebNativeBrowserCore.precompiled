@@ -1,9 +1,12 @@
 {
 	"OutputFiles": [
+		"WebNativeBrowserCore.init.gen.cpp.o",
+		"WebNativeJsonLibrary.gen.cpp.o",
 		"LicenseManager.cpp.o",
 		"SWebNativeBrowser.cpp.o",
 		"WebNativeBrowserCoreModule.cpp.o",
 		"WebNativeBrowserRHIHelper.cpp.o",
+		"WebNativeJsonLibrary.cpp.o",
 		"WebNativeLibCppStub.cpp.o"
 	]
 }

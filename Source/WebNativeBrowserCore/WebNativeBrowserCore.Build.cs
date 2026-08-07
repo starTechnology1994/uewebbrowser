@@ -150,6 +150,16 @@ public class WebNativeBrowserCore : ModuleRules
 			bUseUnity = false;
 		}
 
+		// UE5.4+ moved FBlueprintExceptionInfo / EBlueprintExceptionType into
+		// their own header (Blueprint/BlueprintExceptionInfo.h); Script.h only
+		// forward-declares them. Engine version macros (ENGINE_MAJOR_VERSION)
+		// are not defined for precompiled UnrealGame builds, so define a custom
+		// macro via Target.Version (reliable in UBT) instead.
+		if (Target.Version.MajorVersion == 5 && Target.Version.MinorVersion >= 4)
+		{
+			PublicDefinitions.Add("WNW_ENGINE_GTE_5_4=1");
+		}
+
 		// UE 5.1-5.4 natively default to C++17; forcing C++20 there breaks
 		// d3dx12.h. UE 5.5+ uses C++20, and UE 5.8 removes explicit C++17
 		// support, so only override the standard on newer engine versions.
@@ -175,6 +185,7 @@ public class WebNativeBrowserCore : ModuleRules
 			"ApplicationCore",
 			"HTTP",
 			"Json",
+			"JsonUtilities",
 			"Projects",
 			"RenderCore",
 			"RHI",

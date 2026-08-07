@@ -95,9 +95,6 @@ public:
 	void ExecuteJavaScript(const FString& Script);
 
 	UFUNCTION(BlueprintCallable, Category = "WebNative|Message")
-	void SendMessageToJavaScript(const FString& FunctionName, const FString& MessageBody);
-
-	UFUNCTION(BlueprintCallable, Category = "WebNative|Message")
 	void SendMessageToJS(const FString& FunctionName, const FString& MessageBody);
 
 	void FlushMessagesToJS();
@@ -153,6 +150,8 @@ protected:
 	virtual TSharedRef<SWidget> RebuildWidget() override;
 
 private:
+	/** 内部实现：对外统一使用 SendMessageToJS，此长名仅供类内转发 */
+	void SendMessageToJavaScript(const FString& FunctionName, const FString& MessageBody);
 	void HandleSlateMessage(const FString& FunctionName, const FString& MessageBody);
 	void HandleSlateLoadStateChanged(bool bIsLoading, bool bCanGoBack, bool bCanGoForward);
 	void HandleSlateUrlChanged(const FString& URL);

@@ -22,7 +22,7 @@ struct FWebNativeBrowserRuntimeOptions
 	bool bKeyboardF5 = false;
 	bool bCtrlScale = false;
 #if PLATFORM_LINUX
-	bool bLinuxSingleProcess = true;
+	bool bLinuxSingleProcess = false;
 #endif
 	FString MediaPermissionPolicy = TEXT("allow");
 	FString PermissionPromptPolicy = TEXT("allow");

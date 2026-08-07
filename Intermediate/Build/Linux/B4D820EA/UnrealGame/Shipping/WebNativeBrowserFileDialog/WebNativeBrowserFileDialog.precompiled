@@ -1,6 +1,0 @@
-{
-	"OutputFiles": [
-		"SWebNativeFileDialog.cpp.o",
-		"WebNativeBrowserFileDialogModule.cpp.o"
-	]
-}

@@ -52,11 +52,5 @@
                         "Type":  "Editor",
                         "LoadingPhase":  "PostEngineInit"
                     }
-                ],
-    "Plugins":  [
-                    {
-                        "Name":  "JsonBlueprintUtilities",
-                        "Enabled":  true
-                    }
                 ]
 }
