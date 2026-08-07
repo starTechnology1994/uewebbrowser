@@ -1,4 +1,4 @@
-﻿# WebNative Browser Plugin
+# WebNative Browser Plugin
 
 WebNativeBrowser is a high-performance, enterprise-grade, cross-platform Web UI and Chromium browser solution for Unreal Engine 5, providing a native browser experience on Windows and Linux (x86_64, ARM64). Linux requires a minimum of **GLIBC 2.17**. See [Technical Specifications → Linux Distribution Compatibility](#linux-distribution-compatibility).
 
@@ -6,6 +6,7 @@ WebNativeBrowser is a high-performance, enterprise-grade, cross-platform Web UI 
 >
 > - Documentation & Wiki: <https://github.com/starTechnology1994/uewebbrowser/wiki>
 > - Issue tracker: <https://github.com/starTechnology1994/uewebbrowser/issues>
+> - Business contact (licensing, partnership, technical support): **startechnology1994@163.com**
 >
 > The closed-source release (Fab) is intended for licensed users; the binaries are kept consistent with the public repository, which is used only for publicly available versions and documentation.
 
@@ -85,6 +86,13 @@ WebNativeBrowser is especially suited to digital twins: let mature web technolog
 - **Event-driven**: JS subscribes by function name using `on()` / `off()`
 - Supports C++ delegates and Blueprint dynamic delegates; messages are batched for performance
 
+### Built-in JSON Function Library (Out of the Box)
+
+- Built-in C++ JSON Blueprint function library, **ready out of the box** — no third-party JSON plugin (e.g. JsonBlueprintUtilities) required
+- Powered by the engine's native Json / JsonUtilities modules, available on Win64 / Linux / LinuxArm64
+- Dynamically build, read, and modify nested JSON objects and arrays of any depth (including object arrays) **without pre-defining structs**
+- Full operation chain: `Create Json Object` / `Load Json From String` / `Json Object To String` / `Get/Set Json fields and arrays` / `Has Json Field` / `Get Json Field Names` / `Remove Json Field`
+- Measured performance: ~0.06 µs per single field read, ~2 µs per deserialize (engine-side built-in Json backend, no per-call allocation overhead)
 ### Navigation Controls
 
 | Blueprint Function | Description                          |
@@ -125,14 +133,21 @@ WebNativeBrowser is especially suited to digital twins: let mature web technolog
 
 The plugin uses a license file mechanism; the editor environment requires a valid license to use:
 
-| Step | Operation                                                                                                                          |
-| ---- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Step | Operation                                                                                                                                   |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1    | Run the editor once; the plugin automatically generates a `计算机名_用户名_machine_id.dat` machine code file in `Saved/licenses/` |
 | 2    | Send the machine code file to the licensor to obtain a `.license` file                                                             |
-| 3    | Put the `.license` file into `Plugins/WebNativeBrowser/Content/webnative/licenses/`                                                 |
-| 4    | Restart the editor; the license takes effect                                                                                       |
+| 3    | Put the `.license` file into the plugin's `Content/webnative/licenses/` directory, then restart the editor                                |
 
-*To renew a packaged application, simply place the `.license` file into `<Project>/Saved/licenses/` — no repackaging is required.
+> **The `.license` location must match where the plugin is installed**; the plugin locates it automatically, and both of the following locations are supported:
+>
+> - **Project-level install**: `<Project>/Plugins/WebNativeBrowser/Content/webnative/licenses/`
+> - **Engine-level install (default for Fab Marketplace downloads)**: `<UE Engine Root>/Engine/Plugins/Marketplace/WebNativeBrowser/Content/webnative/licenses/`
+>
+> The plugin resolves its own Content directory via `IPluginManager`, so it finds the license file whether the plugin is installed under the project or the engine — no configuration changes are required.
+
+*When packaging, the `.license` file is staged as a physical (NonUFS) file into the plugin's `Content/webnative/licenses/` at the target location (not inside the .pak), so customers can replace it at any time to change or renew the license.
+*To renew a packaged application, simply place the `.license` file into `<Project>/Saved/licenses/` — no repackaging is required (`Saved/licenses/` takes the highest priority and is used for per-machine licensing and renewal).
 
 ### Pricing
 
@@ -140,7 +155,7 @@ WebNativeBrowser is positioned as a high-performance, enterprise-grade cross-pla
 
 | License Type | 1-Year License | 10-Year License | Usage Scope                                     |
 | ------------ | -------------: | --------------: | ----------------------------------------------- |
-| Individual   | 1,200 RMB      | 10,000 RMB      | Purchaser only                                  |
+| Individual   | 1,000 RMB      | 8,000 RMB       | Purchaser only                                  |
 | Commercial   | 2,000 RMB      | 15,000 RMB      | Unlimited people, devices and projects within the same legal entity |
 
 **License Notes:**
@@ -189,7 +204,7 @@ WebNative.off("EventName", handleMessage);
 
 ```cpp
 // C++ — send a message to JS
-WebView->SendMessageToJavaScript(TEXT("OnGameScore"), TEXT(R"({"score": 9999, "level": 42})"));
+WebView->SendMessageToJS(TEXT("OnGameScore"), TEXT(R"({"score": 9999, "level": 42})"));
 
 // Blueprint — use the SendMessageToJS node
 //   FunctionName: "OnPlayerData"
@@ -279,34 +294,6 @@ WebNative.on("OnGameData", function(messageBody) {
 });
 ```
 
-### Per-Message Size Limit
-
-To guarantee identical behavior across Windows, Linux x86_64, and Linux arm64, message bodies are measured in **UTF-8 encoded bytes**. The supported per-`MessageBody` limits are:
-
-| Direction | Per-`MessageBody` Limit | Where the size is computed                                                     |
-| --------- | ----------------------- | ------------------------------------------------------------------------------ |
-| JS → UE   | 4 MiB                   | Object is `JSON.stringify()`-ed first, then the UTF-8 byte count of the result string |
-| UE → JS   | 2 MiB                   | UTF-8 byte count after converting the UE `FString`                              |
-
-> Do not send single messages larger than the limits above. The plugin neither truncates messages nor automatically splits a single `MessageBody`; oversized content beyond the limit is not a supported usage and its cross-platform performance and delivery are not guaranteed. Files, images, binaries, or large datasets should be transferred via files, HTTP/local services, or split into multiple messages with `sequence`, `total`, and checksum fields by the business layer.
-
-JS can check the actual byte count before sending:
-
-```javascript
-const message = JSON.stringify(data);
-const bytes = new TextEncoder().encode(message).byteLength;
-if (bytes <= 4 * 1024 * 1024) {
-    WebNative.send("OnLargeData", message);
-}
-```
-
-Additional notes:
-
-- `4 MiB` / `2 MiB` are the supported per-message limits in bytes, not character counts; Chinese, emoji, and other characters usually occupy multiple bytes in UTF-8.
-- `FunctionName` should be kept short; we recommend no more than 256 UTF-8 bytes.
-- The internal shared-memory batch capacity is 64 MiB; it is the total capacity of a batched group of messages and does not mean a single message can be 64 MiB.
-- When the UE → JS direction sends many messages in the same frame, the plugin automatically splits them into batches by message count and final UTF-8 byte count; splitting does not change message order and never splits a single `MessageBody`.
-
 ### Complete Example: Web Login
 
 **Web side (login.html):**
@@ -363,7 +350,7 @@ void UMyLoginWidget::OnWebViewMessage(const FString& FunctionName, const FString
             bSuccess ? TEXT("true") : TEXT("false"),
             bSuccess ? TEXT("Welcome back!") : TEXT("Incorrect username or password")
         );
-        WebView->SendMessageToJavaScript(TEXT("LoginResult"), ResultJson);
+        WebView->SendMessageToJS(TEXT("LoginResult"), ResultJson);
     }
 }
 ```
