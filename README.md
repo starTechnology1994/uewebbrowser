@@ -1,4 +1,4 @@
-# WebNative Browser Plugin
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿# WebNative Browser Plugin
 
 WebNativeBrowser 是面向 Unreal Engine 5 的高性能企业级跨平台 Web UI
 与 Chromium 浏览器解决方案拥有原生级别的性能，提供原生浏览器体验，支持 Windows 和Linux（x86_64、ARM64）。Linux 最低要求 **GLIBC 2.17**，详见
@@ -95,6 +95,7 @@ WebNativeBrowser 特别适用于数字孪生：让成熟 Web 技术承载数据�
 - 动态构建、读取和修改任意层级的嵌套 JSON 对象与数组（含对象数组），**无需预先定义结构体**
 - 覆盖完整操作链：`Create Json Object` / `Load Json From String` / `Json Object To String` / `Get/Set Json 各类型字段与数组` / `Has Json Field` / `Get Json Field Names` / `Remove Json Field`
 - 实测性能：单字段读取约 0.06 µs/次，反序列化约 2 µs/次（基于引擎内置 Json 后端，无额外逐次分配开销）
+
 ### 导航控制
 
 | 蓝图函数      | 功能                           |
