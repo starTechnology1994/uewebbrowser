@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Performance Bench</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif;font-size:14px;color:#c9d1d9;background:#0d1117;width:100vw;height:100vh;display:flex;flex-direction:column;overflow:hidden;user-select:none;-webkit-user-select:none;}
+input,textarea{user-select:text;-webkit-user-select:text;}
+
+/* ---- 顶部 ---- */
+.header{flex-shrink:0;padding:16px 28px;background:#161b22;border-bottom:1px solid #21262d;display:flex;align-items:center;justify-content:space-between;}
+.header-left{display:flex;align-items:center;gap:12px;}
+.header-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#1a3a1f,#1f3a5f);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.header h1{font-size:18px;font-weight:600;color:#58a6ff;}
+.header-sub{font-size:12px;color:#8b949e;line-height:1.4;}
+
+/* ---- 说明面板 ---- */
+.about-toggle{font-size:12px;color:#58a6ff;cursor:pointer;margin-top:6px;display:inline-block;text-decoration:underline;}
+.about-toggle:hover{color:#79c0ff;}
+.about-panel{display:none;margin-top:12px;max-height:0;overflow:hidden;transition:max-height .3s;}
+.about-panel.open{display:block;max-height:600px;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.about-col{border:1px solid #21262d;border-radius:8px;padding:12px 16px;font-size:11px;line-height:1.7;color:#8b949e;}
+.about-col h4{font-size:12px;color:#58a6ff;margin-bottom:6px;}
+.about-col b{color:#c9d1d9;}
+.about-col ul{margin:4px 0 0 16px;}
+.about-col li{margin-bottom:2px;}
+
+/* ---- 指标卡 ---- */
+.metrics-row{flex-shrink:0;display:grid;grid-template-columns:repeat(5,1fr);gap:12px;padding:16px 28px;background:#0d1117;}
+.metric-card{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:16px 20px;text-align:center;transition:border-color .3s;}
+.metric-card .m-label{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:#8b949e;margin-bottom:6px;}
+.metric-card .m-value{font-size:32px;font-weight:700;}
+.metric-card .m-unit{font-size:12px;color:#484f58;margin-left:2px;}
+.metric-card .m-sub{font-size:11px;color:#484f58;margin-top:2px;}
+.m-green{color:#3fb950;}.m-blue{color:#58a6ff;}.m-orange{color:#f0883e;}.m-red{color:#f85149;}.m-purple{color:#d2a8ff;}
+
+/* ---- 主区域 ---- */
+.main-area{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 28px 16px;min-height:0;}
+.chart-panel{background:#161b22;border:1px solid #21262d;border-radius:12px;display:flex;flex-direction:column;overflow:hidden;}
+.chart-header{flex-shrink:0;padding:10px 16px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#8b949e;border-bottom:1px solid #21262d;}
+.chart-body{flex:1;position:relative;z-index:0;min-height:0;}
+.chart-body canvas{position:absolute;inset:0;width:100%;height:100%;}
+
+/* ---- 测试面板 ---- */
+.test-panel{flex-shrink:0;padding:12px 28px 16px;background:#161b22;border-top:1px solid #21262d;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.btn-run{border:none;border-radius:10px;padding:10px 28px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .15s;background:linear-gradient(135deg,#238636,#2ea043);color:#fff;}
+.btn-run:hover{filter:brightness(1.1);transform:translateY(-1px);}
+.btn-run:active{transform:translateY(0);}
+.btn-run.running{background:linear-gradient(135deg,#da3633,#f85149);}
+.btn-run.disabled{opacity:.5;pointer-events:none;}
+.btn-stop{border:1px solid #f85149;border-radius:8px;padding:8px 20px;font-size:13px;font-family:inherit;cursor:pointer;background:transparent;color:#f85149;transition:all .15s;}
+.btn-stop:hover{background:rgba(248,81,73,.1);}
+.config-group{display:flex;align-items:center;gap:8px;}
+.config-group label{font-size:12px;color:#8b949e;white-space:nowrap;}
+.config-group select{padding:6px 10px;background:#0d1117;border:1px solid #30363d;border-radius:6px;color:#c9d1d9;font-size:12px;outline:none;font-family:inherit;}
+.config-group select:focus{border-color:#58a6ff;}
+.intensity-slider{width:120px;accent-color:#58a6ff;}
+
+/* ---- 进度条 ---- */
+.progress-wrap{display:none;align-items:center;gap:10px;flex:1;}
+.progress-wrap.visible{display:flex;}
+.progress-bar{flex:1;height:6px;background:#21262d;border-radius:3px;overflow:hidden;}
+.progress-bar .fill{height:100%;background:linear-gradient(90deg,#238636,#58a6ff,#f0883e,#f85149);border-radius:3px;transition:width .3s;width:0%;}
+.progress-time{font-family:"SF Mono",Consolas,monospace;font-size:12px;color:#8b949e;white-space:nowrap;}
+
+/* ---- 结果面板 ---- */
+.result-card{display:none;padding:12px 16px;border-radius:10px;border:1px solid #21262d;font-size:12px;line-height:1.7;}
+.result-card.visible{display:block;}
+.result-card.excellent{border-color:#238636;background:rgba(35,134,54,.1);}
+.result-card.good{border-color:#58a6ff;background:rgba(88,166,255,.08);}
+.result-card.fair{border-color:#f0883e;background:rgba(240,136,62,.08);}
+.result-card.poor{border-color:#f85149;background:rgba(248,81,73,.1);}
+.result-card .r-title{font-weight:700;font-size:14px;margin-bottom:4px;}
+.result-card .r-row{display:flex;gap:16px;flex-wrap:wrap;}
+.result-card .r-item{color:#8b949e;}
+.result-card .r-item b{color:#c9d1d9;}
+
+.legend{font-size:10px;color:#484f58;margin-left:auto;white-space:nowrap;}
+</style>
+</head>
+<body>
+
+<!-- 标题 -->
+<div class="header">
+  <div class="header-left">
+    <div class="header-icon">📊</div>
+    <div>
+      <h1>Performance Benchmark</h1>
+      <div style="font-size:11px;color:#8b949e;">Measure WebNative Browser rendering &amp; memory performance</div>
+    </div>
+  </div>
+  <div class="header-sub">
+    Press <b style="color:#58a6ff;">Run Benchmark</b> to start a structured stress test<br>
+    Watch FPS drop under load and memory recovery after
+  </div>
+  <span class="about-toggle" onclick="toggleAbout()">What is being tested?</span>
+  <div class="about-panel" id="aboutPanel">
+    <div class="about-grid">
+      <div class="about-col">
+        <h4>English</h4>
+        <p><b>This benchmark evaluates CEF/WebView rendering stability under stress:</b></p>
+        <ul>
+          <li><b>FPS &amp; Frame Time</b> — Measures render loop smoothness. Drops indicate GPU/CPU contention between CEF compositing and UE rendering.</li>
+          <li><b>JS Heap Memory</b> — Tracks <code>performance.memory.usedJSHeapSize</code>. Rising without recovery suggests a memory leak in JS runtime or DOM retention.</li>
+          <li><b>DOM Node Count</b> — Counts all active DOM elements. Massive growth stresses the layout engine and CEF's internal render tree.</li>
+          <li><b>Stress Payload</b> — Injects <code>Intensity &times; 3000</code> JSON objects + <code>Intensity &times; 500</code> DOM elements per tick, simulating a heavy real-time dashboard workload.</li>
+          <li><b>Recovery Check</b> — After the test stops, verifies memory drops back. Failure to recover indicates a DOM/JS leak.</li>
+          <li><b>Timeline Charts</b> — Visualize FPS dips, memory spikes, and DOM surges over time so you can pinpoint bottlenecks.</li>
+        </ul>
+      </div>
+      <div class="about-col">
+        <h4>中文</h4>
+        <p><b>此基准测试评估 CEF/WebView 在压力负载下的渲染稳定性：</b></p>
+        <ul>
+          <li><b>FPS 与帧时间</b> — 衡量渲染循环流畅度。下降意味着 CEF 合成与 UE 渲染之间的 GPU/CPU 竞争。</li>
+          <li><b>JS 堆内存</b> — 追踪 <code>performance.memory.usedJSHeapSize</code>。只升不降说明 JS 运行时或 DOM 存在内存泄漏。</li>
+          <li><b>DOM 节点数</b> — 统计所有活跃 DOM 元素。大量增长会给布局引擎和 CEF 渲染树带来压力。</li>
+          <li><b>压力负载</b> — 每周期注入 <code>强度 &times; 3000</code> 个 JSON 对象 + <code>强度 &times; 500</code> 个 DOM 元素，模拟重载实时仪表盘工作负载。</li>
+          <li><b>恢复检测</b> — 测试停止后验证内存是否回落。未回落说明存在 DOM/JS 泄漏。</li>
+          <li><b>时间线图表</b> — 可视化 FPS 下降、内存峰值和 DOM 激增随时间的变化，便于定位瓶颈。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 指标 -->
+<div class="metrics-row">
+  <div class="metric-card"><div class="m-label">FPS</div><div class="m-value m-green" id="fpsVal">--</div><div class="m-sub">Frames per second</div></div>
+  <div class="metric-card"><div class="m-label">Frame Time</div><div class="m-value m-blue" id="frameVal">--<span class="m-unit">ms</span></div><div class="m-sub">Time per frame</div></div>
+  <div class="metric-card"><div class="m-label">JS Heap</div><div class="m-value m-orange" id="heapVal">--<span class="m-unit">MB</span></div><div class="m-sub">Memory usage</div></div>
+  <div class="metric-card"><div class="m-label">DOM Nodes</div><div class="m-value m-purple" id="domVal">--</div><div class="m-sub">Element count</div></div>
+  <div class="metric-card"><div class="m-label">Status</div><div class="m-value m-green" id="statusVal" style="font-size:20px;">Idle</div><div class="m-sub">Test state</div></div>
+</div>
+
+<!-- 图表 -->
+<div class="main-area" style="display:grid;grid-template-columns:1fr 1fr 1fr;">
+  <div class="chart-panel">
+    <div class="chart-header">FPS Timeline <span style="color:#484f58;">— watch for drops below 60</span></div>
+    <div class="chart-body"><canvas id="fpsCanvas"></canvas></div>
+  </div>
+  <div class="chart-panel">
+    <div class="chart-header">Memory Timeline <span style="color:#484f58;">— watch for recovery after test</span></div>
+    <div class="chart-body"><canvas id="memCanvas"></canvas></div>
+  </div>
+  <div class="chart-panel">
+    <div class="chart-header">DOM Stress <span style="color:#484f58;">— nodes created during test</span></div>
+    <div class="chart-body"><canvas id="domCanvas"></canvas></div>
+  </div>
+</div>
+
+<!-- 测试面板 -->
+<div class="test-panel">
+  <button class="btn-run" id="btnRun" onclick="toggleBenchmark()">Run Benchmark</button>
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
+    <span class="progress-time" id="progressTime">10s</span>
+  </div>
+  <div class="config-group">
+    <label>Intensity:</label>
+    <input type="range" class="intensity-slider" id="intensity" min="1" max="5" value="3" step="1" oninput="updateIntensity()">
+    <span id="intLabel" style="font-size:12px;color:#c9d1d9;font-family:monospace;min-width:60px;">Medium</span>
+  </div>
+  <div class="config-group">
+    <label>Duration:</label>
+    <select id="duration">
+      <option value="5">5s</option><option value="10" selected>10s</option><option value="20">20s</option><option value="30">30s</option>
+    </select>
+  </div>
+  <div class="result-card" id="resultCard">
+    <div class="r-title" id="resultTitle"></div>
+    <div class="r-row" id="resultBody"></div>
+  </div>
+  <div class="legend">Uptime: <span id="uptimeVal">0s</span></div>
+</div>
+
+<script>
+(function() {
+  var $ = function(id) { return document.getElementById(id); };
+
+  // ====== 说明面板 ======
+  window.toggleAbout = function() {
+    $('aboutPanel').classList.toggle('open');
+  };
+
+  // ====== 变量 ======
+  var fpsVal = $('fpsVal'), frameVal = $('frameVal'), heapVal = $('heapVal');
+  var domVal = $('domVal'), statusVal = $('statusVal');
+  var uptimeVal = $('uptimeVal');
+
+  var fpsCanvas = $('fpsCanvas'), memCanvas = $('memCanvas'), domCanvas = $('domCanvas');
+  var fpsCtx = fpsCanvas.getContext('2d'), memCtx = memCanvas.getContext('2d'), domCtx = domCanvas.getContext('2d');
+
+  var fpsHist = [], memHist = [], domHist = [];
+  var MAX = 180; // 90 seconds at 2 samples/sec
+
+  var frameStart = performance.now(), accumMs = 0, frameCount = 0, pageStart = performance.now();
+
+  var running = false, stressTimer = null, stressDOM = null, testEnd = 0, testDur = 0;
+
+  // ====== 画布 ======
+  function resizeAll() {
+    [fpsCanvas,memCanvas,domCanvas].forEach(function(c) {
+      c.width = c.parentElement.clientWidth;
+      c.height = c.parentElement.clientHeight;
+    });
+  }
+  window.addEventListener('resize', resizeAll);
+  resizeAll();
+
+  // ====== 内存 ======
+  function memMB() {
+    if (window.performance && window.performance.memory) return window.performance.memory.usedJSHeapSize / 1048576;
+    return 0;
+  }
+  function domCount() { return document.querySelectorAll('*').length; }
+
+  // ====== 绘图 ======
+  function draw(ctx, data, color, minY, maxY, label) {
+    var w = ctx.canvas.width, h = ctx.canvas.height;
+    if (w <= 4 || h <= 4) return;
+    ctx.clearRect(0, 0, w, h);
+    // 网格
+    ctx.strokeStyle = '#21262d'; ctx.lineWidth = 1;
+    for (var i = 0; i <= 3; i++) {
+      var gy = h - 14 - Math.round((h - 24) / 3 * i);
+      ctx.beginPath(); ctx.moveTo(30, gy); ctx.lineTo(w - 8, gy); ctx.stroke();
+    }
+    ctx.fillStyle = '#484f58'; ctx.font = '9px monospace';
+    for (i = 0; i <= 3; i++) {
+      ctx.fillText(Math.round(minY + (maxY - minY) / 3 * i) + label, 1, h - 14 - Math.round((h - 24) / 3 * i) + 3);
+    }
+    if (data.length < 2) return;
+    var range = maxY - minY || 1;
+    var sx = (w - 40) / (data.length - 1);
+    ctx.strokeStyle = color; ctx.lineWidth = 1.5; ctx.beginPath();
+    for (i = 0; i < data.length; i++) {
+      var x = 30 + i * sx, y = h - 14 - (data[i] - minY) / range * (h - 24);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    var g = ctx.createLinearGradient(0, 0, 0, h);
+    g.addColorStop(0, color + '0.3)'); g.addColorStop(1, color + '0.01)');
+    ctx.fillStyle = g; ctx.lineTo(30 + (data.length - 1) * sx, h); ctx.lineTo(30, h); ctx.closePath(); ctx.fill();
+  }
+
+  // ====== 主循环 ======
+  function update(ts) {
+    var dt = ts - frameStart; frameStart = ts;
+    frameCount++; accumMs += dt;
+
+    if (accumMs >= 500) {
+      var fps = Math.round(frameCount / accumMs * 1000);
+      fpsVal.textContent = fps;
+      frameVal.textContent = (1000 / fps).toFixed(1);
+      fpsVal.className = 'm-value ' + (fps >= 50 ? 'm-green' : fps >= 30 ? 'm-orange' : 'm-red');
+
+      // 收集数据（每0.5秒一个点）
+      fpsHist.push(fps); if (fpsHist.length > MAX) fpsHist.shift();
+      var m = memMB();
+      if (m > 0) { heapVal.textContent = m.toFixed(1); memHist.push(m); if (memHist.length > MAX) memHist.shift(); }
+      else heapVal.textContent = '--';
+      domHist.push(domCount()); if (domHist.length > MAX) domHist.shift();
+      domVal.textContent = domCount();
+      uptimeVal.textContent = Math.floor((ts - pageStart) / 1000) + 's';
+
+      // 测试进度
+      if (running) {
+        var remaining = Math.max(0, Math.ceil((testEnd - Date.now()) / 1000));
+        $('progressTime').textContent = remaining + 's';
+        var pct = ((testDur * 1000 - (testEnd - Date.now())) / (testDur * 1000) * 100);
+        $('progressFill').style.width = Math.min(pct, 100) + '%';
+        if (Date.now() >= testEnd) stopBenchmark();
+      }
+
+      accumMs = 0; frameCount = 0;
+    }
+
+    // 绘图
+    var fm = 60; for (var i = 0; i < fpsHist.length; i++) if (fpsHist[i] > fm) fm = fpsHist[i];
+    draw(fpsCtx, fpsHist, 'rgba(63,185,80,', 0, fm, '');
+    // 60fps线
+    if (fpsHist.length > 1 && fm >= 60) {
+      var h2 = fpsCanvas.height, y60 = h2 - 14 - 60 / fm * (h2 - 24);
+      fpsCtx.setLineDash([4,4]); fpsCtx.strokeStyle = 'rgba(63,185,80,0.25)'; fpsCtx.lineWidth = 1;
+      fpsCtx.beginPath(); fpsCtx.moveTo(30, y60); fpsCtx.lineTo(fpsCanvas.width - 8, y60); fpsCtx.stroke();
+      fpsCtx.setLineDash([]);
+    }
+
+    var mm = 10; for (i = 0; i < memHist.length; i++) if (memHist[i] > mm) mm = memHist[i];
+    draw(memCtx, memHist, 'rgba(240,136,62,', 0, mm + 5, ' MB');
+
+    var dm = 100; for (i = 0; i < domHist.length; i++) if (domHist[i] > dm) dm = domHist[i];
+    draw(domCtx, domHist, 'rgba(210,168,255,', 0, dm + 20, '');
+
+    requestAnimationFrame(update);
+  }
+
+  // ====== 压力负载 ======
+  function stressPayload() {
+    if (!running) return;
+    var intensity = parseInt($('intensity').value); // 1-5
+    try {
+      // CPU + 内存压力
+      var arr = [];
+      var n = intensity * 3000;
+      for (var i = 0; i < n; i++) arr.push({ k: 'item_' + i, v: Math.random(), d: Array(intensity * 3).fill(Math.random()) });
+      JSON.stringify(arr);
+
+      // DOM 压力
+      if (!stressDOM) { stressDOM = document.createElement('div'); stressDOM.style.display = 'none'; document.body.appendChild(stressDOM); }
+      var html = '';
+      var dn = intensity * 500;
+      for (i = 0; i < dn; i++) html += '<i style="color:' + (Math.random() > 0.5 ? '#58a6ff' : '#3fb950') + ';">●</i>';
+      stressDOM.innerHTML = html;
+
+    } catch(e) {}
+    var remaining = testEnd - Date.now();
+    stressTimer = setTimeout(stressPayload, remaining < 2000 ? 50 : 100);
+  }
+
+  // ====== 基准测试 ======
+  window.toggleBenchmark = function() {
+    if (running) { stopBenchmark(); return; }
+    startBenchmark();
+  };
+
+  function startBenchmark() {
+    running = true;
+    testDur = parseInt($('duration').value);
+    testEnd = Date.now() + testDur * 1000;
+
+    var btn = $('btnRun');
+    btn.textContent = 'Running... click to stop';
+    btn.classList.add('running');
+    $('progressWrap').classList.add('visible');
+    $('progressFill').style.width = '0%';
+    $('progressTime').textContent = testDur + 's';
+    statusVal.textContent = 'Testing';
+    statusVal.className = 'm-value m-orange';
+    $('resultCard').classList.remove('visible', 'excellent', 'good', 'fair', 'poor');
+
+    stressPayload();
+  }
+
+  function stopBenchmark() {
+    running = false;
+    if (stressTimer) clearTimeout(stressTimer);
+    if (stressDOM) stressDOM.innerHTML = '';
+
+    var btn = $('btnRun');
+    btn.textContent = 'Run Benchmark';
+    btn.classList.remove('running');
+    $('progressWrap').classList.remove('visible');
+
+    // 分析结果
+    var recent = fpsHist.slice(-10);
+    var sum = 0; for (var i = 0; i < recent.length; i++) sum += recent[i];
+    var avgFps = recent.length ? Math.round(sum / recent.length) : 0;
+    var memPeak = 0; for (i = 0; i < memHist.length; i++) if (memHist[i] > memPeak) memPeak = memHist[i];
+    var memNow = memHist.length ? memHist[memHist.length - 1] : 0;
+    var domPeak = 0; for (i = 0; i < domHist.length; i++) if (domHist[i] > domPeak) domPeak = domHist[i];
+
+    var grade = avgFps >= 55 ? 'excellent' : avgFps >= 40 ? 'good' : avgFps >= 25 ? 'fair' : 'poor';
+    var gradeLabel = { excellent: 'Excellent', good: 'Good', fair: 'Fair', poor: 'Poor' }[grade];
+    var gradeColor = { excellent: '#3fb950', good: '#58a6ff', fair: '#f0883e', poor: '#f85149' }[grade];
+
+    statusVal.textContent = gradeLabel;
+    statusVal.className = 'm-value';
+    statusVal.style.color = gradeColor;
+
+    var card = $('resultCard');
+    card.className = 'result-card visible ' + grade;
+    $('resultTitle').innerHTML = 'Result: <span style="color:' + gradeColor + ';">' + gradeLabel + '</span>';
+    $('resultBody').innerHTML =
+      '<span class="r-item">Avg FPS: <b>' + avgFps + '</b></span>' +
+      '<span class="r-item">Memory peak: <b>' + memPeak.toFixed(1) + ' MB</b></span>' +
+      '<span class="r-item">Memory now: <b>' + memNow.toFixed(1) + ' MB</b></span>' +
+      '<span class="r-item">DOM peak: <b>' + domPeak + '</b></span>' +
+      (memNow < memPeak * 0.9 ? '<span class="r-item" style="color:#3fb950;">Memory recovered ✓</span>' : '<span class="r-item" style="color:#f0883e;">Check for leak</span>');
+  }
+
+  // ====== 强度 ======
+  var INT_LABELS = ['Very Low','Low','Medium','High','Extreme'];
+  window.updateIntensity = function() {
+    $('intLabel').textContent = INT_LABELS[parseInt($('intensity').value) - 1];
+  };
+
+  // ====== 键盘 ======
+  document.addEventListener('keydown', function(e) {
+    if (e.key === ' ' && document.activeElement === document.body) {
+      e.preventDefault(); toggleBenchmark();
+    }
+  });
+
+  // ====== 启动 ======
+  requestAnimationFrame(update);
+  if (window.WebNative && window.WebNative.send) window.WebNative.send('BenchReady', '{}');
+})();
+</script>
+</body>
+</html>
