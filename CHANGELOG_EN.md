@@ -70,6 +70,6 @@
 
 ### Known Issues
 
-
+- On NVIDIA RTX 50-series GPUs with driver 580.88 or newer, running multiple browser instances at the same time may cause the application to crash (a known NVIDIA driver bug, not a plugin issue). Workaround: add `offgpu=true` in the `[WebNative]` section of the config file; normal usage is unaffected. See the FAQ in README.md for details.
 - On some domestic Linux GPU platforms, video decoding may fall back to CPU software decoding, which can cause occasional stuttering when playing high-bitrate videos.
 - Some older Linux distributions cannot run because their GLIBC is below the minimum requirement (2.17). EOL systems such as CentOS 8 / RHEL 8 (GLIBC 2.28) can run, but are not recommended for production use. See the Linux distribution compatibility table in README.md for details.

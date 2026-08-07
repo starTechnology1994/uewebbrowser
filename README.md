@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿# WebNative Browser Plugin
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿# WebNative Browser Plugin
 
 WebNativeBrowser 是面向 Unreal Engine 5 的高性能企业级跨平台 Web UI
 与 Chromium 浏览器解决方案拥有原生级别的性能，提供原生浏览器体验，支持 Windows 和Linux（x86_64、ARM64）。Linux 最低要求 **GLIBC 2.17**，详见
@@ -8,7 +8,6 @@ WebNativeBrowser 是面向 Unreal Engine 5 的高性能企业级跨平台 Web UI
 >
 > - 文档与 Wiki：[https://github.com/starTechnology1994/uewebbrowser/wiki](https://github.com/starTechnology1994/uewebbrowser/wiki)
 > - 问题反馈：[https://github.com/starTechnology1994/uewebbrowser/issues](https://github.com/starTechnology1994/uewebbrowser/issues)
-> - 商务联系（授权、合作、技术支持）：**startechnology1994@163.com**
 >
 > 闭源发行版（Fab）面向已购买授权的用户；二进制与该仓库内容保持一致，源码仓库仅做对外公开版本与文档维护。
 
@@ -88,14 +87,6 @@ WebNativeBrowser 特别适用于数字孪生：让成熟 Web 技术承载数据�
 - **事件驱动**：JS 端通过 `on()` / `off()` 按函数名订阅
 - 支持 C++ 委托和 Blueprint 动态委托，消息批量合并以优化性能
 
-### 内置 JSON 函数库（开箱即用）
-
-- 内置 C++ 实现的 JSON 蓝图函数库，**开箱即用**，无需安装 JsonBlueprintUtilities 等任何第三方 JSON 插件
-- 基于引擎原生 Json / JsonUtilities 模块，Win64 / Linux / LinuxArm64 全平台可用
-- 动态构建、读取和修改任意层级的嵌套 JSON 对象与数组（含对象数组），**无需预先定义结构体**
-- 覆盖完整操作链：`Create Json Object` / `Load Json From String` / `Json Object To String` / `Get/Set Json 各类型字段与数组` / `Has Json Field` / `Get Json Field Names` / `Remove Json Field`
-- 实测性能：单字段读取约 0.06 µs/次，反序列化约 2 µs/次（基于引擎内置 Json 后端，无额外逐次分配开销）
-
 ### 导航控制
 
 | 蓝图函数      | 功能                           |
@@ -116,7 +107,7 @@ WebNativeBrowser 特别适用于数字孪生：让成熟 Web 技术承载数据�
 - Web 页面可作为道具库、资产库、建筑目录、设备列表或运行时工具栏
 - 支持从 Web 拖拽资源进入 UE 场景的放置工作流
 - 支持点击 Web 条目后切换到 UE 游戏视口，再在场景中点击放置
-- 蓝图可直接调用插件封装函数 `SetFocusToGameViewport`、`GetRawPlatformCursorPos` 和 `DeprojectCursorToWorld`
+- 蓝图可直接调用 `SetFocusToGameViewport`、`GetRawPlatformCursorPos` 和 `DeprojectCursorToWorld`
 - 项目可自行组合射线检测、预览体、吸附、碰撞、权限与 Actor 创建规则
 
 > WebNativeBrowser 负责 Web/UE 之间的消息、焦点与光标空间衔接；最终 UObject/Actor 操作应由项目在 UE 游戏线程中执行，并校验网页传入的资源 ID 和业务参数。
@@ -136,21 +127,14 @@ WebNativeBrowser 特别适用于数字孪生：让成熟 Web 技术承载数据�
 
 插件采用授权文件机制，编辑器环境需要有效授权才能使用：
 
-| 步骤 | 操作                                                                                                     |
-| ---- | -------------------------------------------------------------------------------------------------------- |
-| 1    | 启动编辑器运行一次，插件自动在`Saved/licenses/` 生成 `计算机名_用户名_machine_id.dat` 机器码文件   |
-| 2    | 将该机器码文件发送给授权方，获取`.license` 授权文件                                                  |
-| 3    | 将`.license` 文件放入插件目录的 `Content/webnative/licenses/`，重启编辑器后授权生效                   |
+| 步骤 | 操作                                                                                                 |
+| ---- | ---------------------------------------------------------------------------------------------------- |
+| 1    | 启动编辑器运行一次，插件自动在`Saved/licenses/` 生成 `计算机名_用户名_machine_id.dat` 机器码文件 |
+| 2    | 将该机器码文件发送给授权方，获取`.license` 授权文件                                                |
+| 3    | 将`.license` 文件放入 `Plugins/WebNativeBrowser/Content/webnative/licenses/`                     |
+| 4    | 重启编辑器，授权生效                                                                                 |
 
-> **`.license` 的放置位置与插件安装位置对应**，插件会自动查找，以下两种位置均支持：
->
-> - **项目级安装**：`<项目>/Plugins/WebNativeBrowser/Content/webnative/licenses/`
-> - **引擎级安装（Fab 商城下载默认）**：`<UE 引擎目录>/Engine/Plugins/Marketplace/WebNativeBrowser/Content/webnative/licenses/`
->
-> 插件通过 `IPluginManager` 定位自身 Content 目录，无论安装在项目还是引擎目录都能找到授权文件，无需修改任何配置。
-
-*打包时 `.license` 会作为物理文件（NonUFS）随插件复制到目标位置的 `Content/webnative/licenses/`（不进 .pak），客户可随时替换该文件以更换或续期授权。
-*打包后的程序续期，只需将 `.license` 放入 `<项目>/Saved/licenses/` 即可续期，无需重新打包（`Saved/licenses/` 优先级最高，用于按机器授权与续期）。
+*打包后的程序续期，只需将 `.license` 放入 `<项目>/Saved/licenses/` 即可续期，无需重新打包。
 
 ### 收费标准
 
@@ -159,7 +143,7 @@ WebNativeBrowser 定位为面向 Unreal Engine 5 的高性能企业级跨平台 
 
 | 授权类型 |  1 年授权 |  10 年授权 | 使用范围                             |
 | -------- | --------: | ---------: | ------------------------------------ |
-| 个人版   | 1,000 RMB |  8,000 RMB | 仅限购买者本人                       |
+| 个人版   | 1,200 RMB | 10,000 RMB | 仅限购买者本人                       |
 | 商业版   | 2,000 RMB | 15,000 RMB | 同一法律主体内部不限人数、设备和项目 |
 
 **授权说明：**
@@ -208,7 +192,7 @@ WebNative.off("EventName", handleMessage);
 
 ```cpp
 // C++ — 发送消息给 JS
-WebView->SendMessageToJS(TEXT("OnGameScore"), TEXT(R"({"score": 9999, "level": 42})"));
+WebView->SendMessageToJavaScript(TEXT("OnGameScore"), TEXT(R"({"score": 9999, "level": 42})"));
 
 // Blueprint — 调用 SendMessageToJS 节点
 //   FunctionName: "OnPlayerData"
@@ -298,6 +282,34 @@ WebNative.on("OnGameData", function(messageBody) {
 });
 ```
 
+### 单条消息大小上限
+
+为保证 Windows、Linux x86_64 和 Linux arm64 行为一致，消息体统一按 **UTF-8 编码后的字节数**计算。插件对外支持的单条 `MessageBody` 上限如下：
+
+| 方向     | 单条`MessageBody` 上限 | 大小计算位置                                                    |
+| -------- | -----------------------: | --------------------------------------------------------------- |
+| JS → UE |                    4 MiB | 对象先执行`JSON.stringify()`，再计算结果字符串的 UTF-8 字节数 |
+| UE → JS |                    2 MiB | 计算 UE 端`FString` 转成 UTF-8 后的字节数                     |
+
+> 请勿发送超过上述大小的单条消息。插件不会截断消息，也不会自动拆分一个 `MessageBody`；超过上限的超大内容不属于受支持用法，其跨平台性能和送达结果不作保证。文件、图片、二进制或大型数据集应通过文件、HTTP/本地服务传输，或者由业务层拆成多条带 `sequence`、`total` 和校验值的消息。
+
+JS 可以在发送前这样检查实际字节数：
+
+```javascript
+const message = JSON.stringify(data);
+const bytes = new TextEncoder().encode(message).byteLength;
+if (bytes <= 4 * 1024 * 1024) {
+    WebNative.send("OnLargeData", message);
+}
+```
+
+补充说明：
+
+- `4 MiB` / `2 MiB` 是单条消息体的对外支持上限，不是字符数量；中文、emoji 等字符在 UTF-8 中通常占多个字节。
+- `FunctionName` 应保持简短，建议不超过 256 个 UTF-8 字节。
+- 内部共享内存批次容量为 64 MiB；它是多条消息合批后的总容量，不代表单条消息可以发送 64 MiB。
+- UE → JS 在同一帧连续发送大量消息时，插件会按消息条数和最终 UTF-8 字节数自动切分批次；切分不会改变消息顺序，也不会拆分单条 `MessageBody`。
+
 ### 完整示例：网页登录
 
 **网页端（login.html）：**
@@ -354,7 +366,7 @@ void UMyLoginWidget::OnWebViewMessage(const FString& FunctionName, const FString
             bSuccess ? TEXT("true") : TEXT("false"),
             bSuccess ? TEXT("欢迎回来!") : TEXT("用户名或密码错误")
         );
-        WebView->SendMessageToJS(TEXT("LoginResult"), ResultJson);
+        WebView->SendMessageToJavaScript(TEXT("LoginResult"), ResultJson);
     }
 }
 ```
@@ -838,7 +850,7 @@ cef_args=
 | CEF 版本 | Chromium 144 (CEF 131)                     |
 | 支持平台 | Windows 10+, Linux (Vulkan, GLIBC ≥ 2.17) |
 | 渲染后端 | D3D11/D3D12 (Windows), Vulkan (Linux)      |
-| 最大帧率 | 120 FP                                     |
+| 最大帧率 | 120 FPS                                    |
 | C++ 标准 | C++17                                      |
 
 ### Linux 发行版兼容性
