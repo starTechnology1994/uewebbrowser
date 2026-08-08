@@ -1,6 +1,6 @@
 {
 	"OutputFiles": [
-		"Module.WebNativeBrowserCore.gen.cpp.o",
+		"Module.WebNativeBrowserCore.cpp.o",
 		"LicenseManager.cpp.o",
 		"SWebNativeBrowser.cpp.o",
 		"WebNativeBrowserCoreModule.cpp.o",
