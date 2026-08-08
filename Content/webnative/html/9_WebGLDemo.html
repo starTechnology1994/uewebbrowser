@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebGL 3D Demo</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Segoe UI","Microsoft YaHei",sans-serif;font-size:13px;color:#e8ecf1;background:#0d1117;overflow:hidden;width:100vw;height:100vh;display:flex;flex-direction:column;user-select:none;-webkit-user-select:none;}
+input,textarea{user-select:text;-webkit-user-select:text;}
+.cdn-error{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.8);flex-direction:column;align-items:center;justify-content:center;gap:12px;}
+.cdn-error.show{display:flex;}
+.cdn-error .err-icon{font-size:48px;}
+.cdn-error .err-title{font-size:20px;font-weight:700;color:#f85149;}
+.cdn-error .err-detail{font-size:13px;color:#8b949e;text-align:center;line-height:1.8;}
+.cdn-error .err-detail code{background:#21262d;padding:2px 8px;border-radius:4px;color:#f0883e;}
+.title-bar{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:10px 20px;background:#161b22;border-bottom:1px solid #21262d;}
+.title-bar h1{font-size:15px;color:#58a6ff;}
+.scene-info{font-size:11px;color:#8b949e;}
+.canvas-wrap{flex:1;position:relative;z-index:0;overflow:hidden;background:#000;}
+canvas{display:block;}
+.controls{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;}
+.controls .btn{padding:6px 16px;border:1px solid #30363d;border-radius:5px;background:rgba(22,27,34,0.9);color:#8b949e;font-size:11px;font-family:inherit;cursor:pointer;transition:all 0.15s;}
+.controls .btn:hover{background:#30363d;color:#e8ecf1;}
+.controls .btn.active{background:#1f3a5f;border-color:#58a6ff;color:#58a6ff;}
+.fps{position:absolute;top:12px;right:16px;background:rgba(22,27,34,0.85);border:1px solid #21262d;border-radius:5px;padding:4px 10px;font-family:"SF Mono",Consolas,monospace;font-size:12px;color:#3fb950;z-index:10;}
+</style>
+</head>
+<body>
+
+<div class="cdn-error" id="cdnError">
+  <div class="err-icon">📡</div>
+  <div class="err-title">资源加载失败</div>
+  <div class="err-detail">
+    无法加载 <code id="errLib">Three.js</code> 库<br><br>
+    请检查网络连接是否正常<br>
+    若处于离线环境，需将 CDN 库本地化
+  </div>
+</div>
+
+<div class="title-bar"><h1>WebGL 3D Demo - Three.js</h1><span class="scene-info">Drag to rotate · Scroll to zoom · Right-drag to pan</span></div>
+<div class="canvas-wrap" id="container">
+  <div class="fps" id="fps">FPS: --</div>
+  <div class="controls">
+    <button class="btn active" onclick="switchScene('factory')">Factory</button>
+    <button class="btn" onclick="switchScene('gears')">Gears</button>
+    <button class="btn" onclick="switchScene('particles')">Particles</button>
+    <button class="btn" onclick="switchScene('wireframe')">Wireframe</button>
+  </div>
+</div>
+<script src="assets/three.min.js"></script>
+<script src="assets/OrbitControls.js"></script>
+<script>
+// 加载失败检测
+window.showLoadError = function(lib, source) {
+  document.getElementById('errLib').textContent = lib + ' (' + source + ')';
+  document.getElementById('cdnError').classList.add('show');
+};
+setTimeout(function() {
+  if (typeof THREE === 'undefined') showLoadError('Three.js', 'local');
+}, 8000);
+</script>
+<script>
+var container=document.getElementById('container');
+var renderer,scene,camera,controls,currentScene=null,clock=new THREE.Clock();
+var fpsEl=document.getElementById('fps'),frameCount=0,fpsTime=0;
+
+function init(){
+  renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(container.clientWidth,container.clientHeight);
+  renderer.shadowMap.enabled=true;
+  renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  renderer.toneMapping=THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure=1.2;
+  container.appendChild(renderer.domElement);
+
+  scene=new THREE.Scene();
+
+  camera=new THREE.PerspectiveCamera(50,container.clientWidth/container.clientHeight,0.1,100);
+  camera.position.set(8,6,10);
+  camera.lookAt(0,0,0);
+
+  controls=new THREE.OrbitControls(camera,renderer.domElement);
+  controls.enableDamping=true;controls.dampingFactor=0.08;
+  controls.target.set(0,0.5,0);
+
+  // 环境光 + 方向光
+  scene.add(new THREE.AmbientLight(0x404060,0.6));
+  var dirLight=new THREE.DirectionalLight(0xffffff,1.5);
+  dirLight.position.set(5,10,5);
+  dirLight.castShadow=true;
+  dirLight.shadow.mapSize.set(1024,1024);
+  scene.add(dirLight);
+
+  scene.add(new THREE.DirectionalLight(0x88aaff,0.4).position.set(-3,3,-3));
+
+  window.addEventListener('resize',function(){
+    camera.aspect=container.clientWidth/container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth,container.clientHeight);
+  });
+
+  animate();
+}
+
+function createFloor(){
+  var floor=new THREE.Mesh(
+    new THREE.PlaneGeometry(30,30),
+    new THREE.MeshStandardMaterial({color:0x222233,roughness:0.8,metalness:0.2})
+  );
+  floor.rotation.x=-Math.PI/2;floor.position.y=-1.5;
+  floor.receiveShadow=true;
+  scene.add(floor);
+  // 网格线
+  var grid=new THREE.GridHelper(20,40,0x444466,0x222233);
+  grid.position.y=-1.49;
+  scene.add(grid);
+}
+
+function clearScene(){
+  while(scene.children.length>0){var c=scene.children[0];scene.remove(c);}
+  scene.add(new THREE.AmbientLight(0x404060,0.6));
+  var dl=new THREE.DirectionalLight(0xffffff,1.5);dl.position.set(5,10,5);dl.castShadow=true;scene.add(dl);
+  scene.add(new THREE.DirectionalLight(0x88aaff,0.4).position.set(-3,3,-3));
+  createFloor();
+}
+
+function sceneFactory(){
+  clearScene();
+  // 建筑
+  var matBody=new THREE.MeshStandardMaterial({color:0x445566,roughness:0.5,metalness:0.6});
+  var matRoof=new THREE.MeshStandardMaterial({color:0xcc8844,roughness:0.3,metalness:0.8});
+
+  function addBox(x,y,z,w,h,d){var m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),matBody);m.position.set(x,y+h/2,z);m.castShadow=true;m.receiveShadow=true;scene.add(m);return m;}
+
+  addBox(0,0,0,3,3,3);
+  addBox(-3,0,-3,1.5,2,1.5);
+  addBox(3,0,-3,1.5,1.5,1.5);
+  addBox(0,0,3,2,4,2);
+
+  // 烟囱
+  var cyl=new THREE.Mesh(new THREE.CylinderGeometry(0.4,0.5,4,16),new THREE.MeshStandardMaterial({color:0x664422,roughness:0.7}));
+  cyl.position.set(1,2,0);cyl.castShadow=true;scene.add(cyl);
+
+  // 传送带
+  var beltMat=new THREE.MeshStandardMaterial({color:0x222222,roughness:0.9});
+  for(var i=0;i<5;i++){
+    var box=new THREE.Mesh(new THREE.BoxGeometry(0.6,0.1,1),beltMat);
+    box.position.set(-2+i*1.1,-0.8,2);box.castShadow=true;scene.add(box);
+    var sphere=new THREE.Mesh(new THREE.SphereGeometry(0.2,16,16),new THREE.MeshStandardMaterial({color:[0xff4444,0x44ff44,0x4488ff,0xffaa00,0xff44ff][i],roughness:0.3,metalness:0.5}));
+    sphere.position.set(-2+i*1.1,-0.6,2);sphere.castShadow=true;scene.add(sphere);
+  }
+
+  // 标题粒子
+  addTitleParticles();
+}
+
+function sceneGears(){
+  clearScene();
+  function gear(teeth,radius,x,y,z,color){
+    var group=new THREE.Group();
+    var body=new THREE.Mesh(new THREE.CylinderGeometry(radius*0.7,radius*0.7,0.15,32),new THREE.MeshStandardMaterial({color:color,roughness:0.3,metalness:0.7}));
+    group.add(body);
+    for(var i=0;i<teeth;i++){
+      var angle=(i/teeth)*Math.PI*2;
+      var tooth=new THREE.Mesh(new THREE.BoxGeometry(radius*0.25,0.18,radius*0.4),new THREE.MeshStandardMaterial({color:color,roughness:0.3,metalness:0.7}));
+      tooth.position.set(Math.cos(angle)*(radius*1.1),0,Math.sin(angle)*(radius*1.1));
+      tooth.rotation.y=-angle;
+      group.add(tooth);
+    }
+    group.position.set(x,y,z);
+    group.castShadow=true;
+    group.userData={speed:0.5+Math.random()};
+    group.userData.angle=Math.random()*Math.PI*2;
+    scene.add(group);
+    return group;
+  }
+  var g1=gear(16,1.2,0,0,0,0x58a6ff);
+  var g2=gear(12,0.8,1.8,0,0.5,0x3fb950);
+  var g3=gear(20,1.4,-2,0,-0.3,0xf0883e);
+  // 标记动画组
+  window._gears=[g1,g2,g3];
+}
+
+function sceneParticles(){
+  clearScene();
+  var count=2000;
+  var geo=new THREE.BufferGeometry();
+  var pos=new Float32Array(count*3),colors=new Float32Array(count*3);
+  for(var i=0;i<count*3;i+=3){
+    pos[i]=Math.random()*8-4;
+    pos[i+1]=Math.random()*6;
+    pos[i+2]=Math.random()*8-4;
+    colors[i]=Math.random();colors[i+1]=Math.random();colors[i+2]=Math.random();
+  }
+  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  geo.setAttribute('color',new THREE.BufferAttribute(colors,3));
+  var mat=new THREE.PointsMaterial({size:0.08,vertexColors:true,blending:THREE.AdditiveBlending,depthWrite:false});
+  var points=new THREE.Points(geo,mat);
+  scene.add(points);
+  window._particles={points:points,pos:pos,count:count};
+}
+
+function sceneWireframe(){
+  clearScene();
+  var geo=new THREE.IcosahedronGeometry(2,2);
+  var mat=new THREE.MeshBasicMaterial({color:0x58a6ff,wireframe:true,transparent:true,opacity:0.6});
+  var ico=new THREE.Mesh(geo,mat);
+  scene.add(ico);
+  // 外圈旋转环
+  var ringGeo=new THREE.TorusGeometry(2.5,0.03,16,100);
+  var ring=new THREE.Mesh(ringGeo,new THREE.MeshBasicMaterial({color:0x3fb950}));
+  scene.add(ring);
+  var ring2=new THREE.Mesh(ringGeo,new THREE.MeshBasicMaterial({color:0xf0883e}));
+  ring2.rotation.x=Math.PI/2;
+  scene.add(ring2);
+  window._wireframe={ico:ico,ring:ring,ring2:ring2};
+}
+
+function addTitleParticles(){
+  var geo=new THREE.BufferGeometry();
+  var pos=new Float32Array(300*3);
+  for(var i=0;i<300*3;i+=3){pos[i]=Math.random()*10-5;pos[i+1]=Math.random()*8-1;pos[i+2]=Math.random()*10-5;}
+  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  scene.add(new THREE.Points(geo,new THREE.PointsMaterial({size:0.04,color:0x58a6ff,blending:THREE.AdditiveBlending,depthWrite:false})));
+}
+
+function animate(){
+  requestAnimationFrame(animate);
+  var dt=Math.min(clock.getDelta(),0.1);
+
+  // 齿轮旋转
+  if(window._gears) window._gears.forEach(function(g){g.userData.angle+=dt*g.userData.speed;g.rotation.y=g.userData.angle;});
+
+  // 粒子动画
+  if(window._particles){
+    var p=window._particles.pos,c=window._particles.count;
+    for(var i=0;i<c*3;i+=3)p[i+1]+=dt*(0.5+Math.random()*0.5); if(p.some) for(i=1;i<c*3;i+=3) if(p[i]>6) p[i]-=6;
+    window._particles.points.geometry.attributes.position.needsUpdate=true;
+  }
+
+  // 线框旋转
+  if(window._wireframe){window._wireframe.ico.rotation.y+=dt*0.3;window._wireframe.ring.rotation.x+=dt*0.5;window._wireframe.ring2.rotation.y+=dt*0.4;}
+
+  controls.update();
+  renderer.render(scene,camera);
+
+  frameCount++;
+  fpsTime+=dt;
+  if(fpsTime>=0.5){fpsEl.textContent='FPS: '+Math.round(frameCount/fpsTime);fpsTime=0;frameCount=0;}
+}
+
+window.switchScene=function(name){
+  document.querySelectorAll('.controls .btn').forEach(function(b){b.classList.toggle('active',b.textContent.toLowerCase().indexOf(name)!==-1);});
+  delete window._gears;delete window._particles;delete window._wireframe;
+  switch(name){
+    case 'factory':sceneFactory();break;
+    case 'gears':sceneGears();break;
+    case 'particles':sceneParticles();break;
+    case 'wireframe':sceneWireframe();break;
+  }
+  currentScene=name;
+};
+
+init();
+sceneFactory();
+
+if(window.WebNative&&window.WebNative.send)window.WebNative.send('WebGLDemoReady','{}');
+window.webglAPI={switchScene:window.switchScene};
+</script>
+</body>
+</html>
