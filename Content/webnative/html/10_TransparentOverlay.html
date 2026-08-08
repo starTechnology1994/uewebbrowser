@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transparent Overlay</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif;
+  font-size:14px;color:#e8ecf1;
+  background:transparent;
+  overflow:hidden;user-select:none;-webkit-user-select:none;
+  width:100vw;height:100vh;
+}
+
+/* ===== 游戏模式 ===== */
+
+/* 十字准星 */
+.crosshair{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10;
+  width:28px;height:28px;pointer-events:none;
+}
+.crosshair::before,.crosshair::after{content:'';position:absolute;background:rgba(255,255,255,0.55);}
+.crosshair::before{top:50%;left:0;right:0;height:1px;transform:translateY(-50%);}
+.crosshair::after{left:50%;top:0;bottom:0;width:1px;transform:translateX(-50%);}
+.crosshair-dot{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:2px;height:2px;background:#ff4444;border-radius:50%;
+}
+
+/* 右下角弹药 (标准FPS布局) */
+.ammo-hud{
+  position:absolute;bottom:36px;right:40px;z-index:10;
+  font-family:"SF Mono",Consolas,monospace;text-align:right;
+  pointer-events:none;
+}
+.ammo-current{
+  font-size:52px;font-weight:700;color:rgba(255,255,255,0.9);
+  line-height:1;transition:color .15s;
+}
+.ammo-current.low{color:#f85149;}
+.ammo-label{
+  font-size:12px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:2px;
+}
+
+/* 底部操作提示 */
+.hint-bar{
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:10;
+  display:flex;gap:24px;pointer-events:none;
+  font-size:15px;color:rgba(255,255,255,0.35);font-weight:600;
+}
+.hint-bar .kb{display:inline-block;padding:2px 6px;background:rgba(255,255,255,0.1);border-radius:3px;font-family:"SF Mono",Consolas,monospace;font-size:13px;margin:0 2px;}
+.hint-bar .split{color:rgba(255,255,255,0.15);}
+
+/* 两侧闪白 — 纯CSS伪元素, 无DOM层阻断点击 */
+body.fire-flash::before,body.fire-flash::after{content:'';position:fixed;top:0;bottom:0;width:60px;pointer-events:none;z-index:12;}
+body.fire-flash::before{left:0;background:linear-gradient(90deg,rgba(255,255,255,0.08),transparent);animation:flashIn .04s step-end;}
+body.fire-flash::after{right:0;background:linear-gradient(270deg,rgba(255,255,255,0.08),transparent);animation:flashIn .04s step-end;}
+body.fire-flash.empty::before{background:linear-gradient(90deg,rgba(255,40,40,0.12),transparent);}
+body.fire-flash.empty::after{background:linear-gradient(270deg,rgba(255,40,40,0.12),transparent);}
+@keyframes flashIn{0%{opacity:0}100%{opacity:1}}
+
+/* 命中标记 */
+.hit-marker{
+  position:absolute;pointer-events:none;z-index:15;
+  width:0;height:0;
+  border-left:7px solid transparent;border-right:7px solid transparent;
+  border-bottom:12px solid rgba(255,60,60,0.85);
+  animation:hitPop .35s ease-out forwards;
+}
+@keyframes hitPop{
+  0%{opacity:1;transform:translate(-50%,-100%) scale(0.5);}
+  100%{opacity:0;transform:translate(-50%,-100%) scale(1.4) translateY(-16px);}
+}
+
+/* ===== ESC 面板 ===== */
+.overlay-panel{
+  position:absolute;inset:0;z-index:50;
+  display:flex;align-items:stretch;
+  transition:opacity .2s, background .15s;
+  pointer-events:none;
+}
+.overlay-panel.hidden{opacity:0;pointer-events:none;}
+
+.overlay-bg{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,0.50);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  transition:background .15s;
+  pointer-events:none;
+}
+
+.panel-card{
+  position:relative;z-index:1;
+  width:360px;max-width:90vw;
+  background:rgba(18,22,28,0.96);
+  border-right:1px solid rgba(255,255,255,0.06);
+  padding:36px 32px;text-align:center;
+  transform:translateX(-100%);
+  transition:transform .25s cubic-bezier(.4,0,.2,1);
+  overflow-y:auto;
+  pointer-events:auto;
+}
+.overlay-panel:not(.hidden) .panel-card{transform:translateX(0);}
+.overlay-panel.hidden .panel-card{transform:translateX(-100%);}
+.panel-card h2{
+  font-size:22px;font-weight:700;letter-spacing:3px;
+  color:rgba(255,255,255,0.85);margin-bottom:4px;
+}
+.panel-card .sub{
+  font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:2px;
+  margin-bottom:28px;
+}
+
+/* 透明度滑块 */
+.slider-group{
+  text-align:left;margin-bottom:24px;
+}
+.slider-label{
+  font-size:10px;text-transform:uppercase;letter-spacing:1.5px;
+  color:rgba(255,255,255,0.3);margin-bottom:8px;
+}
+.slider-row{
+  display:flex;align-items:center;gap:10px;
+}
+.slider-row input[type=range]{
+  flex:1;height:4px;appearance:none;-webkit-appearance:none;
+  background:linear-gradient(90deg,rgba(255,255,255,0.1),rgba(255,255,255,0.35));
+  border-radius:2px;outline:none;cursor:pointer;accent-color:#58a6ff;
+}
+.slider-row input[type=range]::-webkit-slider-thumb{
+  appearance:none;width:16px;height:16px;border-radius:50%;
+  background:#58a6ff;cursor:pointer;border:2px solid #fff;
+  box-shadow:0 0 8px rgba(0,0,0,0.4);
+}
+.slider-val{
+  font-family:"SF Mono",Consolas,monospace;font-size:13px;
+  color:#58a6ff;min-width:34px;text-align:right;
+}
+
+/* 穿透提示 */
+.passthrough-hint{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:10px 16px;border-radius:8px;
+  background:rgba(63,185,80,0.06);border:1px solid rgba(63,185,80,0.15);
+  margin-bottom:20px;
+}
+.passthrough-hint .dot{
+  width:8px;height:8px;background:#3fb950;border-radius:50%;
+  box-shadow:0 0 6px rgba(63,185,80,0.5);
+}
+.passthrough-hint span{
+  font-size:11px;color:rgba(255,255,255,0.5);
+}
+
+/* 按键提示 */
+.key-hint{
+  display:inline-block;padding:2px 8px;
+  background:rgba(255,255,255,0.08);border-radius:4px;
+  font-family:"SF Mono",Consolas,monospace;font-size:11px;
+  color:rgba(255,255,255,0.5);margin:0 2px;
+}
+
+/* toast */
+.toast{
+  position:absolute;top:42%;left:50%;transform:translate(-50%,-50%);z-index:30;
+  padding:7px 18px;border-radius:8px;
+  background:rgba(0,0,0,0.55);backdrop-filter:blur(8px);
+  border:1px solid rgba(88,166,255,0.25);color:#58a6ff;
+  font-size:13px;font-weight:600;opacity:0;pointer-events:none;
+  transition:opacity .12s;
+}
+.toast.show{opacity:1;}
+</style>
+</head>
+<body>
+
+<!-- ===== 游戏 HUD ===== -->
+<div class="crosshair"><div class="crosshair-dot"></div></div>
+<div class="ammo-hud" id="ammoHud">
+  <div class="ammo-current" id="ammo">30</div>
+  <div class="ammo-label">Ammo</div>
+</div>
+<div class="hint-bar">
+  <span>LMB Fire   R Reload   ESC Menu</span>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ===== ESC 菜单 ===== -->
+<div class="overlay-panel" id="menuPanel">
+  <div class="overlay-bg" id="overlayBg"></div>
+  <div class="panel-card">
+    <h2>SETTINGS</h2>
+    <div class="sub">PRESS ESC TO CLOSE</div>
+
+    <div class="slider-group">
+      <div class="slider-label">Background Opacity</div>
+      <div class="slider-row">
+        <input type="range" id="alphaSlider" min="0" max="255" value="0" oninput="updateAlpha()">
+        <span class="slider-val" id="alphaVal">0</span>
+      </div>
+    </div>
+
+    <div class="passthrough-hint">
+      <div class="dot"></div>
+      <span>Menu bg opacity &lt; threshold → clicks pass through to UE</span>
+    </div>
+
+    <div style="font-size:11px;color:rgba(255,255,255,0.25);line-height:1.8;">
+      <span class="key-hint">ESC</span> Toggle menu &nbsp;
+      <span class="key-hint">LMB</span> Fire &nbsp;
+      <span class="key-hint">R</span> Reload
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var ammo = 30;
+
+  function flashFire(empty) {
+    var b = document.body;
+    if (empty) b.classList.add('empty');
+    b.classList.add('fire-flash');
+    setTimeout(function() {
+      b.classList.remove('fire-flash');
+      b.classList.remove('empty');
+    }, empty ? 120 : 40);
+
+    // 命中标记（屏中心）
+    var mk = document.createElement('div');
+    mk.className = 'hit-marker';
+    mk.style.left = '50%';
+    mk.style.top = '50%';
+    document.body.appendChild(mk);
+    setTimeout(function(){ mk.remove(); }, 350);
+  }
+
+  function updateAmmo(val) {
+    if (typeof val === 'number') {
+      if (val < ammo) {
+        flashFire();
+      } else if (val > ammo) {
+        showToast('RELOADED');
+      } else if (val === ammo && val === 0) {
+        // 弹药用尽还在开枪 — 闪红
+        flashFire(true);
+      }
+      ammo = val;
+    }
+    var el = document.getElementById('ammo');
+    el.textContent = ammo;
+    el.classList.toggle('low', ammo <= 5);
+  }
+
+  function showToast(msg, dur) {
+    dur = dur || 1000;
+    var t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(t._tid);
+    t._tid = setTimeout(function(){ t.classList.remove('show'); }, dur);
+  }
+
+  // ===== ESC 面板 =====
+  function togglePanel() {
+    var p = document.getElementById('menuPanel');
+    p.classList.toggle('hidden');
+    if (!p.classList.contains('hidden')) {
+      showToast('MENU OPEN');
+    } else {
+      showToast('MENU CLOSED');
+    }
+  }
+
+  // 透明度滑块 — 只控制菜单遮罩背景
+  window.updateAlpha = function() {
+    var v = parseInt(document.getElementById('alphaSlider').value);
+    document.getElementById('alphaVal').textContent = v;
+    var a = v / 255;
+    document.getElementById('overlayBg').style.background = 'rgba(0,0,0,' + a.toFixed(2) + ')';
+    if (v > 0) {
+      document.getElementById('overlayBg').style.backdropFilter = 'blur(' + Math.round(a * 10) + 'px)';
+      document.getElementById('overlayBg').style.webkitBackdropFilter = 'blur(' + Math.round(a * 10) + 'px)';
+    } else {
+      document.getElementById('overlayBg').style.backdropFilter = 'none';
+      document.getElementById('overlayBg').style.webkitBackdropFilter = 'none';
+    }
+  };
+  // 初始化
+  updateAlpha();
+
+  // ===== 键盘 =====
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { togglePanel(); e.preventDefault(); }
+  });
+
+  // ===== UE 通信 =====
+  if (window.WebNative && window.WebNative.on) {
+    window.WebNative.on('togglePanel', function() { togglePanel(); });
+    window.WebNative.on('UpdateAmmo', function(body) {
+      var d = typeof body === 'string' ? JSON.parse(body) : body;
+      if (d.ammo !== undefined) updateAmmo(d.ammo);
+    });
+  }
+
+})();
+</script>
+</body>
+</html>

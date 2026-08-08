@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Input Tester - 键盘鼠标映射</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+  font-size: 12px;
+  color: #e8ecf1;
+  background: #0d1117;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+input,textarea{user-select:text;-webkit-user-select:text;}
+
+.status-bar {
+  flex-shrink: 0;
+  display: flex; align-items: center; gap: 14px;
+  padding: 10px 16px;
+  background: #161b22;
+  border-bottom: 1px solid #21262d;
+  flex-wrap: wrap;
+}
+.status-bar h1 {
+  font-size: 18px; font-weight: 700;
+  color: #58a6ff;
+}
+.status-combo {
+  font-family: "SF Mono","Consolas",monospace; font-size: 13px; font-weight: 600;
+  padding: 3px 10px; border-radius: 6px;
+  background: #1f2937; color: #f0883e;
+  min-width: 50px; text-align: center;
+}
+.status-badge {
+  font-size: 10px; padding: 3px 10px; border-radius: 8px;
+  background: #21262d; color: #8b949e;
+}
+
+.container { flex: 1; overflow: hidden; padding: 6px 10px; display: flex; flex-direction: column; gap: 6px; }
+
+.section {
+  flex-shrink: 0;
+  background: #161b22; border: 1px solid #21262d;
+  border-radius: 8px; padding: 10px 14px;
+}
+.section.grow { flex: 5; display: flex; flex-direction: column; min-height: 0; }
+.section-title {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+  color: #58a6ff; margin-bottom: 8px;
+  padding-bottom: 6px; border-bottom: 1px solid #21262d;
+}
+
+/* 可视化键盘 */
+.keyboard { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+.key-row { display: flex; gap: 3px; width: 100%; flex: 1; }
+.key-slot { position: relative; flex-grow: 1; display: flex; }
+
+.kb-key {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: #21262d; border: 1px solid #30363d;
+  border-radius: 5px;
+  font-size: 10px; color: #8b949e;
+  cursor: pointer; transition: all 0.08s; padding: 0 2px;
+  width: 100%; height: 100%;
+}
+.kb-key .sub { font-size: 8px; color: #484f58; line-height: 1; }
+.kb-key.pressed {
+  background: #1f3a5f; border-color: #58a6ff;
+  color: #c8d9ff; box-shadow: 0 0 12px rgba(88,166,255,0.4);
+  z-index: 1;
+}
+.kb-key.pressed .sub { color: #79c0ff; }
+
+/* 鼠标区域 */
+.mouse-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.mouse-card {
+  background: #0d1117; border: 1px solid #21262d;
+  border-radius: 6px; padding: 8px 6px; text-align: center;
+}
+.mouse-card .label { font-size: 10px; color: #8b949e; margin-bottom: 2px; }
+.mouse-card .value { font-size: 12px; font-weight: 600; color: #484f58; }
+.mouse-card .value.active { color: #3fb950; }
+
+.coord-display {
+  font-family: "SF Mono","Consolas",monospace; font-size: 15px; font-weight: 700;
+  color: #58a6ff; letter-spacing: 1px;
+}
+
+/* 双列布局 */
+.two-col { display: flex; gap: 8px; flex: 4; min-height: 0; }
+.two-col .section { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+.event-list {
+  flex: 1; overflow-y: auto; min-height: 40px;
+  font-family: "SF Mono","Consolas",monospace; font-size: 10px;
+  background: #0d1117; border-radius: 6px; padding: 6px;
+  user-select: text; -webkit-user-select: text;
+}
+.event-list::-webkit-scrollbar { width: 4px; }
+.event-list::-webkit-scrollbar-thumb { background: #30363d; border-radius: 2px; }
+
+.event-row { display: flex; gap: 6px; padding: 1px 3px; border-radius: 2px; font-size: 10px; }
+.event-row .evt-ts { color: #484f58; min-width: 55px; flex-shrink:0; }
+.event-row .evt-type { min-width: 50px; font-weight: 600; }
+.event-row .evt-type.kd { color: #58a6ff; }
+.event-row .evt-type.ku { color: #f0883e; }
+.event-row .evt-type.md { color: #3fb950; }
+.event-row .evt-type.mu { color: #f85149; }
+.event-row .evt-type.mw { color: #d2a8ff; }
+.event-row .evt-detail { color: #8b949e; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.btn-row { display: flex; gap: 4px; margin-top: 0; }
+.btn {
+  padding: 3px 10px; border: 1px solid #30363d;
+  border-radius: 4px; background: #21262d;
+  color: #8b949e; font-size: 10px; font-family: inherit;
+  cursor: pointer; transition: all 0.15s;
+}
+.btn:hover { background: #30363d; color: #e8ecf1; }
+.btn-primary { background: #1f3a5f; border-color: #58a6ff; color: #58a6ff; }
+</style>
+</head>
+<body>
+
+<!-- 状态条 -->
+<div class="status-bar">
+  <h1>Input Tester</h1>
+  <span class="status-combo" id="statusCombo">—</span>
+  <span class="status-badge" id="statusCount">Events: 0</span>
+  <span class="status-badge" id="statusKeys">Keys down: 0</span>
+  <span class="status-badge" id="statusMouse">Mouse: —</span>
+</div>
+
+<div class="container">
+
+  <!-- 可视化键盘 -->
+  <div class="section grow">
+    <div class="section-title">Visual Keyboard (press keys to highlight)</div>
+    <div class="keyboard" id="keyboard"></div>
+  </div>
+
+  <!-- 鼠标 + 事件日志 -->
+  <div class="two-col">
+    <div class="section">
+      <div class="section-title">Mouse Monitor</div>
+      <div class="mouse-grid">
+        <div class="mouse-card">
+          <div class="label">Left</div>
+          <div class="value idle" id="mouseLeft">Idle</div>
+        </div>
+        <div class="mouse-card">
+          <div class="label">Middle</div>
+          <div class="value idle" id="mouseMiddle">Idle</div>
+        </div>
+        <div class="mouse-card">
+          <div class="label">Right</div>
+          <div class="value idle" id="mouseRight">Idle</div>
+        </div>
+        <div class="mouse-card">
+          <div class="label">Scroll</div>
+          <div class="value idle" id="mouseScroll">—</div>
+        </div>
+        <div class="mouse-card" style="grid-column:span 2;">
+          <div class="label">X, Y</div>
+          <div class="coord-display" id="mousePos">— , —</div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title" style="display:flex;justify-content:space-between;align-items:center;">
+        <span>Event Log</span>
+        <div class="btn-row" style="margin-top:0;">
+          <button class="btn" onclick="togglePause()" id="btnPause">Pause</button>
+          <button class="btn" onclick="clearEvents()">Clear</button>
+        </div>
+      </div>
+      <div class="event-list" id="eventList">
+        <div class="event-row"><span class="evt-ts">--:--:--</span><span class="evt-detail">Waiting for input...</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  // ======================== 键盘布局 ========================
+  // 使用 keyCode (标准US键盘) 作为主索引, location 区分左右修饰键
+  // keyCode 在 Chrome 和 CEF 中完全一致, 不依赖 e.code
+  var KEYBOARD_LAYOUT = [
+    // Row 1: Esc F1-F12 PrtSc ScrLk Pause
+    [
+      {kc:27, label:'Esc', w:1}, {kc:null, w:1}, {kc:112, label:'F1', w:1}, {kc:113, label:'F2', w:1}, {kc:114, label:'F3', w:1}, {kc:115, label:'F4', w:1},
+      {kc:null, w:0.5}, {kc:116, label:'F5', w:1}, {kc:117, label:'F6', w:1}, {kc:118, label:'F7', w:1}, {kc:119, label:'F8', w:1},
+      {kc:null, w:0.5}, {kc:120, label:'F9', w:1}, {kc:121, label:'F10', w:1}, {kc:122, label:'F11', w:1}, {kc:123, label:'F12', w:1},
+      {kc:null, w:0.5}, {kc:44, label:'PrtSc', w:1}, {kc:145, label:'ScrLk', w:1}, {kc:19, label:'Pause', w:1}
+    ],
+    // Row 2: ` 1-0 - = Backspace Ins Home PgUp
+    [
+      {kc:192, label:'`', sub:'~', w:1}, {kc:49, label:'1', sub:'!', w:1}, {kc:50, label:'2', sub:'@', w:1}, {kc:51, label:'3', sub:'#', w:1},
+      {kc:52, label:'4', sub:'$', w:1}, {kc:53, label:'5', sub:'%', w:1}, {kc:54, label:'6', sub:'^', w:1}, {kc:55, label:'7', sub:'&', w:1},
+      {kc:56, label:'8', sub:'*', w:1}, {kc:57, label:'9', sub:'(', w:1}, {kc:48, label:'0', sub:')', w:1}, {kc:189, label:'-', sub:'_', w:1},
+      {kc:187, label:'=', sub:'+', w:1}, {kc:8, label:'Bksp', w:2},
+      {kc:45, label:'Ins', w:1}, {kc:36, label:'Home', w:1}, {kc:33, label:'PgUp', w:1}
+    ],
+    // Row 3: Tab Q-P [ ] \ Del End PgDn
+    [
+      {kc:9, label:'Tab', w:1.5}, {kc:81, label:'Q', w:1}, {kc:87, label:'W', w:1}, {kc:69, label:'E', w:1}, {kc:82, label:'R', w:1},
+      {kc:84, label:'T', w:1}, {kc:89, label:'Y', w:1}, {kc:85, label:'U', w:1}, {kc:73, label:'I', w:1}, {kc:79, label:'O', w:1},
+      {kc:80, label:'P', w:1}, {kc:219, label:'[', sub:'{', w:1}, {kc:221, label:']', sub:'}', w:1}, {kc:220, label:'\\', sub:'|', w:1.5},
+      {kc:46, label:'Del', w:1}, {kc:35, label:'End', w:1}, {kc:34, label:'PgDn', w:1}
+    ],
+    // Row 4: Caps A-L ; ' Enter
+    [
+      {kc:20, label:'Caps', w:1.8}, {kc:65, label:'A', w:1}, {kc:83, label:'S', w:1}, {kc:68, label:'D', w:1}, {kc:70, label:'F', w:1},
+      {kc:71, label:'G', w:1}, {kc:72, label:'H', w:1}, {kc:74, label:'J', w:1}, {kc:75, label:'K', w:1}, {kc:76, label:'L', w:1},
+      {kc:186, label:';', sub:':', w:1}, {kc:222, label:"'", sub:'"', w:1}, {kc:13, label:'Enter', w:2.2},
+      {kc:null, w:3}
+    ],
+    // Row 5: LShift Z-M , . / RShift Up
+    [
+      {kc:16, loc:1, label:'LShift', w:2.5}, {kc:90, label:'Z', w:1}, {kc:88, label:'X', w:1}, {kc:67, label:'C', w:1},
+      {kc:86, label:'V', w:1}, {kc:66, label:'B', w:1}, {kc:78, label:'N', w:1}, {kc:77, label:'M', w:1},
+      {kc:188, label:',', sub:'<', w:1}, {kc:190, label:'.', sub:'>', w:1}, {kc:191, label:'/', sub:'?', w:1},
+      {kc:16, loc:2, label:'RShift', w:2.5},
+      {kc:null, w:1}, {kc:38, label:'↑', w:1}, {kc:null, w:1}
+    ],
+    // Row 6: LCtrl Win LAlt Space RAlt Win Menu RCtrl Left Down Right
+    [
+      {kc:17, loc:1, label:'LCtrl', w:1.5}, {kc:91, loc:1, label:'LWin', w:1.3}, {kc:18, loc:1, label:'LAlt', w:1.5},
+      {kc:32, label:'Space', w:6}, {kc:18, loc:2, label:'RAlt', w:1.3},
+      {kc:91, loc:2, label:'RWin', w:1.3}, {kc:93, label:'Menu', w:1.3}, {kc:17, loc:2, label:'RCtrl', w:1.5},
+      {kc:37, label:'←', w:1}, {kc:40, label:'↓', w:1}, {kc:39, label:'→', w:1}
+    ]
+  ];
+
+  // keyCode → 显示名 (用于组合键展示和事件日志)
+  var KEYCODE_TO_DISPLAY = {
+    8:'Bksp', 9:'Tab', 13:'Enter', 16:'Shift', 17:'Ctrl', 18:'Alt',
+    19:'Pause', 20:'Caps', 27:'Esc', 32:'Space', 33:'PgUp', 34:'PgDn',
+    35:'End', 36:'Home', 37:'←', 38:'↑', 39:'→', 40:'↓',
+    44:'PrtSc', 45:'Ins', 46:'Del',
+    48:'0', 49:'1', 50:'2', 51:'3', 52:'4', 53:'5', 54:'6', 55:'7', 56:'8', 57:'9',
+    65:'A', 66:'B', 67:'C', 68:'D', 69:'E', 70:'F', 71:'G', 72:'H',
+    73:'I', 74:'J', 75:'K', 76:'L', 77:'M', 78:'N', 79:'O',
+    80:'P', 81:'Q', 82:'R', 83:'S', 84:'T', 85:'U', 86:'V', 87:'W', 88:'X', 89:'Y', 90:'Z',
+    91:'Win', 93:'Menu',
+    112:'F1', 113:'F2', 114:'F3', 115:'F4', 116:'F5', 117:'F6',
+    118:'F7', 119:'F8', 120:'F9', 121:'F10', 122:'F11', 123:'F12',
+    145:'ScrLk',
+    186:';', 187:'=', 188:',', 189:'-', 190:'.', 191:'/', 192:'`',
+    219:'[', 220:'\\', 221:']', 222:"'"
+  };
+
+  // CEF keyCode → 标准 keyCode (CEF 可能返回非标准值)
+  var CEF_KC_FIX = {
+    162: 17, 163: 17,  // Ctrl
+    164: 18, 165: 18,  // Alt
+    160: 16, 161: 16,  // Shift
+    92: 91,             // Win
+  };
+
+  function fixKeyCode(kc) {
+    return CEF_KC_FIX[kc] || kc;
+  }
+
+  function keyDisplay(kc, loc, ekey) {
+    var base = KEYCODE_TO_DISPLAY[kc] || ('kc' + kc);
+    // 修饰键追加 L/R
+    if (kc === 16 || kc === 160 || kc === 161) return loc === 2 ? 'RShift' : 'LShift';
+    if (kc === 17 || kc === 162 || kc === 163) return loc === 2 ? 'RCtrl' : 'LCtrl';
+    if (kc === 18 || kc === 164 || kc === 165) return loc === 2 ? 'RAlt' : 'LAlt';
+    if (kc === 91 || kc === 92) return loc === 2 ? 'RWin' : 'LWin';
+    if (KEYCODE_TO_DISPLAY[kc]) return base;
+    // 完全未知的 keyCode, 用 e.key 兜底
+    if (ekey && ekey.length <= 10) return ekey;
+    return base;
+  }
+
+  // ======================== 构建键盘 DOM ========================
+  var kbContainer = document.getElementById('keyboard');
+  // keyElements: "kc:loc" → DOM element (普通键 loc=0)
+  var keyElements = {};
+
+  function makeKeyId(kc, loc) {
+    return kc + ':' + (loc || 0);
+  }
+
+  KEYBOARD_LAYOUT.forEach(function(row) {
+    var rowDiv = document.createElement('div');
+    rowDiv.className = 'key-row';
+    row.forEach(function(kd) {
+      var slot = document.createElement('div');
+      slot.className = 'key-slot';
+
+      var keyDiv = document.createElement('div');
+      keyDiv.className = 'kb-key';
+      if (kd.w > 0) keyDiv.style.flexGrow = kd.w;
+      else { keyDiv.style.flexGrow = '0'; keyDiv.style.visibility = 'hidden'; }
+
+      if (kd.kc !== null) {
+        var kid = makeKeyId(kd.kc, kd.loc);
+        keyDiv.setAttribute('data-keyid', kid);
+        keyElements[kid] = keyDiv;
+      }
+
+      var mainSpan = document.createElement('span');
+      mainSpan.textContent = kd.label || '';
+      keyDiv.appendChild(mainSpan);
+
+      if (kd.sub) {
+        var subSpan = document.createElement('span');
+        subSpan.className = 'sub';
+        subSpan.textContent = kd.sub;
+        keyDiv.appendChild(subSpan);
+      }
+
+      slot.appendChild(keyDiv);
+      rowDiv.appendChild(slot);
+    });
+    kbContainer.appendChild(rowDiv);
+  });
+
+  // ======================== 状态管理 ========================
+  var pressedKeys = {};  // "kc:loc" → true
+  var eventCount = 0;
+  var paused = false;
+  var EVENT_MAX = 200;
+
+  var statusCombo = document.getElementById('statusCombo');
+  var statusCount = document.getElementById('statusCount');
+  var statusKeys  = document.getElementById('statusKeys');
+  var statusMouse = document.getElementById('statusMouse');
+  var eventList   = document.getElementById('eventList');
+  var btnPause    = document.getElementById('btnPause');
+
+  var mouseLeft   = document.getElementById('mouseLeft');
+  var mouseMiddle = document.getElementById('mouseMiddle');
+  var mouseRight  = document.getElementById('mouseRight');
+  var mouseScroll = document.getElementById('mouseScroll');
+  var mousePos    = document.getElementById('mousePos');
+
+  var mouseBtns = { left: false, middle: false, right: false };
+
+  function getComboString() {
+    var ids = Object.keys(pressedKeys);
+    if (ids.length === 0 && !mouseBtns.left && !mouseBtns.middle && !mouseBtns.right) return '—';
+
+    var parts = [];
+    // 修饰键排最前
+    var modKeys = ['17:1','17:2','18:1','18:2','16:1','16:2','91:1','91:2'];
+    var hasCtrl = false, hasAlt = false, hasShift = false, hasWin = false;
+    var others = [];
+
+    ids.forEach(function(id) {
+      if (modKeys.indexOf(id) !== -1) {
+        var kc = parseInt(id);
+        if (kc === 17) hasCtrl = true;
+        if (kc === 18) hasAlt = true;
+        if (kc === 16) hasShift = true;
+        if (kc === 91) hasWin = true;
+      } else {
+        others.push(id);
+      }
+    });
+
+    if (hasCtrl) parts.push('Ctrl');
+    if (hasAlt) parts.push('Alt');
+    if (hasShift) parts.push('Shift');
+    if (hasWin) parts.push('Win');
+
+    others.forEach(function(id) {
+      var parts2 = id.split(':');
+      parts.push(keyDisplay(parseInt(parts2[0]), parseInt(parts2[1])));
+    });
+
+    if (mouseBtns.left) parts.push('LMB');
+    if (mouseBtns.middle) parts.push('MMB');
+    if (mouseBtns.right) parts.push('RMB');
+
+    return parts.join(' + ');
+  }
+
+  function updateCombo() {
+    statusCombo.textContent = getComboString();
+    statusKeys.textContent = 'Keys down: ' + Object.keys(pressedKeys).length;
+    var mparts = [];
+    if (mouseBtns.left) mparts.push('L');
+    if (mouseBtns.middle) mparts.push('M');
+    if (mouseBtns.right) mparts.push('R');
+    statusMouse.textContent = 'Mouse: ' + (mparts.length > 0 ? mparts.join('+') + ' down' : '—');
+  }
+
+  // ======================== 按键高亮 ========================
+  function pressKey(kid) {
+    if (pressedKeys[kid]) return;
+    pressedKeys[kid] = true;
+    var el = keyElements[kid];
+    if (el) el.classList.add('pressed');
+    updateCombo();
+  }
+
+  function releaseKey(kid) {
+    if (!pressedKeys[kid]) return;
+    delete pressedKeys[kid];
+    var el = keyElements[kid];
+    if (el) el.classList.remove('pressed');
+    updateCombo();
+  }
+
+  // ======================== 事件日志 ========================
+  function nowStr() {
+    var d = new Date();
+    return d.toLocaleTimeString('zh-CN',{hour12:false}) + '.' +
+           String(d.getMilliseconds()).padStart(3,'0');
+  }
+
+  function addEvent(type, cls, detail) {
+    if (paused) return;
+    eventCount++;
+    statusCount.textContent = 'Events: ' + eventCount;
+
+    var row = document.createElement('div');
+    row.className = 'event-row';
+    row.innerHTML = '<span class="evt-ts">' + nowStr() + '</span>' +
+                    '<span class="evt-type ' + cls + '">' + type + '</span>' +
+                    '<span class="evt-detail">' + detail + '</span>';
+    eventList.appendChild(row);
+    eventList.scrollTop = eventList.scrollHeight;
+
+    while (eventList.children.length > EVENT_MAX) {
+      eventList.removeChild(eventList.firstChild);
+    }
+  }
+
+  window.clearEvents = function() {
+    eventList.innerHTML = '';
+    eventCount = 0;
+    statusCount.textContent = 'Events: 0';
+    addEvent('—', '', 'Cleared');
+  };
+
+  window.togglePause = function() {
+    paused = !paused;
+    btnPause.textContent = paused ? 'Resume' : 'Pause';
+    btnPause.className = paused ? 'btn btn-primary' : 'btn';
+    if (paused) addEvent('—', '', 'PAUSED');
+    else addEvent('—', '', 'RESUMED');
+  };
+
+  // ======================== 禁用右键菜单 ========================
+  document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+
+  // ======================== 键盘事件 ========================
+  // 使用 e.keyCode (数值) 做主索引, 在 Chrome/CEF 中完全一致
+  // e.code 在 CEF 中可能返回异常值, 仅做辅助日志
+
+  // 拦截浏览器快捷键 (按 keyCode)
+  var BLOCKED_KEYCODES = [27,112,114,116,122,123,44,145,19,9]; // Esc,F1,F3,F5,F11,F12,PrtSc,ScrLk,Pause,Tab
+
+  // Ctrl/Cmd+key 需要拦截的 keyCode
+  var CTRL_BLOCKED_KCS = [
+    84,78,87,82,70,71,72,74,79,  // T,N,W,R,F,G,H,J,O
+    80,83,85,68,81,               // P,S,U,D,Q
+    48,49,50,51,52,53,54,55,56,57, // 0-9
+    187,189,219,221,76,69,        // =,-,[,],L,E
+    188,190,191,220               // ,,.,/,\
+  ];
+
+  document.addEventListener('keydown', function(e) {
+    var rawKc = e.keyCode;
+    var loc = e.location || 0;
+    var kc = fixKeyCode(rawKc);
+    var kid = makeKeyId(kc, loc);
+
+    // 拦截浏览器快捷键
+    var blocked = false;
+    var checkKc = rawKc;
+    if (BLOCKED_KEYCODES.indexOf(checkKc) !== -1 || CEF_KC_FIX[checkKc] && BLOCKED_KEYCODES.indexOf(CEF_KC_FIX[checkKc]) !== -1) blocked = true;
+    if ((e.ctrlKey || e.metaKey) && CTRL_BLOCKED_KCS.indexOf(checkKc) !== -1) blocked = true;
+    if (e.altKey && !e.ctrlKey) blocked = true;
+    if (checkKc === 8 && document.activeElement === document.body) blocked = true;
+
+    if (blocked) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    var display = keyDisplay(kc, loc, e.key);
+
+    if (!pressedKeys[kid]) {
+      pressKey(kid);
+      addEvent('Down', 'kd', display);
+    }
+  });
+
+  document.addEventListener('keyup', function(e) {
+    var rawKc = e.keyCode;
+    var loc = e.location || 0;
+    var kc = fixKeyCode(rawKc);
+    var kid = makeKeyId(kc, loc);
+
+    releaseKey(kid);
+    addEvent('Up', 'ku', keyDisplay(kc, loc, e.key));
+  });
+
+  // ======================== 鼠标事件 ========================
+  document.addEventListener('mousedown', function(e) {
+    var btn = '';
+    if (e.button === 0) { btn = 'Left'; mouseLeft.textContent = 'Down'; mouseLeft.className = 'value active'; mouseBtns.left = true; }
+    else if (e.button === 1) { btn = 'Middle'; mouseMiddle.textContent = 'Down'; mouseMiddle.className = 'value active'; mouseBtns.middle = true; }
+    else if (e.button === 2) { btn = 'Right'; mouseRight.textContent = 'Down'; mouseRight.className = 'value active'; mouseBtns.right = true; }
+    else btn = 'Btn' + e.button;
+    addEvent('Down', 'md', btn);
+    updateCombo();
+  });
+
+  document.addEventListener('mouseup', function(e) {
+    var btn = '';
+    if (e.button === 0) { btn = 'Left'; mouseLeft.textContent = 'Idle'; mouseLeft.className = 'value'; mouseBtns.left = false; }
+    else if (e.button === 1) { btn = 'Middle'; mouseMiddle.textContent = 'Idle'; mouseMiddle.className = 'value'; mouseBtns.middle = false; }
+    else if (e.button === 2) { btn = 'Right'; mouseRight.textContent = 'Idle'; mouseRight.className = 'value'; mouseBtns.right = false; }
+    else btn = 'Btn' + e.button;
+    addEvent('Up', 'mu', btn);
+    updateCombo();
+  });
+
+  document.addEventListener('wheel', function(e) {
+    var dir = e.deltaY > 0 ? 'Down' : 'Up';
+    var amt = Math.abs(Math.round(e.deltaY));
+    mouseScroll.textContent = dir + ' (' + amt + ')';
+    mouseScroll.className = 'value active';
+    addEvent(dir, 'mw', 'Scroll ' + amt);
+    clearTimeout(mouseScroll._t);
+    mouseScroll._t = setTimeout(function() {
+      mouseScroll.textContent = '—';
+      mouseScroll.className = 'value';
+    }, 300);
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    mousePos.textContent = e.clientX + ' , ' + e.clientY;
+  });
+
+  // ======================== 初始状态 ========================
+  addEvent('—', '', 'Input Tester ready. Press any key or click mouse.');
+
+  // ======================== 调试: UE失焦通知测试 ========================
+  var dbgBlur = 0, dbgVis = 0, dbgFocus = 0, dbgCall = 0;
+
+  window.clearAllInputState = function() {
+    dbgCall++;
+    var before = Object.keys(pressedKeys).join(',') || '(empty)';
+    Object.keys(pressedKeys).forEach(function(kid) {
+      var el = keyElements[kid];
+      if (el) el.classList.remove('pressed');
+    });
+    pressedKeys = {};
+    mouseBtns = { left: false, middle: false, right: false };
+    mouseLeft.textContent = 'Idle'; mouseLeft.className = 'value';
+    mouseMiddle.textContent = 'Idle'; mouseMiddle.className = 'value';
+    mouseRight.textContent = 'Idle'; mouseRight.className = 'value';
+    updateCombo();
+    addEvent('—', '', '[clear#' + dbgCall + '] before:' + before);
+
+    // 同时触发原生blur事件, 让网页也能感知到失焦
+    window.dispatchEvent(new Event('blur'));
+    document.dispatchEvent(new Event('focusout'));
+  };
+
+  window.addEventListener('blur', function() {
+    dbgBlur++;
+    addEvent('—', '', '[blur#' + dbgBlur + '] hasFocus=' + document.hasFocus());
+  });
+
+  document.addEventListener('visibilitychange', function() {
+    dbgVis++;
+    addEvent('—', '', '[visChange#' + dbgVis + '] hidden=' + document.hidden);
+  });
+
+  window.addEventListener('focus', function() {
+    dbgFocus++;
+    addEvent('—', '', '[focus#' + dbgFocus + ']');
+  });
+
+})();
+</script>
+</body>
+</html>
