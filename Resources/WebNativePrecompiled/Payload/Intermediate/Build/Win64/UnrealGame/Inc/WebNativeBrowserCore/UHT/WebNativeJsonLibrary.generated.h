@@ -15,11 +15,10 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
-
 struct FJsonObjectWrapper;
 
 // ********** Begin Class UWebNativeJsonLibrary ****************************************************
-#define FID_WNFabTmp_56_096ed726_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h_23_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_WNFabTmp_57_7c4d5640_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h_23_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execRemoveField); \
 	DECLARE_FUNCTION(execSetJsonObjectArray); \
 	DECLARE_FUNCTION(execSetJsonObjectField); \
@@ -48,20 +47,25 @@ struct FJsonObjectWrapper;
 	DECLARE_FUNCTION(execLoadJsonFromString);
 
 
+struct Z_Construct_UClass_UWebNativeJsonLibrary_Statics;
+	struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics; \
+	struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics; \
 WEBNATIVEBROWSERCORE_API UClass* Z_Construct_UClass_UWebNativeJsonLibrary_NoRegister();
 
-#define FID_WNFabTmp_56_096ed726_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h_23_INCLASS_NO_PURE_DECLS \
+#define FID_WNFabTmp_57_7c4d5640_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h_23_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUWebNativeJsonLibrary(); \
-	friend struct Z_Construct_UClass_UWebNativeJsonLibrary_Statics; \
+	friend struct ::Z_Construct_UClass_UWebNativeJsonLibrary_Statics; \
+	friend struct ::Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics; \
+	friend struct ::Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics; \
 	static UClass* GetPrivateStaticClass(); \
-	friend WEBNATIVEBROWSERCORE_API UClass* Z_Construct_UClass_UWebNativeJsonLibrary_NoRegister(); \
+	friend WEBNATIVEBROWSERCORE_API UClass* ::Z_Construct_UClass_UWebNativeJsonLibrary_NoRegister(); \
 public: \
 	DECLARE_CLASS2(UWebNativeJsonLibrary, UBlueprintFunctionLibrary, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/WebNativeBrowserCore"), Z_Construct_UClass_UWebNativeJsonLibrary_NoRegister) \
 	DECLARE_SERIALIZER(UWebNativeJsonLibrary)
 
 
-#define FID_WNFabTmp_56_096ed726_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h_23_ENHANCED_CONSTRUCTORS \
+#define FID_WNFabTmp_57_7c4d5640_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h_23_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UWebNativeJsonLibrary(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	/** Deleted move- and copy-constructors, should never be used */ \
@@ -73,13 +77,13 @@ public: \
 	NO_API virtual ~UWebNativeJsonLibrary();
 
 
-#define FID_WNFabTmp_56_096ed726_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h_20_PROLOG
-#define FID_WNFabTmp_56_096ed726_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h_23_GENERATED_BODY \
+#define FID_WNFabTmp_57_7c4d5640_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h_20_PROLOG
+#define FID_WNFabTmp_57_7c4d5640_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h_23_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_WNFabTmp_56_096ed726_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h_23_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_WNFabTmp_56_096ed726_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h_23_INCLASS_NO_PURE_DECLS \
-	FID_WNFabTmp_56_096ed726_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h_23_ENHANCED_CONSTRUCTORS \
+	FID_WNFabTmp_57_7c4d5640_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h_23_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_WNFabTmp_57_7c4d5640_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h_23_INCLASS_NO_PURE_DECLS \
+	FID_WNFabTmp_57_7c4d5640_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h_23_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -89,6 +93,6 @@ class UWebNativeJsonLibrary;
 // ********** End Class UWebNativeJsonLibrary ******************************************************
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_WNFabTmp_56_096ed726_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h
+#define CURRENT_FILE_ID FID_WNFabTmp_57_7c4d5640_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

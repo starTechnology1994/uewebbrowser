@@ -9,7 +9,7 @@
 #include "JsonObjectWrapper.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
-
+static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compiled with !UE_WITH_CONSTINIT_OBJECT");
 void EmptyLinkFunctionForGeneratedCodeWebNativeJsonLibrary() {}
 
 // ********** Begin Cross Module References ********************************************************
@@ -39,16 +39,25 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics
 		{ "DisplayName", "JsonObject" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function CreateEmptyJsonObject constinit property declarations *****************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function CreateEmptyJsonObject constinit property declarations *******************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventCreateEmptyJsonObject_Parms, ReturnValue), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReturnValue_MetaData), NewProp_ReturnValue_MetaData) }; // 219379207
+
+// ********** Begin Function CreateEmptyJsonObject Property Definitions ****************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventCreateEmptyJsonObject_Parms, ReturnValue), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReturnValue_MetaData), NewProp_ReturnValue_MetaData) }; // 4208852359
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "CreateEmptyJsonObject", Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::WebNativeJsonLibrary_eventCreateEmptyJsonObject_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14022401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::Function_MetaDataParams)},  };
+// ********** End Function CreateEmptyJsonObject Property Definitions ******************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "CreateEmptyJsonObject", 	Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::WebNativeJsonLibrary_eventCreateEmptyJsonObject_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x14022401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject_Statics::WebNativeJsonLibrary_eventCreateEmptyJsonObject_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject()
 {
@@ -101,15 +110,20 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function GetField constinit property declarations ******************************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_OutValue;
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function GetField constinit property declarations ********************************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function GetField Property Definitions *****************************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetField_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::NewProp_OutValue = { "OutValue", nullptr, (EPropertyFlags)0x0010000000000180, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetField_Parms, OutValue), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OutValue_MetaData), NewProp_OutValue_MetaData) };
 void Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::NewProp_ReturnValue_SetBit(void* Obj)
@@ -124,7 +138,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetField", Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::WebNativeJsonLibrary_eventGetField_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::Function_MetaDataParams)},  };
+// ********** End Function GetField Property Definitions *******************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetField", 	Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::WebNativeJsonLibrary_eventGetField_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetField_Statics::WebNativeJsonLibrary_eventGetField_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_GetField()
 {
@@ -164,15 +182,20 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function GetFieldNames constinit property declarations *************************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldNames_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_FieldNames;
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function GetFieldNames constinit property declarations ***************************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetFieldNames_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function GetFieldNames Property Definitions ************************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetFieldNames_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::NewProp_FieldNames_Inner = { "FieldNames", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::NewProp_FieldNames = { "FieldNames", nullptr, (EPropertyFlags)0x0010000000000180, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetFieldNames_Parms, FieldNames), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldNames_MetaData), NewProp_FieldNames_MetaData) };
 void Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::NewProp_ReturnValue_SetBit(void* Obj)
@@ -187,7 +210,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetFieldNames", Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::WebNativeJsonLibrary_eventGetFieldNames_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::Function_MetaDataParams)},  };
+// ********** End Function GetFieldNames Property Definitions **************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetFieldNames", 	Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::WebNativeJsonLibrary_eventGetFieldNames_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames_Statics::WebNativeJsonLibrary_eventGetFieldNames_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames()
 {
@@ -240,6 +267,8 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function GetJsonBoolArray constinit property declarations **********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_OutValue_Inner;
@@ -247,9 +276,12 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function GetJsonBoolArray constinit property declarations ************************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonBoolArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function GetJsonBoolArray Property Definitions *********************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonBoolArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonBoolArray_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::NewProp_OutValue_Inner = { "OutValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), 0, nullptr, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::NewProp_OutValue = { "OutValue", nullptr, (EPropertyFlags)0x0010000000000180, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonBoolArray_Parms, OutValue), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OutValue_MetaData), NewProp_OutValue_MetaData) };
@@ -266,7 +298,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonBoolArray", Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::WebNativeJsonLibrary_eventGetJsonBoolArray_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::Function_MetaDataParams)},  };
+// ********** End Function GetJsonBoolArray Property Definitions ***********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonBoolArray", 	Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::WebNativeJsonLibrary_eventGetJsonBoolArray_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray_Statics::WebNativeJsonLibrary_eventGetJsonBoolArray_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray()
 {
@@ -320,6 +356,8 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function GetJsonBoolField constinit property declarations **********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static void NewProp_OutValue_SetBit(void* Obj);
@@ -327,9 +365,12 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function GetJsonBoolField constinit property declarations ************************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonBoolField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function GetJsonBoolField Property Definitions *********************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonBoolField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonBoolField_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 void Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::NewProp_OutValue_SetBit(void* Obj)
 {
@@ -348,7 +389,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonBoolField", Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::WebNativeJsonLibrary_eventGetJsonBoolField_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::Function_MetaDataParams)},  };
+// ********** End Function GetJsonBoolField Property Definitions ***********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonBoolField", 	Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::WebNativeJsonLibrary_eventGetJsonBoolField_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField_Statics::WebNativeJsonLibrary_eventGetJsonBoolField_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField()
 {
@@ -402,6 +447,8 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function GetJsonFloatArray constinit property declarations *********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_OutValue_Inner;
@@ -409,9 +456,12 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function GetJsonFloatArray constinit property declarations ***********************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonFloatArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function GetJsonFloatArray Property Definitions ********************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonFloatArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonFloatArray_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::NewProp_OutValue_Inner = { "OutValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::NewProp_OutValue = { "OutValue", nullptr, (EPropertyFlags)0x0010000000000180, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonFloatArray_Parms, OutValue), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OutValue_MetaData), NewProp_OutValue_MetaData) };
@@ -428,7 +478,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonFloatArray", Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::WebNativeJsonLibrary_eventGetJsonFloatArray_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::Function_MetaDataParams)},  };
+// ********** End Function GetJsonFloatArray Property Definitions **********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonFloatArray", 	Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::WebNativeJsonLibrary_eventGetJsonFloatArray_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray_Statics::WebNativeJsonLibrary_eventGetJsonFloatArray_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray()
 {
@@ -482,15 +536,20 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function GetJsonFloatField constinit property declarations *********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_OutValue;
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function GetJsonFloatField constinit property declarations ***********************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonFloatField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function GetJsonFloatField Property Definitions ********************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonFloatField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonFloatField_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::NewProp_OutValue = { "OutValue", nullptr, (EPropertyFlags)0x0010000000000180, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonFloatField_Parms, OutValue), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OutValue_MetaData), NewProp_OutValue_MetaData) };
 void Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::NewProp_ReturnValue_SetBit(void* Obj)
@@ -505,7 +564,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonFloatField", Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::WebNativeJsonLibrary_eventGetJsonFloatField_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::Function_MetaDataParams)},  };
+// ********** End Function GetJsonFloatField Property Definitions **********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonFloatField", 	Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::WebNativeJsonLibrary_eventGetJsonFloatField_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField_Statics::WebNativeJsonLibrary_eventGetJsonFloatField_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField()
 {
@@ -559,6 +622,8 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function GetJsonIntArray constinit property declarations ***********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_OutValue_Inner;
@@ -566,9 +631,12 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function GetJsonIntArray constinit property declarations *************************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonIntArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function GetJsonIntArray Property Definitions **********************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonIntArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonIntArray_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::NewProp_OutValue_Inner = { "OutValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::NewProp_OutValue = { "OutValue", nullptr, (EPropertyFlags)0x0010000000000180, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonIntArray_Parms, OutValue), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OutValue_MetaData), NewProp_OutValue_MetaData) };
@@ -585,7 +653,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonIntArray", Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::WebNativeJsonLibrary_eventGetJsonIntArray_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::Function_MetaDataParams)},  };
+// ********** End Function GetJsonIntArray Property Definitions ************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonIntArray", 	Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::WebNativeJsonLibrary_eventGetJsonIntArray_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray_Statics::WebNativeJsonLibrary_eventGetJsonIntArray_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray()
 {
@@ -639,15 +711,20 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function GetJsonIntField constinit property declarations ***********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_OutValue;
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function GetJsonIntField constinit property declarations *************************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonIntField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function GetJsonIntField Property Definitions **********************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonIntField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonIntField_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::NewProp_OutValue = { "OutValue", nullptr, (EPropertyFlags)0x0010000000000180, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonIntField_Parms, OutValue), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OutValue_MetaData), NewProp_OutValue_MetaData) };
 void Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::NewProp_ReturnValue_SetBit(void* Obj)
@@ -662,7 +739,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonIntField", Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::WebNativeJsonLibrary_eventGetJsonIntField_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::Function_MetaDataParams)},  };
+// ********** End Function GetJsonIntField Property Definitions ************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonIntField", 	Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::WebNativeJsonLibrary_eventGetJsonIntField_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField_Statics::WebNativeJsonLibrary_eventGetJsonIntField_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField()
 {
@@ -716,6 +797,8 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function GetJsonObjectArray constinit property declarations ********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_OutValue_Inner;
@@ -723,12 +806,15 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function GetJsonObjectArray constinit property declarations **********************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonObjectArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function GetJsonObjectArray Property Definitions *******************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonObjectArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonObjectArray_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::NewProp_OutValue_Inner = { "OutValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(0, nullptr) }; // 219379207
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::NewProp_OutValue = { "OutValue", nullptr, (EPropertyFlags)0x0010000000000180, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonObjectArray_Parms, OutValue), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OutValue_MetaData), NewProp_OutValue_MetaData) }; // 219379207
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::NewProp_OutValue_Inner = { "OutValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(0, nullptr) }; // 4208852359
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::NewProp_OutValue = { "OutValue", nullptr, (EPropertyFlags)0x0010000000000180, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonObjectArray_Parms, OutValue), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OutValue_MetaData), NewProp_OutValue_MetaData) }; // 4208852359
 void Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::NewProp_ReturnValue_SetBit(void* Obj)
 {
 	((WebNativeJsonLibrary_eventGetJsonObjectArray_Parms*)Obj)->ReturnValue = 1;
@@ -742,7 +828,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonObjectArray", Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::WebNativeJsonLibrary_eventGetJsonObjectArray_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::Function_MetaDataParams)},  };
+// ********** End Function GetJsonObjectArray Property Definitions *********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonObjectArray", 	Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::WebNativeJsonLibrary_eventGetJsonObjectArray_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray_Statics::WebNativeJsonLibrary_eventGetJsonObjectArray_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray()
 {
@@ -796,17 +886,22 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function GetJsonObjectField constinit property declarations ********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_OutObject;
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function GetJsonObjectField constinit property declarations **********************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonObjectField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function GetJsonObjectField Property Definitions *******************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonObjectField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonObjectField_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::NewProp_OutObject = { "OutObject", nullptr, (EPropertyFlags)0x0010000000000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonObjectField_Parms, OutObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OutObject_MetaData), NewProp_OutObject_MetaData) }; // 219379207
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::NewProp_OutObject = { "OutObject", nullptr, (EPropertyFlags)0x0010000000000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonObjectField_Parms, OutObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OutObject_MetaData), NewProp_OutObject_MetaData) }; // 4208852359
 void Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::NewProp_ReturnValue_SetBit(void* Obj)
 {
 	((WebNativeJsonLibrary_eventGetJsonObjectField_Parms*)Obj)->ReturnValue = 1;
@@ -819,7 +914,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonObjectField", Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::WebNativeJsonLibrary_eventGetJsonObjectField_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::Function_MetaDataParams)},  };
+// ********** End Function GetJsonObjectField Property Definitions *********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonObjectField", 	Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::WebNativeJsonLibrary_eventGetJsonObjectField_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField_Statics::WebNativeJsonLibrary_eventGetJsonObjectField_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField()
 {
@@ -873,6 +972,8 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function GetJsonStringArray constinit property declarations ********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_OutValue_Inner;
@@ -880,9 +981,12 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function GetJsonStringArray constinit property declarations **********************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonStringArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function GetJsonStringArray Property Definitions *******************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonStringArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonStringArray_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::NewProp_OutValue_Inner = { "OutValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::NewProp_OutValue = { "OutValue", nullptr, (EPropertyFlags)0x0010000000000180, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonStringArray_Parms, OutValue), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OutValue_MetaData), NewProp_OutValue_MetaData) };
@@ -899,7 +1003,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonStringArray", Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::WebNativeJsonLibrary_eventGetJsonStringArray_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::Function_MetaDataParams)},  };
+// ********** End Function GetJsonStringArray Property Definitions *********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonStringArray", 	Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::WebNativeJsonLibrary_eventGetJsonStringArray_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray_Statics::WebNativeJsonLibrary_eventGetJsonStringArray_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray()
 {
@@ -953,15 +1061,20 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function GetJsonStringField constinit property declarations ********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_OutValue;
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function GetJsonStringField constinit property declarations **********************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonStringField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function GetJsonStringField Property Definitions *******************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonStringField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonStringField_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::NewProp_OutValue = { "OutValue", nullptr, (EPropertyFlags)0x0010000000000180, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventGetJsonStringField_Parms, OutValue), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OutValue_MetaData), NewProp_OutValue_MetaData) };
 void Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::NewProp_ReturnValue_SetBit(void* Obj)
@@ -976,7 +1089,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonStringField", Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::WebNativeJsonLibrary_eventGetJsonStringField_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::Function_MetaDataParams)},  };
+// ********** End Function GetJsonStringField Property Definitions *********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "GetJsonStringField", 	Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::WebNativeJsonLibrary_eventGetJsonStringField_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField_Statics::WebNativeJsonLibrary_eventGetJsonStringField_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField()
 {
@@ -1026,14 +1143,19 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function HasField constinit property declarations ******************************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function HasField constinit property declarations ********************************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventHasField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function HasField Property Definitions *****************************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventHasField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventHasField_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 void Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::NewProp_ReturnValue_SetBit(void* Obj)
 {
@@ -1046,7 +1168,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "HasField", Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::WebNativeJsonLibrary_eventHasField_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::Function_MetaDataParams)},  };
+// ********** End Function HasField Property Definitions *******************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "HasField", 	Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::WebNativeJsonLibrary_eventHasField_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_HasField_Statics::WebNativeJsonLibrary_eventHasField_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_HasField()
 {
@@ -1095,14 +1221,19 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function JsonObjectToString constinit property declarations ********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_OutJsonString;
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function JsonObjectToString constinit property declarations **********************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventJsonObjectToString_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function JsonObjectToString Property Definitions *******************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventJsonObjectToString_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::NewProp_OutJsonString = { "OutJsonString", nullptr, (EPropertyFlags)0x0010000000000180, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventJsonObjectToString_Parms, OutJsonString), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OutJsonString_MetaData), NewProp_OutJsonString_MetaData) };
 void Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::NewProp_ReturnValue_SetBit(void* Obj)
 {
@@ -1115,7 +1246,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "JsonObjectToString", Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::WebNativeJsonLibrary_eventJsonObjectToString_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::Function_MetaDataParams)},  };
+// ********** End Function JsonObjectToString Property Definitions *********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "JsonObjectToString", 	Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::WebNativeJsonLibrary_eventJsonObjectToString_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString_Statics::WebNativeJsonLibrary_eventJsonObjectToString_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString()
 {
@@ -1164,15 +1299,20 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function LoadJsonFromString constinit property declarations ********************
 	static const UECodeGen_Private::FStrPropertyParams NewProp_JsonString;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_OutJsonObject;
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function LoadJsonFromString constinit property declarations **********************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
+
+// ********** Begin Function LoadJsonFromString Property Definitions *******************************
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::NewProp_JsonString = { "JsonString", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventLoadJsonFromString_Parms, JsonString), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonString_MetaData), NewProp_JsonString_MetaData) };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::NewProp_OutJsonObject = { "OutJsonObject", nullptr, (EPropertyFlags)0x0010000000000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventLoadJsonFromString_Parms, OutJsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OutJsonObject_MetaData), NewProp_OutJsonObject_MetaData) }; // 219379207
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::NewProp_OutJsonObject = { "OutJsonObject", nullptr, (EPropertyFlags)0x0010000000000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventLoadJsonFromString_Parms, OutJsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OutJsonObject_MetaData), NewProp_OutJsonObject_MetaData) }; // 4208852359
 void Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::NewProp_ReturnValue_SetBit(void* Obj)
 {
 	((WebNativeJsonLibrary_eventLoadJsonFromString_Parms*)Obj)->ReturnValue = 1;
@@ -1184,7 +1324,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "LoadJsonFromString", Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::WebNativeJsonLibrary_eventLoadJsonFromString_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::Function_MetaDataParams)},  };
+// ********** End Function LoadJsonFromString Property Definitions *********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "LoadJsonFromString", 	Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::WebNativeJsonLibrary_eventLoadJsonFromString_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString_Statics::WebNativeJsonLibrary_eventLoadJsonFromString_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString()
 {
@@ -1233,14 +1377,19 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function RemoveField constinit property declarations ***************************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function RemoveField constinit property declarations *****************************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventRemoveField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function RemoveField Property Definitions **************************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventRemoveField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventRemoveField_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 void Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::NewProp_ReturnValue_SetBit(void* Obj)
 {
@@ -1253,7 +1402,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "RemoveField", Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::WebNativeJsonLibrary_eventRemoveField_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::Function_MetaDataParams)},  };
+// ********** End Function RemoveField Property Definitions ****************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "RemoveField", 	Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::WebNativeJsonLibrary_eventRemoveField_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField_Statics::WebNativeJsonLibrary_eventRemoveField_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField()
 {
@@ -1308,15 +1461,20 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function SetField constinit property declarations ******************************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_Value;
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function SetField constinit property declarations ********************************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function SetField Property Definitions *****************************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetField_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::NewProp_Value = { "Value", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetField_Parms, Value), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Value_MetaData), NewProp_Value_MetaData) };
 void Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::NewProp_ReturnValue_SetBit(void* Obj)
@@ -1331,7 +1489,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetField", Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::WebNativeJsonLibrary_eventSetField_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::Function_MetaDataParams)},  };
+// ********** End Function SetField Property Definitions *******************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetField", 	Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::WebNativeJsonLibrary_eventSetField_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetField_Statics::WebNativeJsonLibrary_eventSetField_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_SetField()
 {
@@ -1375,6 +1537,8 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function SetJsonBoolArray constinit property declarations **********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_Value_Inner;
@@ -1382,9 +1546,12 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function SetJsonBoolArray constinit property declarations ************************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonBoolArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function SetJsonBoolArray Property Definitions *********************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonBoolArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonBoolArray_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::NewProp_Value_Inner = { "Value", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), 0, nullptr, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::NewProp_Value = { "Value", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonBoolArray_Parms, Value), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Value_MetaData), NewProp_Value_MetaData) };
@@ -1401,7 +1568,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonBoolArray", Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::WebNativeJsonLibrary_eventSetJsonBoolArray_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::Function_MetaDataParams)},  };
+// ********** End Function SetJsonBoolArray Property Definitions ***********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonBoolArray", 	Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::WebNativeJsonLibrary_eventSetJsonBoolArray_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray_Statics::WebNativeJsonLibrary_eventSetJsonBoolArray_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray()
 {
@@ -1455,6 +1626,8 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function SetJsonBoolField constinit property declarations **********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static void NewProp_Value_SetBit(void* Obj);
@@ -1462,9 +1635,12 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function SetJsonBoolField constinit property declarations ************************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonBoolField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function SetJsonBoolField Property Definitions *********************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonBoolField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonBoolField_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 void Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::NewProp_Value_SetBit(void* Obj)
 {
@@ -1483,7 +1659,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonBoolField", Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::WebNativeJsonLibrary_eventSetJsonBoolField_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::Function_MetaDataParams)},  };
+// ********** End Function SetJsonBoolField Property Definitions ***********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonBoolField", 	Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::WebNativeJsonLibrary_eventSetJsonBoolField_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField_Statics::WebNativeJsonLibrary_eventSetJsonBoolField_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField()
 {
@@ -1537,6 +1717,8 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function SetJsonFloatArray constinit property declarations *********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_Value_Inner;
@@ -1544,9 +1726,12 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function SetJsonFloatArray constinit property declarations ***********************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonFloatArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function SetJsonFloatArray Property Definitions ********************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonFloatArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonFloatArray_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::NewProp_Value_Inner = { "Value", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::NewProp_Value = { "Value", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonFloatArray_Parms, Value), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Value_MetaData), NewProp_Value_MetaData) };
@@ -1563,7 +1748,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonFloatArray", Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::WebNativeJsonLibrary_eventSetJsonFloatArray_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::Function_MetaDataParams)},  };
+// ********** End Function SetJsonFloatArray Property Definitions **********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonFloatArray", 	Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::WebNativeJsonLibrary_eventSetJsonFloatArray_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray_Statics::WebNativeJsonLibrary_eventSetJsonFloatArray_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray()
 {
@@ -1617,15 +1806,20 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function SetJsonFloatField constinit property declarations *********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_Value;
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function SetJsonFloatField constinit property declarations ***********************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonFloatField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function SetJsonFloatField Property Definitions ********************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonFloatField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonFloatField_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::NewProp_Value = { "Value", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonFloatField_Parms, Value), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Value_MetaData), NewProp_Value_MetaData) };
 void Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::NewProp_ReturnValue_SetBit(void* Obj)
@@ -1640,7 +1834,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonFloatField", Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::WebNativeJsonLibrary_eventSetJsonFloatField_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::Function_MetaDataParams)},  };
+// ********** End Function SetJsonFloatField Property Definitions **********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonFloatField", 	Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::WebNativeJsonLibrary_eventSetJsonFloatField_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField_Statics::WebNativeJsonLibrary_eventSetJsonFloatField_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField()
 {
@@ -1694,6 +1892,8 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function SetJsonIntArray constinit property declarations ***********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_Value_Inner;
@@ -1701,9 +1901,12 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function SetJsonIntArray constinit property declarations *************************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonIntArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function SetJsonIntArray Property Definitions **********************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonIntArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonIntArray_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::NewProp_Value_Inner = { "Value", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::NewProp_Value = { "Value", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonIntArray_Parms, Value), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Value_MetaData), NewProp_Value_MetaData) };
@@ -1720,7 +1923,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonIntArray", Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::WebNativeJsonLibrary_eventSetJsonIntArray_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::Function_MetaDataParams)},  };
+// ********** End Function SetJsonIntArray Property Definitions ************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonIntArray", 	Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::WebNativeJsonLibrary_eventSetJsonIntArray_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray_Statics::WebNativeJsonLibrary_eventSetJsonIntArray_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray()
 {
@@ -1774,15 +1981,20 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function SetJsonIntField constinit property declarations ***********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_Value;
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function SetJsonIntField constinit property declarations *************************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonIntField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function SetJsonIntField Property Definitions **********************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonIntField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonIntField_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::NewProp_Value = { "Value", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonIntField_Parms, Value), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Value_MetaData), NewProp_Value_MetaData) };
 void Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::NewProp_ReturnValue_SetBit(void* Obj)
@@ -1797,7 +2009,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonIntField", Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::WebNativeJsonLibrary_eventSetJsonIntField_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::Function_MetaDataParams)},  };
+// ********** End Function SetJsonIntField Property Definitions ************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonIntField", 	Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::WebNativeJsonLibrary_eventSetJsonIntField_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField_Statics::WebNativeJsonLibrary_eventSetJsonIntField_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField()
 {
@@ -1851,6 +2067,8 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function SetJsonObjectArray constinit property declarations ********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_Value_Inner;
@@ -1858,12 +2076,15 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function SetJsonObjectArray constinit property declarations **********************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonObjectArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function SetJsonObjectArray Property Definitions *******************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonObjectArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonObjectArray_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::NewProp_Value_Inner = { "Value", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(0, nullptr) }; // 219379207
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::NewProp_Value = { "Value", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonObjectArray_Parms, Value), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Value_MetaData), NewProp_Value_MetaData) }; // 219379207
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::NewProp_Value_Inner = { "Value", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(0, nullptr) }; // 4208852359
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::NewProp_Value = { "Value", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonObjectArray_Parms, Value), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Value_MetaData), NewProp_Value_MetaData) }; // 4208852359
 void Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::NewProp_ReturnValue_SetBit(void* Obj)
 {
 	((WebNativeJsonLibrary_eventSetJsonObjectArray_Parms*)Obj)->ReturnValue = 1;
@@ -1877,7 +2098,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonObjectArray", Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::WebNativeJsonLibrary_eventSetJsonObjectArray_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::Function_MetaDataParams)},  };
+// ********** End Function SetJsonObjectArray Property Definitions *********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonObjectArray", 	Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::WebNativeJsonLibrary_eventSetJsonObjectArray_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray_Statics::WebNativeJsonLibrary_eventSetJsonObjectArray_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray()
 {
@@ -1931,17 +2156,22 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function SetJsonObjectField constinit property declarations ********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_Value;
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function SetJsonObjectField constinit property declarations **********************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonObjectField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function SetJsonObjectField Property Definitions *******************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonObjectField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonObjectField_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::NewProp_Value = { "Value", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonObjectField_Parms, Value), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Value_MetaData), NewProp_Value_MetaData) }; // 219379207
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::NewProp_Value = { "Value", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonObjectField_Parms, Value), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Value_MetaData), NewProp_Value_MetaData) }; // 4208852359
 void Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::NewProp_ReturnValue_SetBit(void* Obj)
 {
 	((WebNativeJsonLibrary_eventSetJsonObjectField_Parms*)Obj)->ReturnValue = 1;
@@ -1954,7 +2184,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonObjectField", Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::WebNativeJsonLibrary_eventSetJsonObjectField_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::Function_MetaDataParams)},  };
+// ********** End Function SetJsonObjectField Property Definitions *********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonObjectField", 	Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::WebNativeJsonLibrary_eventSetJsonObjectField_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField_Statics::WebNativeJsonLibrary_eventSetJsonObjectField_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField()
 {
@@ -2008,6 +2242,8 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function SetJsonStringArray constinit property declarations ********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_Value_Inner;
@@ -2015,9 +2251,12 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function SetJsonStringArray constinit property declarations **********************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonStringArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function SetJsonStringArray Property Definitions *******************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonStringArray_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonStringArray_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::NewProp_Value_Inner = { "Value", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::NewProp_Value = { "Value", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonStringArray_Parms, Value), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Value_MetaData), NewProp_Value_MetaData) };
@@ -2034,7 +2273,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonStringArray", Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::WebNativeJsonLibrary_eventSetJsonStringArray_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::Function_MetaDataParams)},  };
+// ********** End Function SetJsonStringArray Property Definitions *********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonStringArray", 	Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::WebNativeJsonLibrary_eventSetJsonStringArray_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray_Statics::WebNativeJsonLibrary_eventSetJsonStringArray_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray()
 {
@@ -2088,15 +2331,20 @@ struct Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics
 		{ "DisplayName", "Success" },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Function SetJsonStringField constinit property declarations ********************
 	static const UECodeGen_Private::FStructPropertyParams NewProp_JsonObject;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_FieldName;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_Value;
 	static void NewProp_ReturnValue_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function SetJsonStringField constinit property declarations **********************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonStringField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 219379207
+
+// ********** Begin Function SetJsonStringField Property Definitions *******************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::NewProp_JsonObject = { "JsonObject", nullptr, (EPropertyFlags)0x0010000008000180, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonStringField_Parms, JsonObject), Z_Construct_UScriptStruct_FJsonObjectWrapper, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JsonObject_MetaData), NewProp_JsonObject_MetaData) }; // 4208852359
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::NewProp_FieldName = { "FieldName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonStringField_Parms, FieldName), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_FieldName_MetaData), NewProp_FieldName_MetaData) };
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::NewProp_Value = { "Value", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WebNativeJsonLibrary_eventSetJsonStringField_Parms, Value), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Value_MetaData), NewProp_Value_MetaData) };
 void Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::NewProp_ReturnValue_SetBit(void* Obj)
@@ -2111,7 +2359,11 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWebNa
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonStringField", Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::WebNativeJsonLibrary_eventSetJsonStringField_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::Function_MetaDataParams)},  };
+// ********** End Function SetJsonStringField Property Definitions *********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UWebNativeJsonLibrary, nullptr, "SetJsonStringField", 	Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::WebNativeJsonLibrary_eventSetJsonStringField_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04422401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::Function_MetaDataParams)},  };
 static_assert(sizeof(Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField_Statics::WebNativeJsonLibrary_eventSetJsonStringField_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField()
 {
@@ -2135,41 +2387,6 @@ DEFINE_FUNCTION(UWebNativeJsonLibrary::execSetJsonStringField)
 // ********** End Class UWebNativeJsonLibrary Function SetJsonStringField **************************
 
 // ********** Begin Class UWebNativeJsonLibrary ****************************************************
-void UWebNativeJsonLibrary::StaticRegisterNativesUWebNativeJsonLibrary()
-{
-	UClass* Class = UWebNativeJsonLibrary::StaticClass();
-	static const FNameNativePtrPair Funcs[] = {
-		{ "CreateEmptyJsonObject", &UWebNativeJsonLibrary::execCreateEmptyJsonObject },
-		{ "GetField", &UWebNativeJsonLibrary::execGetField },
-		{ "GetFieldNames", &UWebNativeJsonLibrary::execGetFieldNames },
-		{ "GetJsonBoolArray", &UWebNativeJsonLibrary::execGetJsonBoolArray },
-		{ "GetJsonBoolField", &UWebNativeJsonLibrary::execGetJsonBoolField },
-		{ "GetJsonFloatArray", &UWebNativeJsonLibrary::execGetJsonFloatArray },
-		{ "GetJsonFloatField", &UWebNativeJsonLibrary::execGetJsonFloatField },
-		{ "GetJsonIntArray", &UWebNativeJsonLibrary::execGetJsonIntArray },
-		{ "GetJsonIntField", &UWebNativeJsonLibrary::execGetJsonIntField },
-		{ "GetJsonObjectArray", &UWebNativeJsonLibrary::execGetJsonObjectArray },
-		{ "GetJsonObjectField", &UWebNativeJsonLibrary::execGetJsonObjectField },
-		{ "GetJsonStringArray", &UWebNativeJsonLibrary::execGetJsonStringArray },
-		{ "GetJsonStringField", &UWebNativeJsonLibrary::execGetJsonStringField },
-		{ "HasField", &UWebNativeJsonLibrary::execHasField },
-		{ "JsonObjectToString", &UWebNativeJsonLibrary::execJsonObjectToString },
-		{ "LoadJsonFromString", &UWebNativeJsonLibrary::execLoadJsonFromString },
-		{ "RemoveField", &UWebNativeJsonLibrary::execRemoveField },
-		{ "SetField", &UWebNativeJsonLibrary::execSetField },
-		{ "SetJsonBoolArray", &UWebNativeJsonLibrary::execSetJsonBoolArray },
-		{ "SetJsonBoolField", &UWebNativeJsonLibrary::execSetJsonBoolField },
-		{ "SetJsonFloatArray", &UWebNativeJsonLibrary::execSetJsonFloatArray },
-		{ "SetJsonFloatField", &UWebNativeJsonLibrary::execSetJsonFloatField },
-		{ "SetJsonIntArray", &UWebNativeJsonLibrary::execSetJsonIntArray },
-		{ "SetJsonIntField", &UWebNativeJsonLibrary::execSetJsonIntField },
-		{ "SetJsonObjectArray", &UWebNativeJsonLibrary::execSetJsonObjectArray },
-		{ "SetJsonObjectField", &UWebNativeJsonLibrary::execSetJsonObjectField },
-		{ "SetJsonStringArray", &UWebNativeJsonLibrary::execSetJsonStringArray },
-		{ "SetJsonStringField", &UWebNativeJsonLibrary::execSetJsonStringField },
-	};
-	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
-}
 FClassRegistrationInfo Z_Registration_Info_UClass_UWebNativeJsonLibrary;
 UClass* UWebNativeJsonLibrary::GetPrivateStaticClass()
 {
@@ -2177,7 +2394,7 @@ UClass* UWebNativeJsonLibrary::GetPrivateStaticClass()
 	if (!Z_Registration_Info_UClass_UWebNativeJsonLibrary.InnerSingleton)
 	{
 		GetPrivateStaticClassBody(
-			StaticPackage(),
+			TClass::StaticPackage(),
 			TEXT("WebNativeJsonLibrary"),
 			Z_Registration_Info_UClass_UWebNativeJsonLibrary.InnerSingleton,
 			StaticRegisterNativesUWebNativeJsonLibrary,
@@ -2209,43 +2426,76 @@ struct Z_Construct_UClass_UWebNativeJsonLibrary_Statics
 		{ "ToolTip", "Built-in JSON Blueprint Function Library.\npure-Blueprint projects can package without extra plugins. Everything here\nis backed by the engine's built-in Json / JsonUtilities runtime modules,\nwhich are always available on every target platform.\n\nWorks both in Blueprints (Edit > Plugins search \"WebNative|Json\") and in\nC++ (call UWebNativeJsonLibrary::Xxx directly)." },
 	};
 #endif // WITH_METADATA
+
+// ********** Begin Class UWebNativeJsonLibrary constinit property declarations ********************
+// ********** End Class UWebNativeJsonLibrary constinit property declarations **********************
+	static constexpr UE::CodeGen::FClassNativeFunction Funcs[] = {
+		{ .NameUTF8 = UTF8TEXT("CreateEmptyJsonObject"), .Pointer = &UWebNativeJsonLibrary::execCreateEmptyJsonObject },
+		{ .NameUTF8 = UTF8TEXT("GetField"), .Pointer = &UWebNativeJsonLibrary::execGetField },
+		{ .NameUTF8 = UTF8TEXT("GetFieldNames"), .Pointer = &UWebNativeJsonLibrary::execGetFieldNames },
+		{ .NameUTF8 = UTF8TEXT("GetJsonBoolArray"), .Pointer = &UWebNativeJsonLibrary::execGetJsonBoolArray },
+		{ .NameUTF8 = UTF8TEXT("GetJsonBoolField"), .Pointer = &UWebNativeJsonLibrary::execGetJsonBoolField },
+		{ .NameUTF8 = UTF8TEXT("GetJsonFloatArray"), .Pointer = &UWebNativeJsonLibrary::execGetJsonFloatArray },
+		{ .NameUTF8 = UTF8TEXT("GetJsonFloatField"), .Pointer = &UWebNativeJsonLibrary::execGetJsonFloatField },
+		{ .NameUTF8 = UTF8TEXT("GetJsonIntArray"), .Pointer = &UWebNativeJsonLibrary::execGetJsonIntArray },
+		{ .NameUTF8 = UTF8TEXT("GetJsonIntField"), .Pointer = &UWebNativeJsonLibrary::execGetJsonIntField },
+		{ .NameUTF8 = UTF8TEXT("GetJsonObjectArray"), .Pointer = &UWebNativeJsonLibrary::execGetJsonObjectArray },
+		{ .NameUTF8 = UTF8TEXT("GetJsonObjectField"), .Pointer = &UWebNativeJsonLibrary::execGetJsonObjectField },
+		{ .NameUTF8 = UTF8TEXT("GetJsonStringArray"), .Pointer = &UWebNativeJsonLibrary::execGetJsonStringArray },
+		{ .NameUTF8 = UTF8TEXT("GetJsonStringField"), .Pointer = &UWebNativeJsonLibrary::execGetJsonStringField },
+		{ .NameUTF8 = UTF8TEXT("HasField"), .Pointer = &UWebNativeJsonLibrary::execHasField },
+		{ .NameUTF8 = UTF8TEXT("JsonObjectToString"), .Pointer = &UWebNativeJsonLibrary::execJsonObjectToString },
+		{ .NameUTF8 = UTF8TEXT("LoadJsonFromString"), .Pointer = &UWebNativeJsonLibrary::execLoadJsonFromString },
+		{ .NameUTF8 = UTF8TEXT("RemoveField"), .Pointer = &UWebNativeJsonLibrary::execRemoveField },
+		{ .NameUTF8 = UTF8TEXT("SetField"), .Pointer = &UWebNativeJsonLibrary::execSetField },
+		{ .NameUTF8 = UTF8TEXT("SetJsonBoolArray"), .Pointer = &UWebNativeJsonLibrary::execSetJsonBoolArray },
+		{ .NameUTF8 = UTF8TEXT("SetJsonBoolField"), .Pointer = &UWebNativeJsonLibrary::execSetJsonBoolField },
+		{ .NameUTF8 = UTF8TEXT("SetJsonFloatArray"), .Pointer = &UWebNativeJsonLibrary::execSetJsonFloatArray },
+		{ .NameUTF8 = UTF8TEXT("SetJsonFloatField"), .Pointer = &UWebNativeJsonLibrary::execSetJsonFloatField },
+		{ .NameUTF8 = UTF8TEXT("SetJsonIntArray"), .Pointer = &UWebNativeJsonLibrary::execSetJsonIntArray },
+		{ .NameUTF8 = UTF8TEXT("SetJsonIntField"), .Pointer = &UWebNativeJsonLibrary::execSetJsonIntField },
+		{ .NameUTF8 = UTF8TEXT("SetJsonObjectArray"), .Pointer = &UWebNativeJsonLibrary::execSetJsonObjectArray },
+		{ .NameUTF8 = UTF8TEXT("SetJsonObjectField"), .Pointer = &UWebNativeJsonLibrary::execSetJsonObjectField },
+		{ .NameUTF8 = UTF8TEXT("SetJsonStringArray"), .Pointer = &UWebNativeJsonLibrary::execSetJsonStringArray },
+		{ .NameUTF8 = UTF8TEXT("SetJsonStringField"), .Pointer = &UWebNativeJsonLibrary::execSetJsonStringField },
+	};
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject, "CreateEmptyJsonObject" }, // 3173813284
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetField, "GetField" }, // 3563902221
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames, "GetFieldNames" }, // 874156015
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray, "GetJsonBoolArray" }, // 676138588
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField, "GetJsonBoolField" }, // 1018172717
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray, "GetJsonFloatArray" }, // 558483530
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField, "GetJsonFloatField" }, // 2221495997
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray, "GetJsonIntArray" }, // 680265858
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField, "GetJsonIntField" }, // 3567694838
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray, "GetJsonObjectArray" }, // 2091288870
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField, "GetJsonObjectField" }, // 3570499188
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray, "GetJsonStringArray" }, // 2373711713
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField, "GetJsonStringField" }, // 3216125478
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_HasField, "HasField" }, // 559694318
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString, "JsonObjectToString" }, // 4236188559
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString, "LoadJsonFromString" }, // 2919095860
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField, "RemoveField" }, // 1997140696
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetField, "SetField" }, // 382571408
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray, "SetJsonBoolArray" }, // 1366234497
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField, "SetJsonBoolField" }, // 2794895844
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray, "SetJsonFloatArray" }, // 1684129331
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField, "SetJsonFloatField" }, // 3155449051
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray, "SetJsonIntArray" }, // 4257689303
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField, "SetJsonIntField" }, // 117442360
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray, "SetJsonObjectArray" }, // 4061424657
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField, "SetJsonObjectField" }, // 1120719794
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray, "SetJsonStringArray" }, // 3687596440
-		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField, "SetJsonStringField" }, // 2989620819
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_CreateEmptyJsonObject, "CreateEmptyJsonObject" }, // 764398722
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetField, "GetField" }, // 2776707209
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetFieldNames, "GetFieldNames" }, // 1783095016
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolArray, "GetJsonBoolArray" }, // 3723585028
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonBoolField, "GetJsonBoolField" }, // 50995139
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatArray, "GetJsonFloatArray" }, // 1378341523
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonFloatField, "GetJsonFloatField" }, // 2198466353
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntArray, "GetJsonIntArray" }, // 3321341267
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonIntField, "GetJsonIntField" }, // 1615834987
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectArray, "GetJsonObjectArray" }, // 3142086492
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonObjectField, "GetJsonObjectField" }, // 2715611858
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringArray, "GetJsonStringArray" }, // 3964498601
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_GetJsonStringField, "GetJsonStringField" }, // 1838897080
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_HasField, "HasField" }, // 1694455692
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_JsonObjectToString, "JsonObjectToString" }, // 243025299
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_LoadJsonFromString, "LoadJsonFromString" }, // 1111684790
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_RemoveField, "RemoveField" }, // 4189777977
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetField, "SetField" }, // 3429842265
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolArray, "SetJsonBoolArray" }, // 212154707
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonBoolField, "SetJsonBoolField" }, // 80457996
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatArray, "SetJsonFloatArray" }, // 3021128576
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonFloatField, "SetJsonFloatField" }, // 4068727824
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntArray, "SetJsonIntArray" }, // 3009506778
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonIntField, "SetJsonIntField" }, // 1633896104
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectArray, "SetJsonObjectArray" }, // 3868080415
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonObjectField, "SetJsonObjectField" }, // 3699092569
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringArray, "SetJsonStringArray" }, // 2020384132
+		{ &Z_Construct_UFunction_UWebNativeJsonLibrary_SetJsonStringField, "SetJsonStringField" }, // 1642088690
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UWebNativeJsonLibrary>::IsAbstract,
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
-};
+}; // struct Z_Construct_UClass_UWebNativeJsonLibrary_Statics
 UObject* (*const Z_Construct_UClass_UWebNativeJsonLibrary_Statics::DependentSingletons[])() = {
 	(UObject* (*)())Z_Construct_UClass_UBlueprintFunctionLibrary,
 	(UObject* (*)())Z_Construct_UPackage__Script_WebNativeBrowserCore,
@@ -2266,6 +2516,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_UWebNativeJsonLibrary_S
 	0x001000A0u,
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UWebNativeJsonLibrary_Statics::Class_MetaDataParams), Z_Construct_UClass_UWebNativeJsonLibrary_Statics::Class_MetaDataParams)
 };
+void UWebNativeJsonLibrary::StaticRegisterNativesUWebNativeJsonLibrary()
+{
+	UClass* Class = UWebNativeJsonLibrary::StaticClass();
+	FNativeFunctionRegistrar::RegisterFunctions(Class, MakeConstArrayView(Z_Construct_UClass_UWebNativeJsonLibrary_Statics::Funcs));
+}
 UClass* Z_Construct_UClass_UWebNativeJsonLibrary()
 {
 	if (!Z_Registration_Info_UClass_UWebNativeJsonLibrary.OuterSingleton)
@@ -2275,21 +2530,23 @@ UClass* Z_Construct_UClass_UWebNativeJsonLibrary()
 	return Z_Registration_Info_UClass_UWebNativeJsonLibrary.OuterSingleton;
 }
 UWebNativeJsonLibrary::UWebNativeJsonLibrary(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
-DEFINE_VTABLE_PTR_HELPER_CTOR(UWebNativeJsonLibrary);
+DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UWebNativeJsonLibrary);
 UWebNativeJsonLibrary::~UWebNativeJsonLibrary() {}
 // ********** End Class UWebNativeJsonLibrary ******************************************************
 
 // ********** Begin Registration *******************************************************************
-struct Z_CompiledInDeferFile_FID_WNFabTmp_56_096ed726_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h__Script_WebNativeBrowserCore_Statics
+struct Z_CompiledInDeferFile_FID_WNFabTmp_57_7c4d5640_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h__Script_WebNativeBrowserCore_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UWebNativeJsonLibrary, UWebNativeJsonLibrary::StaticClass, TEXT("UWebNativeJsonLibrary"), &Z_Registration_Info_UClass_UWebNativeJsonLibrary, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UWebNativeJsonLibrary), 4010307677U) },
+		{ Z_Construct_UClass_UWebNativeJsonLibrary, UWebNativeJsonLibrary::StaticClass, TEXT("UWebNativeJsonLibrary"), &Z_Registration_Info_UClass_UWebNativeJsonLibrary, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UWebNativeJsonLibrary), 1663871781U) },
 	};
-};
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_WNFabTmp_56_096ed726_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h__Script_WebNativeBrowserCore_1164524548(TEXT("/Script/WebNativeBrowserCore"),
-	Z_CompiledInDeferFile_FID_WNFabTmp_56_096ed726_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h__Script_WebNativeBrowserCore_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_WNFabTmp_56_096ed726_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h__Script_WebNativeBrowserCore_Statics::ClassInfo),
+}; // Z_CompiledInDeferFile_FID_WNFabTmp_57_7c4d5640_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h__Script_WebNativeBrowserCore_Statics 
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_WNFabTmp_57_7c4d5640_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h__Script_WebNativeBrowserCore_344904884{
+	TEXT("/Script/WebNativeBrowserCore"),
+	Z_CompiledInDeferFile_FID_WNFabTmp_57_7c4d5640_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h__Script_WebNativeBrowserCore_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_WNFabTmp_57_7c4d5640_HostProject_Plugins_WebNativeBrowser_Source_WebNativeBrowserCore_Public_WebNativeJsonLibrary_h__Script_WebNativeBrowserCore_Statics::ClassInfo),
 	nullptr, 0,
-	nullptr, 0);
+	nullptr, 0,
+};
 // ********** End Registration *********************************************************************
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
