@@ -2,8 +2,11 @@
 
 WebNativeBrowser is a high-performance, enterprise-grade, cross-platform Web UI and Chromium browser solution for Unreal Engine 5, providing a native browser experience on Windows and Linux (x86_64, ARM64). Linux requires a minimum of **GLIBC 2.17**. See [Technical Specifications → Linux Distribution Compatibility](#linux-distribution-compatibility).
 
+> ⚠️ **Do not click "Code → Download ZIP" on GitHub to download the source code**, because that zip does not include Git LFS-managed large files (CEF binaries, precompiled payload), and the plugin will fail to load. Please download the complete plugin package from [Releases](https://github.com/starTechnology1994/uewebbrowser/releases) below, or use `git lfs clone`.
+>
 > **Project homepage & source repository**: <https://github.com/starTechnology1994/uewebbrowser>
 >
+> - Prebuilt plugin downloads: <https://github.com/starTechnology1994/uewebbrowser/releases>
 > - Documentation & Wiki: <https://github.com/starTechnology1994/uewebbrowser/wiki>
 > - Issue tracker: <https://github.com/starTechnology1994/uewebbrowser/issues>
 > - Business contact (licensing, partnership, technical support): **startechnology1994@163.com**
