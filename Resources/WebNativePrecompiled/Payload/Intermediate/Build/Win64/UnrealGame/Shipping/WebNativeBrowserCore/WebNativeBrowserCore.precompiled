@@ -1,0 +1,11 @@
+{
+	"OutputFiles": [
+		"..\\..\\..\\x64\\UnrealGame\\Shipping\\WebNativeBrowserCore\\Module.WebNativeBrowserCore.gen.cpp.obj",
+		"..\\..\\..\\x64\\UnrealGame\\Shipping\\WebNativeBrowserCore\\LicenseManager.cpp.obj",
+		"..\\..\\..\\x64\\UnrealGame\\Shipping\\WebNativeBrowserCore\\SWebNativeBrowser.cpp.obj",
+		"..\\..\\..\\x64\\UnrealGame\\Shipping\\WebNativeBrowserCore\\WebNativeBrowserCoreModule.cpp.obj",
+		"..\\..\\..\\x64\\UnrealGame\\Shipping\\WebNativeBrowserCore\\WebNativeBrowserRHIHelper.cpp.obj",
+		"..\\..\\..\\x64\\UnrealGame\\Shipping\\WebNativeBrowserCore\\WebNativeJsonLibrary.cpp.obj",
+		"..\\..\\..\\x64\\UnrealGame\\Shipping\\WebNativeBrowserCore\\WebNativeLibCppStub.cpp.obj"
+	]
+}
