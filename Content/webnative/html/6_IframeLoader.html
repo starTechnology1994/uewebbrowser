@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iframe Loader - Multi Region</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+  font-size: 12px;
+  color: #e8ecf1;
+  background: #0d1117;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  width: 100vw; height: 100vh;
+  display: flex; flex-direction: column;
+}
+input,textarea{user-select:text;-webkit-user-select:text;}
+
+/* ====== 顶部标题栏 ====== */
+.title-bar {
+  flex-shrink: 0;
+  display: flex; align-items: center; gap: 14px;
+  padding: 10px 16px;
+  background: #161b22;
+  border-bottom: 1px solid #21262d;
+}
+.title-bar h1 {
+  font-size: 15px; font-weight: 700;
+  color: #58a6ff;
+}
+.title-bar .hint {
+  font-size: 11px; color: #8b949e;
+}
+
+/* ====== 2x2 网格 ====== */
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 2px;
+  background: #21262d;
+}
+
+/* ====== 单个区域 ====== */
+.region {
+  display: flex; flex-direction: column;
+  background: #0d1117;
+  overflow: hidden;
+}
+
+/* 区域控制栏 */
+.region-bar {
+  flex-shrink: 0;
+  display: flex; align-items: center; gap: 4px;
+  padding: 4px 6px;
+  background: #161b22;
+  border-bottom: 1px solid #21262d;
+}
+.region-bar .label {
+  font-size: 10px; font-weight: 700; color: #58a6ff;
+  min-width: 18px; text-align: center;
+}
+.region-bar .url-input {
+  flex: 1;
+  padding: 4px 8px;
+  background: #0d1117; border: 1px solid #30363d;
+  border-radius: 4px; color: #e8ecf1;
+  font-size: 10px; font-family: "SF Mono","Consolas",monospace;
+  outline: none; transition: border-color 0.15s;
+}
+.region-bar .url-input:focus { border-color: #58a6ff; }
+.region-bar .url-input::placeholder { color: #484f58; }
+
+.region-bar .btn {
+  padding: 4px 10px; border: 1px solid #30363d;
+  border-radius: 4px; background: #21262d;
+  color: #8b949e; font-size: 10px; font-family: inherit;
+  cursor: pointer; transition: all 0.15s; white-space: nowrap;
+}
+.region-bar .btn:hover { background: #30363d; color: #e8ecf1; }
+.region-bar .btn-go {
+  background: #1f3a5f; border-color: #58a6ff;
+  color: #58a6ff; font-weight: 600;
+}
+.region-bar .btn-go:hover { background: #254d7a; }
+.region-bar .btn-go.loading { opacity: 0.6; pointer-events: none; }
+
+/* 状态灯 */
+.region-bar .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #484f58; flex-shrink: 0;
+}
+.region-bar .dot.loading { background: #f0883e; animation: pulse 0.8s infinite; }
+.region-bar .dot.loaded  { background: #3fb950; }
+.region-bar .dot.error   { background: #f85149; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* Iframe 容器 */
+.iframe-wrap {
+  flex: 1; position: relative; z-index: 0;
+  background: #000; overflow: hidden;
+}
+.iframe-wrap .placeholder {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+.iframe-wrap .placeholder span {
+  font-size: 13px; color: #30363d; letter-spacing: 1px;
+}
+.iframe-wrap iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  border: none; background: #fff;
+}
+</style>
+</head>
+<body>
+
+<!-- ====== 标题栏 ====== -->
+<div class="title-bar">
+  <h1>Iframe Loader</h1>
+  <span class="hint">4 independent regions · Enter URL and click Go</span>
+</div>
+
+<!-- ====== 2x2 网格 ====== -->
+<div class="grid" id="grid"></div>
+
+<script>
+(function() {
+  var DEFAULT_URLS = [
+    'https://cn.bing.com/',
+    'https://www.baidu.com',
+    'https://www.zhihu.com',
+    'https://github.com'
+  ];
+
+  var grid = document.getElementById('grid');
+  var regions = [];
+
+  function ensureProtocol(url) {
+    var t = url.trim();
+    if (!t) return '';
+    if (/^https?:\/\//i.test(t)) return t;
+    if (/^\/\//.test(t)) return 'https:' + t;
+    return 'https://' + t;
+  }
+
+  // ====== 创建 4 个区域 ======
+  for (var i = 0; i < 4; i++) {
+    (function(idx) {
+      // ---- 构建 DOM ----
+      var region = document.createElement('div');
+      region.className = 'region';
+
+      var bar = document.createElement('div');
+      bar.className = 'region-bar';
+
+      var label = document.createElement('span');
+      label.className = 'label';
+      label.textContent = '#' + (idx + 1);
+
+      var dot = document.createElement('span');
+      dot.className = 'dot';
+
+      var input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'url-input';
+      input.placeholder = 'Enter URL...';
+      input.autocomplete = 'off';
+      input.value = DEFAULT_URLS[idx];
+
+      var btn = document.createElement('button');
+      btn.className = 'btn btn-go';
+      btn.textContent = 'Go';
+
+      bar.appendChild(label);
+      bar.appendChild(dot);
+      bar.appendChild(input);
+      bar.appendChild(btn);
+
+      var wrap = document.createElement('div');
+      wrap.className = 'iframe-wrap';
+
+      var ph = document.createElement('div');
+      ph.className = 'placeholder';
+      var phText = document.createElement('span');
+      phText.textContent = 'Region #' + (idx + 1) + ' — Enter URL';
+      ph.appendChild(phText);
+
+      var frame = document.createElement('iframe');
+      frame.allow = 'autoplay; fullscreen; picture-in-picture';
+      frame.allowFullscreen = true;
+      frame.style.display = 'none';
+
+      wrap.appendChild(ph);
+      wrap.appendChild(frame);
+      region.appendChild(bar);
+      region.appendChild(wrap);
+
+      grid.appendChild(region);
+
+      // ---- 保存引用 ----
+      var regionState = {
+        dot: dot, input: input, btn: btn,
+        frame: frame, ph: ph,
+        loading: false
+      };
+      regions.push(regionState);
+
+      // ---- 加载 ----
+      function doLoad() {
+        var raw = input.value.trim();
+        if (!raw) return;
+        var url = ensureProtocol(raw);
+        input.value = url;
+
+        regionState.loading = true;
+        dot.className = 'dot loading';
+        btn.textContent = '...';
+        btn.classList.add('loading');
+
+        frame.style.display = 'none';
+        ph.style.display = 'none';
+
+        var loadTimer = setTimeout(function() {
+          frame.src = url;
+          frame.style.display = 'block';
+        }, 100);
+
+        // load 事件
+        frame.onload = function() {
+          regionState.loading = false;
+          dot.className = 'dot loaded';
+          btn.textContent = 'Go';
+          btn.classList.remove('loading');
+          ph.style.display = 'none';
+        };
+
+        frame.onerror = function() {
+          regionState.loading = false;
+          dot.className = 'dot error';
+          btn.textContent = 'Go';
+          btn.classList.remove('loading');
+          ph.style.display = 'flex';
+          phText.textContent = 'Failed to load';
+        };
+      }
+
+      // ---- 事件 ----
+      btn.addEventListener('click', doLoad);
+      input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') { e.preventDefault(); doLoad(); }
+      });
+
+    })(i);
+  }
+
+  // ====== 禁止浏览器快捷键（仅在父页面生效，不影响iframe内输入） ======
+  document.addEventListener('keydown', function(e) {
+    // 焦点在 iframe 内时不拦截，保证 iframe 内键盘输入正常
+    if (document.activeElement && document.activeElement.tagName === 'IFRAME') return;
+    // 焦点在父页面输入框时不拦截
+    if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) return;
+
+    var blocked = false;
+    if (e.ctrlKey || e.metaKey) {
+      var bk = ['KeyT','KeyN','KeyW','KeyR','KeyF','KeyH','KeyJ','KeyO',
+                'KeyP','KeyS','KeyU','KeyD','KeyQ','KeyL'];
+      if (bk.indexOf(e.code) !== -1) blocked = true;
+    }
+    if (e.altKey && !e.ctrlKey) blocked = true;
+    if (e.code === 'F5' || e.code === 'F11' || e.code === 'F12') blocked = true;
+    if (blocked) { e.preventDefault(); e.stopPropagation(); }
+  });
+  document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+
+  // ====== UE 消息 ======
+  if (window.WebNative && window.WebNative.send) {
+    window.WebNative.send('IframeLoaderReady', JSON.stringify({ time: Date.now() }));
+  }
+
+  if (window.WebNative && window.WebNative.on) {
+    window.WebNative.on('LoadIframeUrl', function(body) {
+      var data = typeof body === 'string' ? JSON.parse(body) : body;
+      if (data.url !== undefined && data.region !== undefined) {
+        var r = regions[data.region];
+        if (r) {
+          r.input.value = data.url;
+          r.btn.click();
+        }
+      }
+    });
+  }
+
+  // 暴露 API
+  window.loadRegion = function(regionIdx, url) {
+    var r = regions[regionIdx];
+    if (r) { r.input.value = url; r.btn.click(); }
+  };
+
+  window.getRegions = function() { return regions; };
+
+})();
+</script>
+
+</body>
+</html>
