@@ -1,7 +1,7 @@
 {
     "FormatVersion":  1,
     "PayloadFiles":  76,
-    "PayloadBytes":  171332897,
+    "PayloadBytes":  171332893,
     "Files":  [
                   {
                       "Path":  "Binaries/Win64/UnrealEditor-WebNativeBrowserCore.dll",
@@ -233,7 +233,7 @@
                   },
                   {
                       "Path":  "Intermediate/Build/Win64/UnrealGame/Development/WebNativeBrowserCore/WebNativeBrowserCoreModule.cpp.obj",
-                      "Bytes":  14613148
+                      "Bytes":  14613144
                   },
                   {
                       "Path":  "Intermediate/Build/Win64/UnrealGame/Development/WebNativeBrowserCore/WebNativeBrowserRHIHelper.cpp.obj",
