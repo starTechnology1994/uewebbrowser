@@ -1,6 +1,8 @@
-*.so filter=lfs diff=lfs merge=lfs -text
-*.dll filter=lfs diff=lfs merge=lfs -text
-*.pak filter=lfs diff=lfs merge=lfs -text
-*.bin filter=lfs diff=lfs merge=lfs -text
-*.lib filter=lfs diff=lfs merge=lfs -text
-v8_context_snapshot_generator filter=lfs diff=lfs merge=lfs -text
+Source/ThirdParty/CEF/**/*.so filter=lfs diff=lfs merge=lfs -text
+Source/ThirdParty/CEF/**/*.dll filter=lfs diff=lfs merge=lfs -text
+Source/ThirdParty/CEF/**/lib/*.lib filter=lfs diff=lfs merge=lfs -text
+Source/ThirdParty/CEF/**/v8_context_snapshot_generator filter=lfs diff=lfs merge=lfs -text
+Source/ThirdParty/CEF/**/*.bin filter=lfs diff=lfs merge=lfs -text
+Source/ThirdParty/CEF/**/*.dat filter=lfs diff=lfs merge=lfs -text
+Source/ThirdParty/CEF/**/chrome_*.pak filter=lfs diff=lfs merge=lfs -text
+Source/ThirdParty/CEF/**/headless_command_resources.pak filter=lfs diff=lfs merge=lfs -text
