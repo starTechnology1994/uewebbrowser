@@ -10,7 +10,7 @@
     "DocsURL":  "https://github.com/starTechnology1994/uewebbrowser/wiki",
     "MarketplaceURL":  "",
     "SupportURL":  "https://github.com/starTechnology1994/uewebbrowser/issues",
-    "EngineVersion":  "5.6.0",
+    "EngineVersion":  "5.8.0",
     "CanContainContent":  true,
     "Installed":  true,
     "SupportedTargetPlatforms":  [
@@ -40,17 +40,32 @@
                     {
                         "Name":  "WebNativeBrowserCore",
                         "Type":  "Runtime",
-                        "LoadingPhase":  "Default"
+                        "LoadingPhase":  "Default",
+                        "PlatformAllowList":  [
+                                                  "Win64",
+                                                  "Linux",
+                                                  "LinuxArm64"
+                                              ]
                     },
                     {
                         "Name":  "WebNativeBrowser",
                         "Type":  "Runtime",
-                        "LoadingPhase":  "Default"
+                        "LoadingPhase":  "Default",
+                        "PlatformAllowList":  [
+                                                  "Win64",
+                                                  "Linux",
+                                                  "LinuxArm64"
+                                              ]
                     },
                     {
                         "Name":  "WebNativeBrowserEditor",
                         "Type":  "Editor",
-                        "LoadingPhase":  "PostEngineInit"
+                        "LoadingPhase":  "PostEngineInit",
+                        "PlatformAllowList":  [
+                                                  "Win64",
+                                                  "Linux",
+                                                  "LinuxArm64"
+                                              ]
                     }
                 ]
 }
