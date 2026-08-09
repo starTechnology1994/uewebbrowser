@@ -1,3 +1,4 @@
+# CEF large binaries - tracked with Git LFS
 Source/ThirdParty/CEF/**/*.so filter=lfs diff=lfs merge=lfs -text
 Source/ThirdParty/CEF/**/*.dll filter=lfs diff=lfs merge=lfs -text
 Source/ThirdParty/CEF/**/lib/*.lib filter=lfs diff=lfs merge=lfs -text
