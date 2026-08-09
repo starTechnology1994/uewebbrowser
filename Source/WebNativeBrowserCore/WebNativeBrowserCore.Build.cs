@@ -111,6 +111,19 @@ public class WebNativeBrowserCore : ModuleRules
 				continue;
 			}
 
+			// Fab 会递归过滤 Binaries/ 和 Intermediate/ 目录名（即便在 Payload 下）。
+			// 构建脚本将它们重命名为 Bin/ 和 Int/；在这里映射回 UE 期望的原始名称。
+			if (RelativePath.StartsWith("Bin" + Path.DirectorySeparatorChar) ||
+			    RelativePath.StartsWith("Bin" + Path.AltDirectorySeparatorChar))
+			{
+				RelativePath = "Binaries" + RelativePath.Substring(3);
+			}
+			else if (RelativePath.StartsWith("Int" + Path.DirectorySeparatorChar) ||
+			         RelativePath.StartsWith("Int" + Path.AltDirectorySeparatorChar))
+			{
+				RelativePath = "Intermediate" + RelativePath.Substring(3);
+			}
+
 			string Destination = Path.Combine(PluginDirectory, RelativePath);
 			if (!ProtectedFilesMatch(Source, Destination))
 			{
