@@ -6,6 +6,7 @@ WebNativeBrowser is a high-performance, enterprise-grade, cross-platform Web UI 
 >
 > - Prebuilt plugin downloads: <https://github.com/starTechnology1994/uewebbrowser/releases>
 > - Documentation & Wiki: <https://github.com/starTechnology1994/uewebbrowser/wiki>
+> - Bilibili video tutorials: <https://space.bilibili.com/3546688536971381>
 > - Issue tracker: <https://github.com/starTechnology1994/uewebbrowser/issues>
 > - Business contact (licensing, partnership, technical support): **startechnology1994@163.com**
 >
