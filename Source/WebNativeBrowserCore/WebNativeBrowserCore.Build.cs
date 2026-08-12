@@ -228,8 +228,8 @@ public class WebNativeBrowserCore : ModuleRules
 			string ProjectRoot = Target.ProjectFile != null
 				? Target.ProjectFile.Directory.FullName
 				: Path.GetFullPath(Path.Combine(PluginDirectory, "..", ".."));
-			string ProjectHelper = Path.Combine(ProjectRoot, "Binaries", "Win64", "WebNativeBrowserHelper.exe");
-			string RuntimeHelper = Path.Combine(CefRuntime, "WebNativeBrowserHelper.exe");
+			string ProjectHelper = Path.Combine(ProjectRoot, "Binaries", "Win64", "WebNativeBrowserHelper.bin");
+			string RuntimeHelper = Path.Combine(CefRuntime, "WebNativeBrowserHelper.bin");
 
 			PrivateDependencyModuleNames.AddRange(new[]
 			{
@@ -256,7 +256,7 @@ public class WebNativeBrowserCore : ModuleRules
 			// to Binaries/ThirdParty/CEF/Win64/ (same pattern as Linux).
 			// Using Source/ as the staging source avoids FilePatternException
 			// (source != dest), which would occur if we used Binaries/ as source.
-			// Skip libcef.lib, debug.log, bootstrap.exe, bootstrapc.exe —
+			// Skip libcef.lib and debug.log —
 			// none of these are needed at runtime.
 			string CefStageSource = CefRoot;
 			if (Directory.Exists(CefStageSource))
@@ -264,7 +264,7 @@ public class WebNativeBrowserCore : ModuleRules
 				// Top-level runtime files (DLLs, dat, bin, pak, json, exe)
 				string[] StageTopFiles = new[]
 				{
-					"WebNativeBrowserHelper.exe",
+					"WebNativeBrowserHelper.bin",
 					"libcef_wn.dll",
 					"chrome_elf.dll",
 					"d3dcompiler_47.dll",
@@ -309,7 +309,7 @@ public class WebNativeBrowserCore : ModuleRules
 			if (File.Exists(ProjectHelper))
 			{
 				RuntimeDependencies.Add(
-					"$(PluginDir)/Binaries/ThirdParty/CEF/Win64/WebNativeBrowserHelper.exe",
+					"$(PluginDir)/Binaries/ThirdParty/CEF/Win64/WebNativeBrowserHelper.bin",
 					ProjectHelper,
 					StagedFileType.NonUFS);
 			}
@@ -319,7 +319,7 @@ public class WebNativeBrowserCore : ModuleRules
 			}
 			else
 			{
-				System.Console.WriteLine("WARNING: WebNativeBrowserHelper.exe not found. CEF subprocess will not be included in packaged builds.");
+				System.Console.WriteLine("WARNING: WebNativeBrowserHelper.bin not found. CEF subprocess will not be included in packaged builds.");
 			}
 		}
 		else if (Target.Platform == UnrealTargetPlatform.Linux || Target.Platform == UnrealTargetPlatform.LinuxArm64)
