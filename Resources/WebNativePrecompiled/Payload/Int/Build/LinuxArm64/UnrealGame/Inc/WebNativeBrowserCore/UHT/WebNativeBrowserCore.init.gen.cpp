@@ -18,7 +18,7 @@ static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compi
 			nullptr,
 			0,
 			PKG_CompiledIn | 0x00000000,
-			0xF6C436E6,
+			0x8A16CE2D,
 			0xEEE011FD,
 			METADATA_PARAMS(0, nullptr)
 		};
@@ -26,5 +26,5 @@ static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compi
 	}
 	return Z_Registration_Info_UPackage__Script_WebNativeBrowserCore.OuterSingleton;
 }
-static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_WebNativeBrowserCore(Z_Construct_UPackage__Script_WebNativeBrowserCore, TEXT("/Script/WebNativeBrowserCore"), Z_Registration_Info_UPackage__Script_WebNativeBrowserCore, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0xF6C436E6, 0xEEE011FD));
+static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_WebNativeBrowserCore(Z_Construct_UPackage__Script_WebNativeBrowserCore, TEXT("/Script/WebNativeBrowserCore"), Z_Registration_Info_UPackage__Script_WebNativeBrowserCore, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x8A16CE2D, 0xEEE011FD));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
