@@ -1,11 +1,11 @@
 {
     "FormatVersion":  1,
     "PayloadFiles":  76,
-    "PayloadBytes":  171332893,
+    "PayloadBytes":  181724812,
     "Files":  [
                   {
                       "Path":  "Binaries/Win64/UnrealEditor-WebNativeBrowserCore.dll",
-                      "Bytes":  1538048
+                      "Bytes":  1590784
                   },
                   {
                       "Path":  "Intermediate/Build/Linux/B4D820EA/UnrealGame/Development/WebNativeBrowserCore/LicenseManager.cpp.o",
@@ -13,7 +13,7 @@
                   },
                   {
                       "Path":  "Intermediate/Build/Linux/B4D820EA/UnrealGame/Development/WebNativeBrowserCore/SWebNativeBrowser.cpp.o",
-                      "Bytes":  7467312
+                      "Bytes":  8330952
                   },
                   {
                       "Path":  "Intermediate/Build/Linux/B4D820EA/UnrealGame/Development/WebNativeBrowserCore/WebNativeBrowserCore.init.gen.cpp.o",
@@ -25,7 +25,7 @@
                   },
                   {
                       "Path":  "Intermediate/Build/Linux/B4D820EA/UnrealGame/Development/WebNativeBrowserCore/WebNativeBrowserCoreModule.cpp.o",
-                      "Bytes":  2487248
+                      "Bytes":  2650392
                   },
                   {
                       "Path":  "Intermediate/Build/Linux/B4D820EA/UnrealGame/Development/WebNativeBrowserCore/WebNativeBrowserRHIHelper.cpp.o",
@@ -69,7 +69,7 @@
                   },
                   {
                       "Path":  "Intermediate/Build/Linux/B4D820EA/UnrealGame/Shipping/WebNativeBrowserCore/SWebNativeBrowser.cpp.o",
-                      "Bytes":  6482392
+                      "Bytes":  7215968
                   },
                   {
                       "Path":  "Intermediate/Build/Linux/B4D820EA/UnrealGame/Shipping/WebNativeBrowserCore/WebNativeBrowserCore.init.gen.cpp.o",
@@ -81,7 +81,7 @@
                   },
                   {
                       "Path":  "Intermediate/Build/Linux/B4D820EA/UnrealGame/Shipping/WebNativeBrowserCore/WebNativeBrowserCoreModule.cpp.o",
-                      "Bytes":  2118048
+                      "Bytes":  2280864
                   },
                   {
                       "Path":  "Intermediate/Build/Linux/B4D820EA/UnrealGame/Shipping/WebNativeBrowserCore/WebNativeBrowserRHIHelper.cpp.o",
@@ -105,7 +105,7 @@
                   },
                   {
                       "Path":  "Intermediate/Build/LinuxArm64/93821A52/UnrealGame/Development/WebNativeBrowserCore/SWebNativeBrowser.cpp.o",
-                      "Bytes":  8154712
+                      "Bytes":  9105720
                   },
                   {
                       "Path":  "Intermediate/Build/LinuxArm64/93821A52/UnrealGame/Development/WebNativeBrowserCore/WebNativeBrowserCore.init.gen.cpp.o",
@@ -117,7 +117,7 @@
                   },
                   {
                       "Path":  "Intermediate/Build/LinuxArm64/93821A52/UnrealGame/Development/WebNativeBrowserCore/WebNativeBrowserCoreModule.cpp.o",
-                      "Bytes":  2689160
+                      "Bytes":  2854048
                   },
                   {
                       "Path":  "Intermediate/Build/LinuxArm64/93821A52/UnrealGame/Development/WebNativeBrowserCore/WebNativeBrowserRHIHelper.cpp.o",
@@ -161,7 +161,7 @@
                   },
                   {
                       "Path":  "Intermediate/Build/LinuxArm64/93821A52/UnrealGame/Shipping/WebNativeBrowserCore/SWebNativeBrowser.cpp.o",
-                      "Bytes":  7068200
+                      "Bytes":  7932736
                   },
                   {
                       "Path":  "Intermediate/Build/LinuxArm64/93821A52/UnrealGame/Shipping/WebNativeBrowserCore/WebNativeBrowserCore.init.gen.cpp.o",
@@ -173,7 +173,7 @@
                   },
                   {
                       "Path":  "Intermediate/Build/LinuxArm64/93821A52/UnrealGame/Shipping/WebNativeBrowserCore/WebNativeBrowserCoreModule.cpp.o",
-                      "Bytes":  2271520
+                      "Bytes":  2436024
                   },
                   {
                       "Path":  "Intermediate/Build/LinuxArm64/93821A52/UnrealGame/Shipping/WebNativeBrowserCore/WebNativeBrowserRHIHelper.cpp.o",
@@ -221,7 +221,7 @@
                   },
                   {
                       "Path":  "Intermediate/Build/Win64/UnrealGame/Development/WebNativeBrowserCore/SWebNativeBrowser.cpp.obj",
-                      "Bytes":  17840246
+                      "Bytes":  20982684
                   },
                   {
                       "Path":  "Intermediate/Build/Win64/UnrealGame/Development/WebNativeBrowserCore/WebNativeBrowserCore.init.gen.cpp.obj",
@@ -233,7 +233,7 @@
                   },
                   {
                       "Path":  "Intermediate/Build/Win64/UnrealGame/Development/WebNativeBrowserCore/WebNativeBrowserCoreModule.cpp.obj",
-                      "Bytes":  14613144
+                      "Bytes":  14710485
                   },
                   {
                       "Path":  "Intermediate/Build/Win64/UnrealGame/Development/WebNativeBrowserCore/WebNativeBrowserRHIHelper.cpp.obj",
@@ -277,7 +277,7 @@
                   },
                   {
                       "Path":  "Intermediate/Build/Win64/UnrealGame/Shipping/WebNativeBrowserCore/SWebNativeBrowser.cpp.obj",
-                      "Bytes":  16239496
+                      "Bytes":  19175407
                   },
                   {
                       "Path":  "Intermediate/Build/Win64/UnrealGame/Shipping/WebNativeBrowserCore/WebNativeBrowserCore.init.gen.cpp.obj",
@@ -289,7 +289,7 @@
                   },
                   {
                       "Path":  "Intermediate/Build/Win64/UnrealGame/Shipping/WebNativeBrowserCore/WebNativeBrowserCoreModule.cpp.obj",
-                      "Bytes":  13608549
+                      "Bytes":  13703930
                   },
                   {
                       "Path":  "Intermediate/Build/Win64/UnrealGame/Shipping/WebNativeBrowserCore/WebNativeBrowserRHIHelper.cpp.obj",

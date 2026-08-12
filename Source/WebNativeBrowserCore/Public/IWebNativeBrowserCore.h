@@ -7,6 +7,8 @@
 #include "Modules/ModuleManager.h"
 #include "Widgets/SWidget.h"
 
+class APlayerController;
+
 DECLARE_DELEGATE_TwoParams(FWebNativeBrowserNativeMessageDelegate, const FString& /*FunctionName*/, const FString& /*MessageBody*/);
 DECLARE_DELEGATE_ThreeParams(FWebNativeBrowserLoadStateDelegate, bool /*bIsLoading*/, bool /*bCanGoBack*/, bool /*bCanGoForward*/);
 DECLARE_DELEGATE_OneParam(FWebNativeBrowserUrlChangedDelegate, const FString& /*URL*/);
@@ -85,6 +87,7 @@ struct FWebNativeBrowserViewArgs
 	FWebNativeBrowserUrlChangedDelegate OnUrlChanged;
 	FWebNativeBrowserBeforePopupDelegate OnBeforePopup;
 	FWebNativeBrowserLoadEndDelegate OnLoadEnd;
+	bool bUse3DWidgetComponentMode = false;
 };
 
 class WEBNATIVEBROWSERCORE_API IWebNativeBrowserView
@@ -108,6 +111,8 @@ public:
 	virtual void SetRenderOptions(bool bUseGpuAcceleratedRendering, bool bAllowCpuRenderFallback) = 0;
 	virtual void SetAcceptsInput(bool bAcceptsInput) = 0;
 	virtual void SetAutoFocusOnMouseDown(bool bAutoFocusOnMouseDown) = 0;
+	virtual void SetUse3DWidgetComponentMode(bool bEnabled) = 0;
+	virtual void SetTransparentScenePrimitiveEvents(bool bEnabled, APlayerController* OwningPlayer) = 0;
 	virtual void SetMouseTransparency(bool bEnableMouseTransparency, int32 AlphaThreshold, int32 MaskBlockSize) = 0;
 	virtual void SetAutoResizeToWidget(bool bAutoResizeToWidget) = 0;
 	virtual void SetMessageDispatchBudgetPerFrame(int32 MessageDispatchBudgetPerFrame) = 0;

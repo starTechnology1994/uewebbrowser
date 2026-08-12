@@ -45,6 +45,20 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WebNative|Input")
 	bool bAutoFocusOnMouseDown = true;
 
+	/** Enable this when the browser is hosted by a world-space UWidgetComponent.
+	 *  In this mode UE's 3D hit tester owns pointer routing, so the browser does
+	 *  not apply the 2D fullscreen alpha pass-through path. */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WebNative|Input", meta = (DisplayName = "Use 3D Widget Component Mode"))
+	bool bUse3DWidgetComponentMode = false;
+
+	/**
+	 * Explicitly bridge the UE scene Primitive events under confirmed transparent
+	 * pixels: Begin/End Cursor Over, Clicked and Released. Disabled by default.
+	 * This does not provide pass-through to UMG widgets below the browser.
+	 */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WebNative|Input", meta = (DisplayName = "Enable Transparent Scene Primitive Events", EditCondition = "bEnableMouseTransparency"))
+	bool bEnableTransparentScenePrimitiveEvents = false;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WebNative|Input")
 	bool bEnableMouseTransparency = true;
 
@@ -126,6 +140,14 @@ public:
 	/** 设置是否将UE场景的键盘事件转发给CEF（撤销重做等场景） */
 	UFUNCTION(BlueprintCallable, Category = "WebNative|Input")
 	void SetForwardUEKeyEvents(bool bEnabled);
+
+	/** Switch input routing for a browser hosted by a world-space UWidgetComponent. */
+	UFUNCTION(BlueprintCallable, Category = "WebNative|Input")
+	void SetUse3DWidgetComponentMode(bool bEnabled);
+
+	/** Enable or disable the opt-in transparent-pixel UE scene Primitive event bridge. */
+	UFUNCTION(BlueprintCallable, Category = "WebNative|Input")
+	void SetTransparentScenePrimitiveEventsEnabled(bool bEnabled);
 
 	/** 从平台层直接获取光标屏幕坐标（绕过Slate/CEF事件管道，零延迟） */
 	UFUNCTION(BlueprintCallable, Category = "WebNative|Input")

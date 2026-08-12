@@ -152,6 +152,24 @@ void UWebNativeBrowserWidget::SetForwardUEKeyEvents(bool bEnabled)
 	}
 }
 
+void UWebNativeBrowserWidget::SetUse3DWidgetComponentMode(bool bEnabled)
+{
+	bUse3DWidgetComponentMode = bEnabled;
+	if (WebView.IsValid())
+	{
+		WebView->SetUse3DWidgetComponentMode(bEnabled);
+	}
+}
+
+void UWebNativeBrowserWidget::SetTransparentScenePrimitiveEventsEnabled(bool bEnabled)
+{
+	bEnableTransparentScenePrimitiveEvents = bEnabled;
+	if (WebView.IsValid())
+	{
+		WebView->SetTransparentScenePrimitiveEvents(bEnabled, GetOwningPlayer());
+	}
+}
+
 bool UWebNativeBrowserWidget::GetRawPlatformCursorPos(FVector2D& OutScreenPos) const
 {
 	// Slate 层直接读取平台光标,绕过 CEF 事件管道
@@ -195,32 +213,54 @@ void UWebNativeBrowserWidget::SynchronizeProperties()
 {
 	Super::SynchronizeProperties();
 
-	if (WebView.IsValid())
+	// Keep a local strong reference because applying the bridge setting may
+	// synchronously dispatch balanced gameplay callbacks. A Blueprint callback
+	// is allowed to remove this UWidget and clear the member WebView.
+	TSharedPtr<IWebNativeBrowserView> View = WebView;
+	if (View.IsValid())
 	{
 		const FWebNativeBrowserRuntimeOptions& RuntimeOptions = IWebNativeBrowserCoreModule::Get().GetRuntimeOptions();
 
 		if (InitialURL != LastAppliedInitialURL)
 		{
 			LastAppliedInitialURL = InitialURL;
-			WebView->LoadURL(InitialURL);
+			View->LoadURL(InitialURL);
 		}
 
 		if (!bAutoResizeToWidget)
 		{
-			WebView->SetViewSize(ViewSize);
+			View->SetViewSize(ViewSize);
 		}
-		WebView->SetRenderOptions(bUseGpuAcceleratedRendering && !RuntimeOptions.bOffGpu, bAllowCpuRenderFallback);
-		WebView->SetAcceptsInput(bAcceptsInput);
-		WebView->SetAutoFocusOnMouseDown(bAutoFocusOnMouseDown);
-		WebView->SetMouseTransparency(bEnableMouseTransparency, MouseTransparencyAlphaThreshold, MouseTransparencyMaskBlockSize);
-		WebView->SetAutoResizeToWidget(bAutoResizeToWidget);
-		WebView->SetMessageDispatchBudgetPerFrame(MessageDispatchBudgetPerFrame);
-		WebView->SetForwardUEKeyEvents(bForwardUEKeyEvents);
-		WebView->SetOnMessage(BIND_UOBJECT_DELEGATE(FWebNativeBrowserNativeMessageDelegate, HandleSlateMessage));
-		WebView->SetOnLoadStateChanged(BIND_UOBJECT_DELEGATE(FWebNativeBrowserLoadStateDelegate, HandleSlateLoadStateChanged));
-		WebView->SetOnUrlChanged(BIND_UOBJECT_DELEGATE(FWebNativeBrowserUrlChangedDelegate, HandleSlateUrlChanged));
-		WebView->SetOnBeforePopup(BIND_UOBJECT_DELEGATE(FWebNativeBrowserBeforePopupDelegate, HandleSlateBeforePopup));
-		WebView->SetOnLoadEnd(BIND_UOBJECT_DELEGATE(FWebNativeBrowserLoadEndDelegate, HandleSlateLoadEnd));
+		View->SetRenderOptions(bUseGpuAcceleratedRendering && !RuntimeOptions.bOffGpu, bAllowCpuRenderFallback);
+		View->SetAcceptsInput(bAcceptsInput);
+		if (WebView != View)
+		{
+			return;
+		}
+		View->SetAutoFocusOnMouseDown(bAutoFocusOnMouseDown);
+		View->SetUse3DWidgetComponentMode(bUse3DWidgetComponentMode);
+		if (WebView != View)
+		{
+			return;
+		}
+		View->SetTransparentScenePrimitiveEvents(bEnableTransparentScenePrimitiveEvents, GetOwningPlayer());
+		if (WebView != View)
+		{
+			return;
+		}
+		View->SetMouseTransparency(bEnableMouseTransparency, MouseTransparencyAlphaThreshold, MouseTransparencyMaskBlockSize);
+		if (WebView != View)
+		{
+			return;
+		}
+		View->SetAutoResizeToWidget(bAutoResizeToWidget);
+		View->SetMessageDispatchBudgetPerFrame(MessageDispatchBudgetPerFrame);
+		View->SetForwardUEKeyEvents(bForwardUEKeyEvents);
+		View->SetOnMessage(BIND_UOBJECT_DELEGATE(FWebNativeBrowserNativeMessageDelegate, HandleSlateMessage));
+		View->SetOnLoadStateChanged(BIND_UOBJECT_DELEGATE(FWebNativeBrowserLoadStateDelegate, HandleSlateLoadStateChanged));
+		View->SetOnUrlChanged(BIND_UOBJECT_DELEGATE(FWebNativeBrowserUrlChangedDelegate, HandleSlateUrlChanged));
+		View->SetOnBeforePopup(BIND_UOBJECT_DELEGATE(FWebNativeBrowserBeforePopupDelegate, HandleSlateBeforePopup));
+		View->SetOnLoadEnd(BIND_UOBJECT_DELEGATE(FWebNativeBrowserLoadEndDelegate, HandleSlateLoadEnd));
 	}
 }
 
@@ -248,6 +288,7 @@ TSharedRef<SWidget> UWebNativeBrowserWidget::RebuildWidget()
 	Args.bShowDownloadNotification = RuntimeOptions.bShowDownloadNotification;
 	Args.bAcceptsInput = bAcceptsInput;
 	Args.bAutoFocusOnMouseDown = bAutoFocusOnMouseDown;
+	Args.bUse3DWidgetComponentMode = bUse3DWidgetComponentMode;
 	Args.bEnableMouseTransparency = bEnableMouseTransparency;
 	Args.MouseTransparencyAlphaThreshold = MouseTransparencyAlphaThreshold;
 	Args.MouseTransparencyMaskBlockSize = MouseTransparencyMaskBlockSize;
@@ -262,6 +303,7 @@ TSharedRef<SWidget> UWebNativeBrowserWidget::RebuildWidget()
 	Args.OnLoadEnd = BIND_UOBJECT_DELEGATE(FWebNativeBrowserLoadEndDelegate, HandleSlateLoadEnd);
 
 	WebView = CoreModule.CreateBrowserView(Args);
+	WebView->SetTransparentScenePrimitiveEvents(bEnableTransparentScenePrimitiveEvents, GetOwningPlayer());
 	return WebView->GetSlateWidget();
 }
 
@@ -269,10 +311,12 @@ void UWebNativeBrowserWidget::ReleaseSlateResources(bool bReleaseChildren)
 {
 	Super::ReleaseSlateResources(bReleaseChildren);
 
-	if (WebView.IsValid())
+	TSharedPtr<IWebNativeBrowserView> View = WebView;
+	WebView.Reset();
+	if (View.IsValid())
 	{
-		WebView->CloseBrowser();
-		WebView.Reset();
+		View->SetTransparentScenePrimitiveEvents(false, nullptr);
+		View->CloseBrowser();
 	}
 }
 
