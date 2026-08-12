@@ -583,8 +583,15 @@ Mouse events over transparent areas of the web page pass through to the UE scene
 | Property                           | Value | Description                            |
 | ---------------------------------- | ----- | -------------------------------------- |
 | bEnableMouseTransparency           | true  | Enable transparent hit-through         |
-| MouseTransparencyAlphaThreshold    | 0-255 | Alpha threshold; below this value passes through |
-| MouseTransparencyMaskBlockSize     | 1-8   | Transparent mask block size (performance / precision trade-off) |
+| MouseTransparencyAlphaThreshold    | 0-255 | Pixels with Alpha less than or equal to this value pass through |
+| MouseTransparencyMaskBlockSize     | 1-16  | Transparent mask block size (performance / precision trade-off) |
+
+#### Transparent Scene Primitive Event Bridge (Optional)
+
+| Property | Value | Description |
+| ---------------------------------- | ----- | -------------------------------------- |
+| `Use 3D Widget Component Mode`     | false | Enable when the WebView is hosted by a world-space UWidgetComponent; pointer routing is handed to UE's 3D hit testing |
+| `Enable Transparent Scene Primitive Events` | false | Bridges Begin/End Cursor Over, Clicked and Released of scene Actors/UPrimitiveComponents at transparent pixels of the fullscreen WebUI (explicitly enable it via `SetTransparentScenePrimitiveEventsEnabled(true)`) |
 
 ## Configuration Reference
 
