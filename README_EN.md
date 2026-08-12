@@ -132,49 +132,9 @@ WebNativeBrowser is especially suited to digital twins: let mature web technolog
 3. Drag in a **WebNative Browser** widget from the UI widget library
 4. Set `InitialURL` to load a web page
 
-### Licensing Process
+### Licensing
 
-The plugin uses a license file mechanism; the editor environment requires a valid license to use:
-
-| Step | Operation                                                                                                                                   |
-| ---- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1    | Run the editor once; the plugin automatically generates a `计算机名_用户名_machine_id.dat` machine code file in `Saved/licenses/` |
-| 2    | Send the machine code file to the licensor to obtain a `.license` file                                                             |
-| 3    | Put the `.license` file into the plugin's `Content/webnative/licenses/` directory, then restart the editor                                |
-
-> **The `.license` location must match where the plugin is installed**; the plugin locates it automatically, and both of the following locations are supported:
->
-> - **Project-level install**: `<Project>/Plugins/WebNativeBrowser/Content/webnative/licenses/`
-> - **Engine-level install (default for Fab Marketplace downloads)**: `<UE Engine Root>/Engine/Plugins/Marketplace/WebNativeBrowser/Content/webnative/licenses/`
->
-> The plugin resolves its own Content directory via `IPluginManager`, so it finds the license file whether the plugin is installed under the project or the engine — no configuration changes are required.
-
-*When packaging, the `.license` file is staged as a physical (NonUFS) file into the plugin's `Content/webnative/licenses/` at the target location (not inside the .pak), so customers can replace it at any time to change or renew the license.
-*To renew a packaged application, simply place the `.license` file into `<Project>/Saved/licenses/` — no repackaging is required (`Saved/licenses/` takes the highest priority and is used for per-machine licensing and renewal).
-
-### Pricing
-
-WebNativeBrowser is positioned as a high-performance, enterprise-grade cross-platform Web UI and Chromium browser solution for Unreal Engine 5, offering two standard license tiers (Individual and Commercial):
-
-| License Type | 1-Year License | 10-Year License | Usage Scope                                     |
-| ------------ | -------------: | --------------: | ----------------------------------------------- |
-| Individual   | 1,000 RMB      | 8,000 RMB       | Purchaser only                                  |
-| Commercial   | 2,000 RMB      | 15,000 RMB      | Unlimited people, devices and projects within the same legal entity |
-
-**License Notes:**
-
-- **Individual**: For use by the purchaser only, in their own independently developed commercial or non-commercial projects. Not for companies, studios, or multi-person teams. The license file cannot be transferred, resold, or shared.
-- **Commercial**: Purchased in the name of a single legal entity. Unlimited projects, unlimited users, multi-device support, and end-application distribution within that entity. "Unlimited users" does not automatically cover parent companies, subsidiaries, affiliated companies, outsourcers, or client teams. Compliant invoices can be issued per official sales policy.
-- **10-Year License**: 120 consecutive months from activation, covering the corresponding version's usage rights, applicable updates, and standard technical support during the term. It is not a source-code license and does not represent unconditional support for all future UE, OS, or hardware environments.
-- **Renewal**: After the annual term expires, a new license must be purchased. If not renewed, the plugin displays a watermark in the editor while remaining fully functional; packaged applications also show a watermark hint without affecting core functionality.
-- **Refunds**: License files are digital goods and are non-refundable once delivered.
-
-**Legal Notice:**
-
-- Unauthorized use, copying, or distribution of this plugin's source code or binaries constitutes infringement.
-- Reverse engineering, decompiling, or disassembling this plugin is prohibited.
-- The licensor makes no express or implied warranty that the plugin is fit for any particular purpose.
-- The licensor is not liable for any direct or indirect damages caused by the use of this plugin.
+For commercial licensing, see [13-Licensing](https://github.com/starTechnology1994/uewebbrowser/wiki/13-Licensing).
 
 ---
 
