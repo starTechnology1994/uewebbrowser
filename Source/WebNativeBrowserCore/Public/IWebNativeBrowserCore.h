@@ -57,8 +57,8 @@ struct FWebNativeBrowserRuntimeOptions
 	//         shared log dir (cef); cache IS persistent across launches.
 	//         MUST NOT run more than one UE process at the same time.
 	bool bMultiOpen = false;
-	int32 RemoteDebuggingPortMin = 9223;
-	int32 RemoteDebuggingPortMax = 9262;
+	int32 RemoteDebuggingPortMin = 19223;
+	int32 RemoteDebuggingPortMax = 19262;
 	FString CefCoreArgs = TEXT("disable-web-security no-proxy-server allow-file-access-from-files allow-universal-access-from-files allow-running-insecure-content allow-insecure-localhost");
 	FString CefArgs;
 };

@@ -17,7 +17,7 @@ void EmptyLinkFunctionForGeneratedCodeWebNativeBrowserCore_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0x460BFE12,
+				0x9B49C5FE,
 				0x027B2049,
 				METADATA_PARAMS(0, nullptr)
 			};
@@ -25,5 +25,5 @@ void EmptyLinkFunctionForGeneratedCodeWebNativeBrowserCore_init() {}
 		}
 		return Z_Registration_Info_UPackage__Script_WebNativeBrowserCore.OuterSingleton;
 	}
-	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_WebNativeBrowserCore(Z_Construct_UPackage__Script_WebNativeBrowserCore, TEXT("/Script/WebNativeBrowserCore"), Z_Registration_Info_UPackage__Script_WebNativeBrowserCore, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x460BFE12, 0x027B2049));
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_WebNativeBrowserCore(Z_Construct_UPackage__Script_WebNativeBrowserCore, TEXT("/Script/WebNativeBrowserCore"), Z_Registration_Info_UPackage__Script_WebNativeBrowserCore, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x9B49C5FE, 0x027B2049));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
