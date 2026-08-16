@@ -589,8 +589,8 @@ All configuration items live in the `[WebNative]` section of `Config/DefaultGame
 | ----------------------------------- | ---- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | `show_cef_performance_monitor`      | bool | `true`   | Shows a real-time performance overlay in the top-left of the browser (FPS, memory, rendering mode)                                        |
 | `show_download_notification`        | bool | `true`   | Shows built-in download progress bar and completion/failure notifications (white Material style toast). Set to `false` to only broadcast `WebNative` download events for developers to draw their own UI |
-| `debugging_port_min`                | int  | `9223`   | Minimum remote DevTools debugging port. Set to 0 to disable remote debugging                                                              |
-| `debugging_port_max`                | int  | `9262`   | Maximum remote DevTools debugging port. The plugin picks the first available port in this range. Access DevTools via `http://localhost:<port>` |
+| `debugging_port_min`                | int  | `19223`  | Minimum remote DevTools debugging port. Set to 0 to disable remote debugging                                                              |
+| `debugging_port_max`                | int  | `19262`  | Maximum remote DevTools debugging port. The plugin picks the first available port in this range. Access DevTools via `http://localhost:<port>` |
 
 ### Media Permission Policies
 
@@ -678,8 +678,8 @@ ctrl_scale=false
 gpu_shared_mutex_per_adapter=false
 show_cef_performance_monitor=true
 show_download_notification=true
-debugging_port_min=9223
-debugging_port_max=9262
+debugging_port_min=19223
+debugging_port_max=19262
 media_permission_policy=allow
 permission_prompt_policy=allow
 allow_microphone=true

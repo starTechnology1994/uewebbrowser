@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿# WebNative Browser Plugin
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿# WebNative Browser Plugin
 
 WebNativeBrowser 是面向 Unreal Engine 5 的高性能企业级跨平台 Web UI
 与 Chromium 浏览器解决方案拥有原生级别的性能，提供原生浏览器体验，支持 Windows 和Linux（x86\_64、ARM64）。Linux 最低要求   GLIBC 2.17  ，详见
@@ -602,8 +602,8 @@ allow_protected_media=true
 | ------------------------------ | ---- | ------ | ------------------------------------------------------------------------------------- |
 | `show_cef_performance_monitor` | bool | `true` | 在浏览器左上角显示实时性能叠加层（FPS、内存、渲染模式）                                                         |
 | `show_download_notification`   | bool | `true` | 显示内置下载进度条和完成/失败通知（白色 Material 风格 toast）。设为`false` 则仅广播 `WebNative` 下载事件，由开发者自行监听绘制 UI |
-| `debugging_port_min`           | int  | `9223` | 远程 DevTools 调试端口范围最小值。设为 0 则禁用远程调试                                                    |
-| `debugging_port_max`           | int  | `9262` | 远程 DevTools 调试端口范围最大值。插件会在此范围内选择首个可用端口。设定后可通过`http://localhost:<端口>` 访问 DevTools      |
+| `debugging_port_min`           | int  | `19223` | 远程 DevTools 调试端口范围最小值。设为 0 则禁用远程调试                                                   |
+| `debugging_port_max`           | int  | `19262` | 远程 DevTools 调试端口范围最大值。插件会在此范围内选择首个可用端口。设定后可通过`http://localhost:<端口>` 访问 DevTools     |
 
 ### 媒体权限策略
 
@@ -694,8 +694,8 @@ ctrl_scale=false
 gpu_shared_mutex_per_adapter=false
 show_cef_performance_monitor=true
 show_download_notification=true
-debugging_port_min=9223
-debugging_port_max=9262
+debugging_port_min=19223
+debugging_port_max=19262
 media_permission_policy=allow
 permission_prompt_policy=allow
 allow_microphone=true
