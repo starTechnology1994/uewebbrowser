@@ -18,6 +18,26 @@ public class WebNativeBrowserCore : ModuleRules
 		return SourceInfo.Length == DestinationInfo.Length;
 	}
 
+	// File.Copy preserves the source's read-only attribute. Fab's BuiltToScan
+	// sandbox marks every unpacked file read-only, so without clearing the
+	// attribute the restored Intermediate/Binaries files are read-only too and
+	// UHT / the compiler cannot overwrite them ("Failed to rename exported file").
+	private static void MakeWritable(string Path)
+	{
+		try
+		{
+			FileAttributes Attributes = File.GetAttributes(Path);
+			if ((Attributes & FileAttributes.ReadOnly) != 0)
+			{
+				File.SetAttributes(Path, Attributes & ~FileAttributes.ReadOnly);
+			}
+		}
+		catch (IOException)
+		{
+			// A concurrent UBT process may still be completing the same restore.
+		}
+	}
+
 	private static void RestoreProtectedFile(string Source, string Destination)
 	{
 		string DestinationDirectory = Path.GetDirectoryName(Destination);
@@ -30,6 +50,9 @@ public class WebNativeBrowserCore : ModuleRules
 		{
 			if (ProtectedFilesMatch(Source, Destination))
 			{
+				// Already present (possibly restored by a concurrent UBT process).
+				// Make sure it is writable too, not just when we copy it.
+				MakeWritable(Destination);
 				return;
 			}
 
@@ -53,6 +76,7 @@ public class WebNativeBrowserCore : ModuleRules
 
 				if (ProtectedFilesMatch(Source, Destination))
 				{
+					MakeWritable(Destination);
 					return;
 				}
 			}
@@ -124,12 +148,24 @@ public class WebNativeBrowserCore : ModuleRules
 				RelativePath = "Intermediate" + RelativePath.Substring(3);
 			}
 
+			// Fab 扫描器会忽略 .o/.obj/.precompiled 等构建中间产物（目录因此被判为
+			// 空文件夹），并把 .dll 识别为库文件（要求位于 Source/ThirdParty）。
+			// 打包脚本为 Payload 内的受保护文件追加 .wnb 伪装后缀，这里逆映射。
+			if (RelativePath.EndsWith(".wnb", StringComparison.OrdinalIgnoreCase))
+			{
+				RelativePath = RelativePath.Substring(0, RelativePath.Length - 4);
+			}
+
 			string Destination = Path.Combine(PluginDirectory, RelativePath);
 			if (!ProtectedFilesMatch(Source, Destination))
 			{
 				RestoreProtectedFile(Source, Destination);
 				++RestoredFiles;
 			}
+			// Fab's BuiltToScan marks unpacked files read-only; File.Copy inherits
+			// that attribute, leaving the restored artifact read-only. Clear it so
+			// UHT and the compiler can regenerate/overwrite these files in-place.
+			MakeWritable(Destination);
 		}
 
 		if (RestoredFiles > 0)
@@ -137,6 +173,36 @@ public class WebNativeBrowserCore : ModuleRules
 			System.Console.WriteLine(
 				"WebNativeBrowser: restored {0} protected precompiled artifact(s) after Clean.",
 				RestoredFiles);
+		}
+
+		// Fab 要求 C++ 库文件位于 Source/ThirdParty，所以预编译模块 DLL 存储在
+		// Source/ThirdParty/WebNativeBrowserPrecompiled/Win64；运行时/编辑器需要它
+		// 位于 Binaries/Win64，这里在 UBT 规则解析阶段恢复到目标位置。
+		string ThirdPartyStore = Path.Combine(
+			PluginDirectory,
+			"Source",
+			"ThirdParty",
+			"WebNativeBrowserPrecompiled",
+			"Win64");
+		if (Directory.Exists(ThirdPartyStore))
+		{
+			foreach (string StoredDll in Directory.EnumerateFiles(
+				ThirdPartyStore,
+				"*.dll",
+				SearchOption.TopDirectoryOnly))
+			{
+				string DllDestination = Path.Combine(
+					PluginDirectory,
+					"Binaries",
+					"Win64",
+					Path.GetFileName(StoredDll));
+				if (!ProtectedFilesMatch(StoredDll, DllDestination))
+				{
+					RestoreProtectedFile(StoredDll, DllDestination);
+					++RestoredFiles;
+				}
+				MakeWritable(DllDestination);
+			}
 		}
 	}
 
