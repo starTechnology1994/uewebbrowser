@@ -1,0 +1,12 @@
+{
+	"OutputFiles": [
+		"Module.WebNativeBrowserCore.cpp.obj",
+		"LicenseManager.cpp.obj",
+		"SWebNativeBrowser.cpp.obj",
+		"WebNativeBrowserCoreModule.cpp.obj",
+		"WebNativeBrowserRHIHelper.cpp.obj",
+		"WebNativeJsonLibrary.cpp.obj",
+		"WebNativeLibCppStub.cpp.obj"
+	],
+	"ToolChainVersion": "14.44.35228"
+}
