@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿# WebNative Browser Plugin
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿# WebNative Browser Plugin
 
 WebNativeBrowser 是面向 Unreal Engine 5 的高性能企业级跨平台 Web UI
 与 Chromium 浏览器解决方案拥有原生级别的性能，提供原生浏览器体验，支持 Windows 和Linux（x86\_64、ARM64）。Linux 最低要求   GLIBC 2.17  ，详见
@@ -127,11 +127,38 @@ WebNativeBrowser 特别适用于数字孪生：让成熟 Web 技术承载数据�
 
 ## 快速开始
 
+### 获取插件
+
+插件有两种获取方式，任选其一。
+
+#### 方式一：下载预编译发布包（推荐）
+
+1. 打开 [Releases 页面](https://github.com/starTechnology1994/uewebbrowser/releases)
+2. 下载对应引擎版本的压缩包（例如 `WebNativeBrowser-UE5.1.zip`）
+3. 解压后得到 `WebNativeBrowser` 文件夹
+
+#### 方式二：Git LFS 克隆源码仓库
+
+插件包含 CEF 大文件（数百 MB），必须通过 Git LFS 拉取：
+
+```bash
+# 1. 安装 Git LFS（仅首次需要）
+git lfs install
+
+# 2. 克隆仓库（按引擎版本选择分支，UE5.1 对应 UE51_WebNative）
+git clone -b UE51_WebNative https://github.com/starTechnology1994/uewebbrowser.git
+
+# 3. 克隆后若仍缺少大文件，补拉 LFS 文件
+git lfs pull
+```
+
+> 分支对应关系：UE5.1 → `UE51_WebNative`，UE5.2 → `UE52_WebNative`，……，UE5.8 → `UE58_WebNative`，`main` 对应 UE5.8。
+
 ### 安装
 
-1. 将插件放入项目的 `Plugins/` 目录
-2. 启动引擎，启用插件
-3. UI 控件库中拖入   WebNative Browser   控件
+1. 将 `WebNativeBrowser` 文件夹放入项目的 `Plugins/` 目录
+2. 启动引擎，启用插件（Edit → Plugins → 搜索 "WebNative Browser"）
+3. UI 控件库中拖入 `WebNative Browser` 控件
 4. 设置 `InitialURL` 即可加载网页
 
 ### 商业授权
