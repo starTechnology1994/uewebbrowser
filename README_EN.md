@@ -125,10 +125,37 @@ WebNativeBrowser is especially suited to digital twins: let mature web technolog
 
 ## Quick Start
 
+### Getting the Plugin
+
+There are two ways to obtain the plugin; choose either one.
+
+#### Option 1: Download a Prebuilt Release (Recommended)
+
+1. Open the [Releases page](https://github.com/starTechnology1994/uewebbrowser/releases)
+2. Download the archive matching your engine version (e.g. `WebNativeBrowser-UE5.1.zip`)
+3. Extract it to get the `WebNativeBrowser` folder
+
+#### Option 2: Clone the Source Repository with Git LFS
+
+The plugin contains large CEF files (hundreds of MB) and must be fetched via Git LFS:
+
+```bash
+# 1. Install Git LFS (first time only)
+git lfs install
+
+# 2. Clone the repository (pick the branch for your engine version, UE5.1 → UE51_WebNative)
+git clone -b UE51_WebNative https://github.com/starTechnology1994/uewebbrowser.git
+
+# 3. If large files are still missing after cloning, pull them explicitly
+git lfs pull
+```
+
+> Branch mapping: UE5.1 → `UE51_WebNative`, UE5.2 → `UE52_WebNative`, …, UE5.8 → `UE58_WebNative`, `main` corresponds to UE5.8.
+
 ### Installation
 
-1. Place the plugin into the project's `Plugins/` directory
-2. Start the engine and enable the plugin
+1. Place the `WebNativeBrowser` folder into the project's `Plugins/` directory
+2. Start the engine and enable the plugin (Edit → Plugins → search "WebNative Browser")
 3. Drag in a **WebNative Browser** widget from the UI widget library
 4. Set `InitialURL` to load a web page
 
