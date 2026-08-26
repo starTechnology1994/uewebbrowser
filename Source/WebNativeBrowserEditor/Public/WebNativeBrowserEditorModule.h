@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include "Runtime/Launch/Resources/Version.h"
 #include "Modules/ModuleManager.h"
 
 class FWebNativeBrowserEditorModule : public IModuleInterface

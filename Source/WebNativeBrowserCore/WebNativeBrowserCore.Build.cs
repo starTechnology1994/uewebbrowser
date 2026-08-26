@@ -6,210 +6,110 @@ using UnrealBuildTool;
 
 public class WebNativeBrowserCore : ModuleRules
 {
-	private static bool ProtectedFilesMatch(string Source, string Destination)
-	{
-		if (!File.Exists(Destination))
-		{
-			return false;
-		}
-
-		FileInfo SourceInfo = new FileInfo(Source);
-		FileInfo DestinationInfo = new FileInfo(Destination);
-		return SourceInfo.Length == DestinationInfo.Length;
-	}
-
-	// File.Copy preserves the source's read-only attribute. Fab's BuiltToScan
-	// sandbox marks every unpacked file read-only, so without clearing the
-	// attribute the restored Intermediate/Binaries files are read-only too and
-	// UHT / the compiler cannot overwrite them ("Failed to rename exported file").
-	private static void MakeWritable(string Path)
-	{
-		try
-		{
-			FileAttributes Attributes = File.GetAttributes(Path);
-			if ((Attributes & FileAttributes.ReadOnly) != 0)
-			{
-				File.SetAttributes(Path, Attributes & ~FileAttributes.ReadOnly);
-			}
-		}
-		catch (IOException)
-		{
-			// A concurrent UBT process may still be completing the same restore.
-		}
-	}
-
-	private static void RestoreProtectedFile(string Source, string Destination)
-	{
-		string DestinationDirectory = Path.GetDirectoryName(Destination);
-		if (!Directory.Exists(DestinationDirectory))
-		{
-			Directory.CreateDirectory(DestinationDirectory);
-		}
-
-		for (int Attempt = 0; Attempt < 3; ++Attempt)
-		{
-			if (ProtectedFilesMatch(Source, Destination))
-			{
-				// Already present (possibly restored by a concurrent UBT process).
-				// Make sure it is writable too, not just when we copy it.
-				MakeWritable(Destination);
-				return;
-			}
-
-			string Temporary = Destination + ".wnbrestore." +
-				System.Diagnostics.Process.GetCurrentProcess().Id + "." +
-				Guid.NewGuid().ToString("N");
-			try
-			{
-				File.Copy(Source, Temporary, false);
-				try
-				{
-					File.Move(Temporary, Destination);
-				}
-				catch (IOException)
-				{
-					if (!ProtectedFilesMatch(Source, Destination))
-					{
-						File.Copy(Source, Destination, true);
-					}
-				}
-
-				if (ProtectedFilesMatch(Source, Destination))
-				{
-					MakeWritable(Destination);
-					return;
-				}
-			}
-			finally
-			{
-				if (File.Exists(Temporary))
-				{
-					try
-					{
-						File.Delete(Temporary);
-					}
-					catch
-					{
-						// A concurrent UBT process may still be completing the same restore.
-					}
-				}
-			}
-
-			System.Threading.Thread.Sleep(20 * (Attempt + 1));
-		}
-
-		throw new BuildException(
-			"WebNativeBrowser could not restore protected precompiled artifact '{0}'.",
-			Destination);
-	}
-
-	private void UseProtectedPrecompiledArtifacts()
-	{
-		string PayloadRoot = Path.Combine(
-			PluginDirectory,
-			"Resources",
-			"WebNativePrecompiled",
-			"Payload");
-		if (!Directory.Exists(PayloadRoot))
-		{
-			return;
-		}
-
-		// Project-plugin Rebuild cleans Plugin/Binaries and Plugin/Intermediate.
-		// The immutable mirror under Resources survives Clean and is restored while
-		// UBT is evaluating module rules, before it resolves precompiled manifests
-		// and import libraries.
-		bUsePrecompiled = true;
-
-		int RestoredFiles = 0;
-		foreach (string Source in Directory.EnumerateFiles(
-			PayloadRoot,
-			"*",
-			SearchOption.AllDirectories))
-		{
-			string RelativePath = Source.Substring(PayloadRoot.Length).TrimStart(
-				Path.DirectorySeparatorChar,
-				Path.AltDirectorySeparatorChar);
-			if (String.IsNullOrEmpty(RelativePath))
-			{
-				continue;
-			}
-
-			// Fab 会递归过滤 Binaries/ 和 Intermediate/ 目录名（即便在 Payload 下）。
-			// 构建脚本将它们重命名为 Bin/ 和 Int/；在这里映射回 UE 期望的原始名称。
-			if (RelativePath.StartsWith("Bin" + Path.DirectorySeparatorChar) ||
-			    RelativePath.StartsWith("Bin" + Path.AltDirectorySeparatorChar))
-			{
-				RelativePath = "Binaries" + RelativePath.Substring(3);
-			}
-			else if (RelativePath.StartsWith("Int" + Path.DirectorySeparatorChar) ||
-			         RelativePath.StartsWith("Int" + Path.AltDirectorySeparatorChar))
-			{
-				RelativePath = "Intermediate" + RelativePath.Substring(3);
-			}
-
-			// Fab 扫描器会忽略 .o/.obj/.precompiled 等构建中间产物（目录因此被判为
-			// 空文件夹），并把 .dll 识别为库文件（要求位于 Source/ThirdParty）。
-			// 打包脚本为 Payload 内的受保护文件追加 .wnb 伪装后缀，这里逆映射。
-			if (RelativePath.EndsWith(".wnb", StringComparison.OrdinalIgnoreCase))
-			{
-				RelativePath = RelativePath.Substring(0, RelativePath.Length - 4);
-			}
-
-			string Destination = Path.Combine(PluginDirectory, RelativePath);
-			if (!ProtectedFilesMatch(Source, Destination))
-			{
-				RestoreProtectedFile(Source, Destination);
-				++RestoredFiles;
-			}
-			// Fab's BuiltToScan marks unpacked files read-only; File.Copy inherits
-			// that attribute, leaving the restored artifact read-only. Clear it so
-			// UHT and the compiler can regenerate/overwrite these files in-place.
-			MakeWritable(Destination);
-		}
-
-		if (RestoredFiles > 0)
-		{
-			System.Console.WriteLine(
-				"WebNativeBrowser: restored {0} protected precompiled artifact(s) after Clean.",
-				RestoredFiles);
-		}
-
-		// Fab 要求 C++ 库文件位于 Source/ThirdParty，所以预编译模块 DLL 存储在
-		// Source/ThirdParty/WebNativeBrowserPrecompiled/Win64；运行时/编辑器需要它
-		// 位于 Binaries/Win64，这里在 UBT 规则解析阶段恢复到目标位置。
-		string ThirdPartyStore = Path.Combine(
-			PluginDirectory,
-			"Source",
-			"ThirdParty",
-			"WebNativeBrowserPrecompiled",
-			"Win64");
-		if (Directory.Exists(ThirdPartyStore))
-		{
-			foreach (string StoredDll in Directory.EnumerateFiles(
-				ThirdPartyStore,
-				"*.dll",
-				SearchOption.TopDirectoryOnly))
-			{
-				string DllDestination = Path.Combine(
-					PluginDirectory,
-					"Binaries",
-					"Win64",
-					Path.GetFileName(StoredDll));
-				if (!ProtectedFilesMatch(StoredDll, DllDestination))
-				{
-					RestoreProtectedFile(StoredDll, DllDestination);
-					++RestoredFiles;
-				}
-				MakeWritable(DllDestination);
-			}
-		}
-	}
-
 	public WebNativeBrowserCore(ReadOnlyTargetRules Target) : base(Target)
 	{
-		UseProtectedPrecompiledArtifacts();
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+
+		// 预编译核心库（WebNativeEngine）：外部构建（MSVC/Clang），位于 Source/ThirdParty。
+		string WebNativeEngineRoot = Path.Combine(
+			ModuleDirectory, "..", "ThirdParty", "WebNativeEngine");
+		PublicSystemIncludePaths.Add(Path.Combine(WebNativeEngineRoot, "include"));
+		if (Target.Platform == UnrealTargetPlatform.Win64)
+		{
+			// UE 层实现库（预编译）。WITH_EDITOR 宏差异导致 Editor/Game 需各自独立的库；
+			// Shipping 下引擎不提供 ensure/check/LLM/Trace 辅助符号，Game 库必须按
+			// Shipping 配置重编，否则链接 Shipping 目标时批量 LNK2001。
+			string CoreLibName;
+			if (Target.bBuildEditor)
+			{
+				CoreLibName = "WebNativeCoreUe.lib";
+			}
+			else if (Target.Configuration == UnrealTargetConfiguration.Shipping)
+			{
+				CoreLibName = "WebNativeCoreUeShipping.lib";
+			}
+			else
+			{
+				CoreLibName = "WebNativeCoreUeGame.lib";
+			}
+			string WebNativeCoreUeLib = Path.Combine(
+				WebNativeEngineRoot, "Win64", CoreLibName);
+			if (File.Exists(WebNativeCoreUeLib))
+			{
+				PublicAdditionalLibraries.Add(WebNativeCoreUeLib);
+			}
+			// WebNativeEngine.lib 必须放在 UE 层实现库之后：MSVC 静态库单遍扫描，
+			// 定义库（Engine）需在引用库（CoreUe）之后，否则 UE56 等启用 UBA 的
+			// 引擎链接时 LicenseValidateBuildMetaForMachine 等符号可能无法解析（LNK1120）。
+			string WebNativeEngineLib = Path.Combine(WebNativeEngineRoot, "Win64", "WebNativeEngine.lib");
+			if (File.Exists(WebNativeEngineLib))
+			{
+				PublicAdditionalLibraries.Add(WebNativeEngineLib);
+			}
+			PublicSystemLibraries.Add("advapi32.lib");
+
+			// 把预编译静态库拷贝到 Binaries/ThirdParty/WebNativeEngine/Win64/
+			// （同 CEF 的 RuntimeDependencies 模式），便于打包产物完整保留。
+			foreach (string LibName in new[] { "WebNativeEngine.lib", "WebNativeCoreUe.lib", "WebNativeCoreUeGame.lib", "WebNativeCoreUeShipping.lib" })
+			{
+				string SourceLib = Path.Combine(WebNativeEngineRoot, "Win64", LibName);
+				if (File.Exists(SourceLib))
+				{
+					RuntimeDependencies.Add(
+						Path.Combine("$(PluginDir)", "Binaries", "ThirdParty", "WebNativeEngine", "Win64", LibName),
+						SourceLib,
+						StagedFileType.NonUFS);
+				}
+			}
+		}
+		else if (Target.Platform == UnrealTargetPlatform.Linux ||
+			Target.Platform == UnrealTargetPlatform.LinuxArm64)
+		{
+			// Linux/Arm64 库由 build_linux*.sh 编译后追加
+			string WebNativeEngineArch = Target.Platform == UnrealTargetPlatform.LinuxArm64
+				? "arm64" : "x86_64";
+			// UE 层实现库（预编译）。WITH_EDITOR / Shipping 宏差异需各自独立库；
+			// Editor/Shipping 库未提供时回退 Game 版。
+			string WebNativeCoreUeLinuxLibName = Target.bBuildEditor
+				? "libWebNativeCoreUeEditor.a"
+				: (Target.Configuration == UnrealTargetConfiguration.Shipping
+					? "libWebNativeCoreUeShipping.a"
+					: "libWebNativeCoreUe.a");
+			string WebNativeCoreUeLinuxLib = Path.Combine(
+				WebNativeEngineRoot, "Linux", WebNativeEngineArch, WebNativeCoreUeLinuxLibName);
+			if (!File.Exists(WebNativeCoreUeLinuxLib))
+			{
+				WebNativeCoreUeLinuxLib = Path.Combine(
+					WebNativeEngineRoot, "Linux", WebNativeEngineArch, "libWebNativeCoreUe.a");
+			}
+			if (File.Exists(WebNativeCoreUeLinuxLib))
+			{
+				PublicAdditionalLibraries.Add(WebNativeCoreUeLinuxLib);
+			}
+			// libWebNativeEngine.a 放在 UE 层实现库之后（静态库单遍扫描，定义在引用之后），
+			// 避免链接时 LicenseValidateBuildMetaForMachine 等符号无法解析。
+			string WebNativeEngineLinuxLib = Path.Combine(
+				WebNativeEngineRoot, "Linux", WebNativeEngineArch, "libWebNativeEngine.a");
+			if (File.Exists(WebNativeEngineLinuxLib))
+			{
+				PublicAdditionalLibraries.Add(WebNativeEngineLinuxLib);
+			}
+
+			// 把预编译静态库拷贝到 Binaries/ThirdParty/WebNativeEngine/Linux/{arch}/
+			// （同 CEF/Win64 的 RuntimeDependencies 模式）。
+			string[] LinuxLibs = new[] { "libWebNativeEngine.a", "libWebNativeCoreUe.a", "libWebNativeCoreUeEditor.a", "libWebNativeCoreUeShipping.a" };
+			foreach (string LibName in LinuxLibs)
+			{
+				string SourceLib = Path.Combine(WebNativeEngineRoot, "Linux", WebNativeEngineArch, LibName);
+				if (File.Exists(SourceLib))
+				{
+					RuntimeDependencies.Add(
+						Path.Combine("$(PluginDir)", "Binaries", "ThirdParty", "WebNativeEngine", "Linux", WebNativeEngineArch, LibName),
+						SourceLib,
+						StagedFileType.NonUFS);
+				}
+			}
+		}
 
 		// UE PCH includes Windows.h (via MinWindows.h), which pulls in winsock.h (not winsock2.h).
 		// _WINSOCKAPI_ prevents winsock.h from being included, so we can include winsock2.h in our .cpp files.
@@ -613,6 +513,17 @@ public class WebNativeBrowserCore : ModuleRules
 						Path.Combine("$(PluginDir)", "Content", "webnative", "licenses", FileName),
 						StagedFileType.NonUFS);
 				}
+			}
+
+			// 构建标记文件：随包分发（UFS）。由授权服务器签发并绑定授权文件与机器码，
+			// 编辑器在授权有效时同步到本目录（Content/webnative/licenses/，与授权文件同目录）；
+			// 缺失则打包产物不含该标记。
+			string BuildMetaFile = Path.Combine(PluginDirectory, "Content", "webnative", "licenses", "webnative_bridge.dat");
+			if (File.Exists(BuildMetaFile))
+			{
+				RuntimeDependencies.Add(
+					Path.Combine("$(PluginDir)", "Content", "webnative", "licenses", "webnative_bridge.dat"),
+					StagedFileType.UFS);
 			}
 
 		}

@@ -1,219 +1,218 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿# WebNative Browser Plugin
+# WebNative Browser Plugin
 
-WebNativeBrowser 是面向 Unreal Engine 5 的高性能企业级跨平台 Web UI
-与 Chromium 浏览器解决方案拥有原生级别的性能，提供原生浏览器体验，支持 Windows 和Linux（x86\_64、ARM64）。Linux 最低要求   GLIBC 2.17  ，详见
-[技术规格 → Linux 发行版兼容性](#linux-发行版兼容性)。
+WebNativeBrowser is a high-performance, enterprise-grade, cross-platform Web UI and Chromium browser solution for Unreal Engine 5, providing a native browser experience on Windows and Linux (x86_64, ARM64). Linux requires a minimum of **GLIBC 2.17**. See [Technical Specifications → Linux Distribution Compatibility](#linux-distribution-compatibility).
 
-> 项目主页与源码仓库  ：<https://github.com/starTechnology1994/uewebbrowser>
+> **Project homepage & source repository**: <https://github.com/starTechnology1994/uewebbrowser>
 >
-> - 预编译插件下载：<https://github.com/starTechnology1994/uewebbrowser/releases>
-> - 文档与 Wiki：<https://github.com/starTechnology1994/uewebbrowser/wiki>
-> - Bilibili 视频教程：<https://space.bilibili.com/3546688536971381>
-> - 问题反馈：<https://github.com/starTechnology1994/uewebbrowser/issues>
-> - 商务联系（授权、合作、技术支持）：：：<startechnology1994@163.com>：：
+> - Prebuilt plugin downloads: <https://github.com/starTechnology1994/uewebbrowser/releases>
+> - Documentation & Wiki: <https://github.com/starTechnology1994/uewebbrowser/wiki>
+> - Bilibili video tutorials: <https://space.bilibili.com/3546688536971381>
+> - Issue tracker: <https://github.com/starTechnology1994/uewebbrowser/issues>
+> - Business contact (licensing, partnership, technical support): **startechnology1994@163.com**
+> - WeChat Work: <https://work.weixin.qq.com/ca/cawcdef9a4d05fef8c>
 >
-> 闭源发行版（Fab）面向已购买授权的用户；二进制与该仓库内容保持一致，源码仓库仅做对外公开版本与文档维护。
+> The closed-source release (Fab) is intended for licensed users; the binaries are kept consistent with the public repository, which is used only for publicly available versions and documentation.
 
-***
+---
 
-## 核心特性
+## Core Features
 
-### 面向快速开发的四大解决方案
+### Four Solutions for Rapid Development
 
-| 方向       | Web 侧能力                | UE 侧能力             | 适用成果             |
-| -------- | ---------------------- | ------------------ | ---------------- |
-| 数字孪生     | 设备树、告警、工单、报表、GIS 与业务流程 | 园区、产线、建筑、设备与实时状态   | 可视、可查、可控的三维数字世界  |
-| 游戏与运行时工具 | 道具库、商城、活动页、任务面板和编辑工具   | 游戏世界、Actor、玩法和权威逻辑 | 快速迭代的游戏 UI 与场景工具 |
-| AI 应用界面  | AI 助手、知识库、生成式页面和结果展示   | 三维角色、场景反馈和业务动作     | AI 与实时三维融合体验     |
-| 报表与数据大屏  | 图表、表格、地图、筛选和响应式布局      | 三维态势、对象状态和空间表达     | 数据与三维联动驾驶舱       |
+| Direction                   | Web-side Capabilities                        | UE-side Capabilities                  | Deliverables                         |
+| --------------------------- | -------------------------------------------- | ------------------------------------- | ------------------------------------ |
+| **Digital Twins**           | Device tree, alerts, work orders, reports, GIS and business workflows | Campus, production line, buildings, equipment and real-time status | A visual, searchable, controllable 3D digital world |
+| **Games & Runtime Tools**   | Item libraries, stores, event pages, quest panels and editor tools | Game world, Actors, gameplay and authoritative logic | Rapidly iterated game UI and scene tools |
+| **AI Application UI**       | AI assistants, knowledge bases, generative pages and result display | 3D characters, scene feedback and business actions | AI + real-time 3D fusion experience  |
+| **Dashboards & Data Screens** | Charts, tables, maps, filters and responsive layouts | 3D situational awareness, object states and spatial expression | Data + 3D linked command cockpit     |
 
-WebNativeBrowser 特别适用于数字孪生：让成熟 Web 技术承载数据与业务系统，让 Unreal Engine 专注实时三维场景，再通过 JS ↔ UE 消息实现设备选择、镜头定位、状态更新和场景控制。
+WebNativeBrowser is especially suited to digital twins: let mature web technology carry data and business systems, let Unreal Engine focus on real-time 3D scenes, and use JS ↔ UE messages to drive device selection, camera positioning, status updates, and scene control.
 
-> AI 方向指承载 AI 应用界面、复用 AI 辅助生成的前端成果并连接 UE 场景；插件本身不内置大语言模型或第三方推理服务。
+> The AI direction refers to hosting AI application UI, reusing AI-assisted generated front-end assets, and connecting them to the UE scene; the plugin itself does not bundle a large language model or third-party inference services.
 
-### 高性能 GPU 加速渲染
+### High-Performance GPU-Accelerated Rendering
 
-- 基于 GPU 共享内存的跨进程纹理传输，画面直通 UE5 渲染管线，无 CPU 拷贝开销
-- 多渲染后端自适应：根据平台自动选择最优 GPU 加速方案
-- 持久纹理复用机制，每帧渲染零额外显存分配
+- Cross-process texture transfer based on GPU shared memory; frames go directly into the UE5 rendering pipeline with zero CPU copy overhead
+- Adaptive multi-rendering backends: automatically selects the optimal GPU acceleration scheme per platform
+- Persistent texture reuse; zero extra VRAM allocation per rendered frame
 
-### 智能帧率调节
+### Smart Frame Rate Management
 
-- 静态画面零开销  ：页面静止时自动暂停渲染，GPU/CPU 无额外消耗
-- 动态内容按需渲染  ：动画、滚动等场景实时唤醒，流畅响应
-- 视频播放自适应帧率  ：自动匹配视频帧率，避免无效重复合成
+- **Zero cost on static frames**: rendering pauses automatically when the page is idle, with no extra GPU/CPU consumption
+- **On-demand rendering for dynamic content**: animations, scrolling, and similar content wake rendering in real time for smooth response
+- **Adaptive frame rate for video playback**: automatically matches the video frame rate, avoiding wasted re-compositing
 
-### 跨平台
+### Cross-Platform
 
-| 平台      | 状态  |
-| ------- | --- |
-| Windows | 稳定  |
-| Linux   | 稳定  |
-| macOS   | 计划中 |
+| Platform | Status    |
+| -------- | --------- |
+| Windows  | Stable    |
+| Linux    | Stable    |
+| macOS    | Planned   |
 
-### 企业级多开与像素流送
+### Enterprise Multi-Instance & Pixel Streaming
 
-- 支持同一 UE 应用创建多个 WebNative Browser 控件，适用于多面板、多屏和多窗口
-- 支持同一打包应用启动多个独立实例；实际并发规模取决于页面、视频、分辨率和硬件资源
-- 可作为 UE 最终画面的一部分与 Unreal Engine Pixel Streaming 组合使用
-- Pixel Streaming 远端键鼠、触摸和焦点以项目输入配置为准
-- 远端用户本机文件上传应由 Pixel Streaming 前端与项目服务处理，不等同于渲染服务器本机文件选择
+- Create multiple WebNative Browser widgets in the same UE application for multi-panel, multi-screen, and multi-window scenarios
+- Launch multiple independent instances of the same packaged application; actual concurrency depends on page content, video, resolution, and hardware resources
+- Can be used as part of the final UE output together with Unreal Engine Pixel Streaming
+- Remote keyboard, mouse, touch, and focus in Pixel Streaming follow the project's input configuration
+- Remote user local file upload should be handled by the Pixel Streaming frontend and project services; it is not equivalent to the render server's local file picker
 
-### Linux 产品化适配
+### Linux Production Readiness
 
-- Linux x86\_64 与 ARM64 双架构
-- 中文输入、剪贴板、键盘、鼠标和焦点交互
-- Runtime/Shipping 文件选择、上传和下载
-- 单进程与多进程可配置，适配不同硬件与部署环境
-- 面向国产 CPU/GPU、麒麟和统信等环境提供验证路径
-- 已完成砺算,摩尔线程 GPU 环境专项适配；具体显卡型号、驱动和系统组合以发布版兼容性矩阵为准
-- 覆盖多浏览器控件、应用多开、视频、消息和退出生命周期
+- Linux x86_64 and ARM64 dual architecture
+- Chinese IME, clipboard, keyboard, mouse, and focus interaction
+- Runtime/Shipping file picker, upload, and download
+- Configurable single-process and multi-process modes for different hardware and deployment environments
+- Verified paths for domestic CPUs/GPUs, Kylin, and UOS environments
+- Dedicated adaptation completed for Lisca and Moore Threads GPU environments; specific GPU models, drivers, and OS combinations are subject to the release compatibility matrix
+- Coverage of multiple browser widgets, multi-instance applications, video, messaging, and shutdown lifecycle
 
-### 原生浏览器体验
+### Native Browser Experience
 
-- 完整 Chromium 内核，覆盖 WebRTC、WebGL、MediaSource、Canvas 等主流现代 Web 能力
-- 支持 4K 视频与最高 8K 应用场景；实际效果取决于编码、页面、GPU、驱动和输出分辨率
-- 透明背景支持（UI 叠加层场景）
-- 完整的键盘 / 鼠标 / 触摸输入支持
-- 鼠标透明穿透（Alpha 阈值可控）
-- 内置 DevTools 远程调试器
-- 权限管理（摄像头、麦克风、剪贴板、通知等 18 项权限策略）
-- 全局 alert/confirm/prompt 注入（Google 风格白色对话框，所有网页自动生效）
-- 文件选择器（`<input type="file">`；Windows 原生窗口 / Linux Runtime Slate 窗口）
-- 文件下载器（系统保存对话框）
-- 网页加载占位动画（首帧到达前显示旋转加载圈）
+- Full Chromium engine covering WebRTC, WebGL, MediaSource, Canvas, and other mainstream modern web capabilities
+- 4K video and up to 8K application scenarios supported; actual results depend on encoding, page content, GPU, drivers, and output resolution
+- Transparent background support (UI overlay scenarios)
+- Full keyboard / mouse / touch input support
+- Mouse transparent hit-through (configurable alpha threshold)
+- Built-in DevTools remote debugger
+- Permission management (18 permission policies including camera, microphone, clipboard, notifications, etc.)
+- Global alert/confirm/prompt injection (Google-style white dialogs, applied automatically to all web pages)
+- File picker (`<input type="file">`; native Windows dialog / Linux Runtime Slate dialog)
+- File downloader (system save dialog)
+- Page loading placeholder animation (rotating loader shown until the first frame arrives)
 
-### UE-Blueprint 双向通信
+### UE-Blueprint Bidirectional Communication
 
-- UE → JS  ：执行任意 JavaScript 脚本；JSON 消息桥接
-- JS → UE  ：JS 端发送消息，UE 端通过 `OnMessageReceived` 委托接收
-- 事件驱动  ：JS 端通过 `on()` / `off()` 按函数名订阅
-- 支持 C++ 委托和 Blueprint 动态委托，消息批量合并以优化性能
+- **UE → JS**: execute arbitrary JavaScript; JSON message bridging
+- **JS → UE**: JS sends messages, UE receives them via the `OnMessageReceived` delegate
+- **Event-driven**: JS subscribes by function name using `on()` / `off()`
+- Supports C++ delegates and Blueprint dynamic delegates; messages are batched for performance
 
-### 内置 JSON 函数库（开箱即用）
+### Built-in JSON Function Library (Out of the Box)
 
-- 内置 C++ 实现的 JSON 蓝图函数库，，，开箱即用，，，无需安装 JsonBlueprintUtilities 等任何第三方 JSON 插件
-- 基于引擎原生 Json / JsonUtilities 模块，Win64 / Linux / LinuxArm64 全平台可用
-- 动态构建、读取和修改任意层级的嵌套 JSON 对象与数组（含对象数组），，，无需预先定义结构体，，
-- 覆盖完整操作链：`Create Json Object` / `Load Json From String` / `Json Object To String` / `Get/Set Json 各类型字段与数组` / `Has Json Field` / `Get Json Field Names` / `Remove Json Field`
-- 实测性能：单字段读取约 0.06 µs/次，反序列化约 2 µs/次（基于引擎内置 Json 后端，无额外逐次分配开销）
+- Built-in C++ JSON Blueprint function library, **ready out of the box** — no third-party JSON plugin (e.g. JsonBlueprintUtilities) required
+- Powered by the engine's native Json / JsonUtilities modules, available on Win64 / Linux / LinuxArm64
+- Dynamically build, read, and modify nested JSON objects and arrays of any depth (including object arrays) **without pre-defining structs**
+- Full operation chain: `Create Json Object` / `Load Json From String` / `Json Object To String` / `Get/Set Json fields and arrays` / `Has Json Field` / `Get Json Field Names` / `Remove Json Field`
+- Measured performance: ~0.06 µs per single field read, ~2 µs per deserialize (engine-side built-in Json backend, no per-call allocation overhead)
 
-### 导航控制
+### Navigation Controls
 
-| 蓝图函数        | 功能              |
-| ----------- | --------------- |
-| `LoadURL`   | 加载指定 URL        |
-| `GoBack`    | 后退到上一页          |
-| `GoForward` | 前进到下一页          |
-| `Reload`    | 重新加载当前页（可选忽略缓存） |
+| Blueprint Function | Description                          |
+| ------------------ | ------------------------------------ |
+| `LoadURL`          | Load the specified URL               |
+| `GoBack`           | Go back to the previous page         |
+| `GoForward`        | Go forward to the next page          |
+| `Reload`           | Reload the current page (optionally ignore cache) |
 
-### 输入增强
+### Input Enhancements
 
-| 属性                    | 说明                                         |
-| --------------------- | ------------------------------------------ |
-| `bForwardUEKeyEvents` | 开启后，焦点在 UE 场景中时键盘事件也转发给 CEF（用于撤销重做等双重处理场景） |
+| Property             | Description                                                                                         |
+| -------------------- | --------------------------------------------------------------------------------------------------- |
+| `bForwardUEKeyEvents` | When enabled, keyboard events are also forwarded to CEF while focus is in the UE scene (for double-processing scenarios such as undo/redo) |
 
-### Web 到 UE 场景放置
+### Web-to-UE Scene Placement
 
-- Web 页面可作为道具库、资产库、建筑目录、设备列表或运行时工具栏
-- 支持从 Web 拖拽资源进入 UE 场景的放置工作流
-- 支持点击 Web 条目后切换到 UE 游戏视口，再在场景中点击放置
-- 蓝图可直接调用插件封装函数 `SetFocusToGameViewport`、`GetRawPlatformCursorPos` 和 `DeprojectCursorToWorld`
-- 项目可自行组合射线检测、预览体、吸附、碰撞、权限与 Actor 创建规则
+- Web pages can act as item libraries, asset libraries, building catalogs, device lists, or runtime toolbars
+- Drag-and-drop workflow for placing assets from the web into the UE scene
+- Click a web entry to switch to the UE game viewport, then click to place in the scene
+- Blueprints can directly call `SetFocusToGameViewport`, `GetRawPlatformCursorPos`, and `DeprojectCursorToWorld`
+- Projects can freely combine raycasting, preview volumes, snapping, collision, permission, and Actor creation rules
 
-> WebNativeBrowser 负责 Web/UE 之间的消息、焦点与光标空间衔接；最终 UObject/Actor 操作应由项目在 UE 游戏线程中执行，并校验网页传入的资源 ID 和业务参数。
+> WebNativeBrowser handles the message, focus, and cursor-space coordination between Web and UE; final UObject/Actor operations should be executed by the project on the UE game thread, and resource IDs and business parameters from the web page must be validated.
 
-***
+---
 
-## 快速开始
+## Quick Start
 
-### 获取插件
+### Getting the Plugin
 
-插件有两种获取方式，任选其一。
+There are two ways to obtain the plugin; choose either one.
 
-#### 方式一：下载预编译发布包（推荐）
+#### Option 1: Download a Prebuilt Release (Recommended)
 
-1. 打开 [Releases 页面](https://github.com/starTechnology1994/uewebbrowser/releases)
-2. 下载对应引擎版本的压缩包（例如 `WebNativeBrowser-UE5.1.zip`）
-3. 解压后得到 `WebNativeBrowser` 文件夹
+1. Open the [Releases page](https://github.com/starTechnology1994/uewebbrowser/releases)
+2. Download the archive matching your engine version (e.g. `WebNativeBrowser-UE5.1.zip`)
+3. Extract it to get the `WebNativeBrowser` folder
 
-#### 方式二：Git LFS 克隆源码仓库
+#### Option 2: Clone the Source Repository with Git LFS
 
-插件包含 CEF 大文件（数百 MB），必须通过 Git LFS 拉取：
+The plugin contains large CEF files (hundreds of MB) and must be fetched via Git LFS:
 
 ```bash
-# 1. 安装 Git LFS（仅首次需要）
+# 1. Install Git LFS (first time only)
 git lfs install
 
-# 2. 克隆仓库（按引擎版本选择分支，UE5.1 对应 UE51_WebNative）
+# 2. Clone the repository (pick the branch for your engine version, UE5.1 → UE51_WebNative)
 git clone -b UE51_WebNative https://github.com/starTechnology1994/uewebbrowser.git
 
-# 3. 克隆后若仍缺少大文件，补拉 LFS 文件
+# 3. If large files are still missing after cloning, pull them explicitly
 git lfs pull
 ```
 
-> 分支对应关系：UE5.1 → `UE51_WebNative`，UE5.2 → `UE52_WebNative`，……，UE5.8 → `UE58_WebNative`，`main` 对应 UE5.8。
+> Branch mapping: UE5.1 → `UE51_WebNative`, UE5.2 → `UE52_WebNative`, …, UE5.8 → `UE58_WebNative`, `main` corresponds to UE5.8.
 
-### 安装
+### Installation
 
-1. 将 `WebNativeBrowser` 文件夹放入项目的 `Plugins/` 目录
-2. 启动引擎，启用插件（Edit → Plugins → 搜索 "WebNative Browser"）
-3. UI 控件库中拖入 `WebNative Browser` 控件
-4. 设置 `InitialURL` 即可加载网页
+1. Place the `WebNativeBrowser` folder into the project's `Plugins/` directory
+2. Start the engine and enable the plugin (Edit → Plugins → search "WebNative Browser")
+3. Drag in a **WebNative Browser** widget from the UI widget library
+4. Set `InitialURL` to load a web page
 
-### 商业授权
+### Licensing
 
-商业授权流程请参考 [13-Licensing](https://github.com/starTechnology1994/uewebbrowser/wiki/13-Licensing)。
+For commercial licensing, see [13-Licensing](https://github.com/starTechnology1994/uewebbrowser/wiki/13-Licensing).
 
-***
+---
 
-## JS ↔ UE 双向通信
+## JS ↔ UE Bidirectional Communication
 
-插件通过 `functionName` + `messageBody` 消息通道实现 UE 与 JS 之间的双向通信。
+The plugin implements bidirectional communication between UE and JS through a `functionName` + `messageBody` message channel.
 
-### JS 端 API
+### JS-side API
 
-插件自动注入全局对象 `window.WebNative`，提供以下方法：
+The plugin automatically injects the global object `window.WebNative` with the following methods:
 
 ```javascript
-// ========== 发送消息到 UE ==========
+// ========== Send a message to UE ==========
 WebNative.send("FunctionName", "MessageBody");
 WebNative.send("FunctionName", { score: 100, player: "Player1" });
 
-// ========== 监听 UE 发来的消息 ==========
+// ========== Listen for messages from UE ==========
 
-// 方式: on/off（按 FunctionName 订阅）
+// via on/off (subscribe by FunctionName)
 function handleMessage(body) {
-    console.log("收到:", body);
+    console.log("Received:", body);
 }
 WebNative.on("EventName", handleMessage);
 WebNative.off("EventName", handleMessage);
 ```
 
-### UE 端 API
+### UE-side API
 
-发送消息到 JS：
+**Send a message to JS:**
 
 ```cpp
-// C++ — 发送消息给 JS
+// C++ — send a message to JS
 WebView->SendMessageToJS(TEXT("OnGameScore"), TEXT(R"({"score": 9999, "level": 42})"));
 
-// Blueprint — 调用 SendMessageToJS 节点
+// Blueprint — use the SendMessageToJS node
 //   FunctionName: "OnPlayerData"
 //   MessageBody:  '{"name":"Player1","hp":100}'
 ```
 
-接收 JS 发来的消息：
+**Receive messages from JS:**
 
 ```cpp
-// C++ — 绑定委托
+// C++ — bind the delegate
 WebView->OnMessageReceived.AddDynamic(this, &UMyWidget::OnWebViewMessage);
 
 void UMyWidget::OnWebViewMessage(const FString& FunctionName, const FString& MessageBody)
 {
     if (FunctionName == TEXT("OnLogin"))
     {
-        // 解析 JSON
+        // Parse JSON
         TSharedPtr<FJsonObject> JsonObj;
         TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(MessageBody);
         FJsonSerializer::Deserialize(Reader, JsonObj);
@@ -224,82 +223,80 @@ void UMyWidget::OnWebViewMessage(const FString& FunctionName, const FString& Mes
 }
 ```
 
-Blueprint：
+**Blueprint:** Bind the `OnMessageReceived` event in the Details panel; `FunctionName` and `MessageBody` are passed as parameters.
 
-&#x20;在 Details 面板绑定 `OnMessageReceived` 事件，`FunctionName` 和 `MessageBody` 作为参数传入。
+### Message Type Compatibility
 
-### 消息类型兼容性
+#### JS → UE (`WebNative.send()`)
 
-#### JS → UE（`WebNative.send()`）
+The `messageBody` parameter of `WebNative.send(functionName, messageBody)` supports the following types:
 
-`WebNative.send(functionName, messageBody)` 的 `messageBody` 参数兼容以下类型：
+| Type                     | Example                            | JS-side handling           | UE-side receives                             |
+| ------------------------ | ---------------------------------- | -------------------------- | -------------------------------------------- |
+| JS object                | `{score: 100, name: "Player1"}`    | Automatic `JSON.stringify()` | JSON string `'{"score":100,"name":"Player1"}'` |
+| String                   | `"hello"`                          | Passed through             | Raw string `"hello"`                         |
+| Number                   | `42`                               | `String(42)`                | String `"42"`                                |
+| Boolean                  | `true`                             | `String(true)`              | String `"true"`                              |
+| `null` / `undefined`     | —                                  | Converted to empty string   | Empty string `""`                            |
 
-| 类型                   | 示例                              | JS 端处理               | UE 端收到                                     |
-| -------------------- | ------------------------------- | -------------------- | ------------------------------------------ |
-| JS 对象                | `{score: 100, name: "Player1"}` | 自动`JSON.stringify()` | JSON 字符串`'{"score":100,"name":"Player1"}'` |
-| 字符串                  | `"hello"`                       | 直接传递                 | 原始字符串`"hello"`                             |
-| 数字                   | `42`                            | `String(42)`         | 字符串`"42"`                                  |
-| 布尔值                  | `true`                          | `String(true)`       | 字符串`"true"`                                |
-| `null` / `undefined` | —                               | 转为空字符串               | 空字符串`""`                                   |
-
-> 推荐用法  ：直接传 JS 对象，插件会自动处理 JSON 序列化。UE 端通过 `FJsonSerializer` 解析即可。
+> **Recommended usage**: pass a JS object directly; the plugin handles JSON serialization automatically. Parse it on the UE side with `FJsonSerializer`.
 
 ```javascript
-// 推荐：直接传对象
+// Recommended: pass an object directly
 WebNative.send("OnPlayerScore", { score: 9999, combo: 42 });
 
-// 也可以：传 JSON 字符串
+// Also possible: pass a JSON string
 WebNative.send("OnPlayerScore", JSON.stringify({ score: 9999, combo: 42 }));
 
-// 简单场景：传纯文本
-WebNative.send("OnChat", "队伍准备好了");
+// Simple scenarios: pass plain text
+WebNative.send("OnChat", "The team is ready");
 ```
 
-#### UE → JS（`SendMessageToJS`）
+#### UE → JS (`SendMessageToJS`)
 
-UE 端发送 `FString` 类型的 `MessageBody`。JS 回调始终收到原始字符串，插件不会替业务代码调用 `JSON.parse()`：
+The UE side sends a `FString` `MessageBody`. The JS callback always receives the raw string; the plugin never calls `JSON.parse()` on behalf of the business code:
 
-| UE 端发送      | JS 端`WebNative.on()` 收到 |
-| ----------- | ----------------------- |
-| 有效 JSON 字符串 | 原始 JSON 字符串             |
-| 纯文本字符串      | 原始字符串                   |
-| `"10"`      | 字符串`"10"`               |
-| 空字符串        | 空字符串`""`                |
+| UE sends              | JS `WebNative.on()` receives |
+| --------------------- | ---------------------------- |
+| Valid JSON string     | Raw JSON string              |
+| Plain text string     | Raw string                   |
+| `"10"`                | String `"10"`                |
+| Empty string          | Empty string `""`            |
 
 ```cpp
-// UE 端：发送 JSON
+// UE side: send JSON
 WebView->SendMessageToJS(TEXT("OnGameData"), TEXT(R"({"players":32,"map":"Dust2"})"));
-// JS 回调收到原始字符串: '{"players":32,"map":"Dust2"}'
+// JS callback receives the raw string: '{"players":32,"map":"Dust2"}'
 
-// UE 端：发送纯文本
-WebView->SendMessageToJS(TEXT("OnTips"), TEXT("新的挑战者出现了!"));
-// JS 回调收到字符串: "新的挑战者出现了!"
+// UE side: send plain text
+WebView->SendMessageToJS(TEXT("OnTips"), TEXT("A new challenger has appeared!"));
+// JS callback receives the string: "A new challenger has appeared!"
 
-// UE 端：发送数字
+// UE side: send a number
 WebView->SendMessageToJS(TEXT("OnCountdown"), TEXT("10"));
-// JS 回调收到字符串: "10"
+// JS callback receives the string: "10"
 ```
 
 ```javascript
 WebNative.on("OnGameData", function(messageBody) {
-    // 只有业务明确知道该消息是 JSON 时才自行解析。
+    // Only parse manually when the business knows for sure this message is JSON.
     const gameData = JSON.parse(messageBody);
     console.log(gameData.players);
 });
 ```
 
-### 完整示例：网页登录
+### Complete Example: Web Login
 
-网页端（login.html）：
+**Web side (login.html):**
 
 ```html
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><title>Login</title></head>
 <body>
-  <input id="username" type="text" placeholder="用户名">
-  <input id="password" type="password" placeholder="密码">
-  <button onclick="doLogin()">登录</button>
+  <input id="username" type="text" placeholder="Username">
+  <input id="password" type="password" placeholder="Password">
+  <button onclick="doLogin()">Login</button>
   <div id="status"></div>
 
   <script>
@@ -312,17 +309,17 @@ WebNative.on("OnGameData", function(messageBody) {
       }));
     }
 
-    // 监听 UE 返回的登录结果
+    // Listen for the login result from UE
     WebNative.on('LoginResult', function(body) {
       document.getElementById('status').innerText =
-        body.success ? '登录成功! ' + body.message : '登录失败: ' + body.message;
+        body.success ? 'Login success! ' + body.message : 'Login failed: ' + body.message;
     });
   </script>
 </body>
 </html>
 ```
 
-UE 端：
+**UE side:**
 
 ```cpp
 void UMyLoginWidget::OnWebViewMessage(const FString& FunctionName, const FString& MessageBody)
@@ -338,219 +335,210 @@ void UMyLoginWidget::OnWebViewMessage(const FString& FunctionName, const FString
 
         bool bSuccess = ValidateLogin(Username, Password);
 
-        // 把结果返回给网页
+        // Send the result back to the web page
         FString ResultJson = FString::Printf(
             TEXT(R"({"success":%s,"message":"%s"})"),
             bSuccess ? TEXT("true") : TEXT("false"),
-            bSuccess ? TEXT("欢迎回来!") : TEXT("用户名或密码错误")
+            bSuccess ? TEXT("Welcome back!") : TEXT("Incorrect username or password")
         );
         WebView->SendMessageToJS(TEXT("LoginResult"), ResultJson);
     }
 }
 ```
 
-***
+---
 
-## 文件下载
+## File Downloads
 
-插件内置 CEF 原生下载流程，支持 Windows/Linux 双平台。用户点击网页下载链接（`<a download>`、`blob:` URL、HTTP 下载等）后：
+The plugin has a built-in CEF native download flow supporting Windows and Linux. When a user clicks a download link on a web page (`<a download>`, `blob:` URLs, HTTP downloads, etc.):
 
-1. 弹出保存对话框（Windows 原生对话框 / Linux 插件自带 Runtime Slate 对话框）
-2. CEF 开始下载，实时注入 `WebNative` 下载事件
-3. 可选显示内置下载进度条和完成通知 toast（白色 Material 风格）
+1. A save dialog appears (native Windows dialog / plugin-provided Runtime Slate dialog on Linux)
+2. CEF starts the download and injects `WebNative` download events in real time
+3. An optional built-in download progress bar and completion notification toast (white Material style) can be shown
 
-### 内置 UI 开关
+### Built-in UI Switch
 
-通过 config 控制是否显示内置进度条/通知（事件始终广播，不受此开关影响）：
+Control whether the built-in progress bar/notifications are shown via config (events are always broadcast regardless of this switch):
 
 ```ini
 [WebNative]
-show_download_notification=true   ; 默认显示内置 UI
-; show_download_notification=false ; 关闭内置 UI，仅广播事件，开发者自行监听绘制
+show_download_notification=true   ; default: show built-in UI
+; show_download_notification=false ; hide built-in UI, only broadcast events; developers draw their own UI
 ```
 
-### JS 监听下载事件
+### JS Listening to Download Events
 
-无论 `show_download_notification` 是否开启，以下事件都会通过 `window.WebNative.emit()` 广播，网页可订阅自定义 UI：
+Regardless of `show_download_notification`, the following events are always broadcast via `window.WebNative.emit()`, so web pages can subscribe to build custom UI:
 
 ```javascript
-// 下载进度（每个整数百分点触发一次）
+// Download progress (fires once per integer percentage point)
 WebNative.on('webNativeDownloadProgress', function(body) {
     const data = JSON.parse(body);
-    console.log(`下载中: ${data.filename} ${data.percent}% (${data.received}/${data.total})`);
+    console.log(`Downloading: ${data.filename} ${data.percent}% (${data.received}/${data.total})`);
     // data: { filename, received, total, percent }
 });
 
-// 下载完成
+// Download complete
 WebNative.on('webNativeDownloadComplete', function(body) {
     const data = JSON.parse(body);
-    console.log(`完成: ${data.filename} 大小: ${data.size} 路径: ${data.path}`);
+    console.log(`Complete: ${data.filename} size: ${data.size} path: ${data.path}`);
     // data: { filename, path, size }
 });
 
-// 下载失败/取消
+// Download failed/cancelled
 WebNative.on('webNativeDownloadFailed', function(body) {
     const data = JSON.parse(body);
-    console.log(`失败: ${data.filename}`);
+    console.log(`Failed: ${data.filename}`);
     // data: { filename }
 });
 ```
 
-### 事件数据格式
+### Event Data Format
 
-| 事件                          | 字段         | 类型     | 说明            |
-| --------------------------- | ---------- | ------ | ------------- |
-| `webNativeDownloadProgress` | `filename` | string | 下载文件名         |
-| <br />                      | `received` | number | 已接收字节数        |
-| <br />                      | `total`    | number | 总字节数（未知时为 0）  |
-| <br />                      | `percent`  | number | 进度百分比（0-100）  |
-| `webNativeDownloadComplete` | `filename` | string | 下载文件名         |
-| <br />                      | `path`     | string | 保存绝对路径（正斜杠格式） |
-| <br />                      | `size`     | number | 已下载字节数        |
-| `webNativeDownloadFailed`   | `filename` | string | 下载文件名         |
+| Event                         | Field        | Type   | Description                              |
+| ----------------------------- | ------------ | ------ | ---------------------------------------- |
+| `webNativeDownloadProgress`   | `filename`   | string | Download file name                       |
+|                               | `received`   | number | Bytes received                           |
+|                               | `total`      | number | Total bytes (0 when unknown)             |
+|                               | `percent`    | number | Progress percentage (0-100)              |
+| `webNativeDownloadComplete`   | `filename`   | string | Download file name                       |
+|                               | `path`       | string | Absolute save path (forward-slash format) |
+|                               | `size`       | number | Downloaded bytes                         |
+| `webNativeDownloadFailed`     | `filename`   | string | Download file name                       |
 
-### 平台差异
+### Platform Differences
 
-| 平台      | 保存对话框                  | 默认目录                   |
-| ------- | ---------------------- | ---------------------- |
-| Windows | CEF/Win32 原生对话框        | `<Project>/Downloads/` |
-| Linux   | 插件自带 Runtime Slate 对话框 | `<Project>/Downloads/` |
+| Platform | Save dialog                        | Default directory   |
+| -------- | ---------------------------------- | ------------------- |
+| Windows  | CEF/Win32 native dialog            | `<Project>/Downloads/` |
+| Linux    | Plugin-provided Runtime Slate dialog | `<Project>/Downloads/` |
 
-Linux 对话框模块只依赖 Runtime Slate，不依赖 `DesktopPlatform`、`SlateFileDialogs`
-或 `DirectoryWatcher`，因此可以进入 Linux Shipping 包。选择结果会回到 CEF UI
-线程并继续使用 Chromium 的标准文件授权/下载流程。
+The Linux dialog module only depends on Runtime Slate — not on `DesktopPlatform`, `SlateFileDialogs`, or `DirectoryWatcher` — so it can be included in Linux Shipping packages. Results return to the CEF UI thread and continue through Chromium's standard file authorization/download flow.
 
-> 无桌面环境注意  ：独立 Slate 窗口仍需要可用的本机窗口与输入环境。
-> 纯 headless 或像素流送中的“远端用户本机文件选择”不是同一问题；后者需要浏览器端
-> 上传协议，当前对话框不会把服务器文件系统映射到远端客户端。
+> **Headless note**: a standalone Slate window still requires a usable local windowing and input environment.
+> "Remote user local file selection" in pure headless or Pixel Streaming is a different problem; the latter requires a browser-side upload protocol, and the dialog does not map the server file system to the remote client.
 
-***
+---
 
-## 调试与日志
+## Debugging & Logs
 
-### CEF 性能监视器
+### CEF Performance Monitor
 
-三种方式开启：
+Three ways to enable it:
 
-1\. Widget 属性：
-
-选中 UMG 中的 `UWebNativeBrowserWidget`，在 Details 面板勾选：
+**1. Widget property:**
+Select `UWebNativeBrowserWidget` in UMG and check the following in the Details panel:
 
 ```
 CEF | Rendering → Show Cef Performance Monitor
 ```
 
-2\. ini 配置（[DefaultGame.ini](file:Config/DefaultGame.ini)）：
+**2. ini config ([DefaultGame.ini](file:Config/DefaultGame.ini)):**
 
 ```ini
 [WebNative]
 show_cef_performance_monitor=true
 ```
 
-3\. 蓝图：
-
-调用 `ExecuteJavaScript` 节点，输入：
+**3. Blueprint:**
+Call the `ExecuteJavaScript` node with:
 
 ```javascript
 "WebNativePerf && WebNativePerf.show();"
 ```
 
-开启后效果：
+Once enabled:
 
-左上角显示自定义 Slate 性能叠加层（半透明黑底绿字），包含以下实时指标：
+A custom Slate performance overlay appears in the top-left corner (semi-transparent black background, green text) showing the following real-time metrics:
 
-| 指标      | 说明                                                                              |
-| ------- | ------------------------------------------------------------------------------- |
-| CEF FPS | CEF 合成器实际画面产出频率（基于`OnAcceleratedPaint` 回调计数的滑动窗口平均值）                            |
-| Frames  | 自浏览器创建以来的累计合成帧数                                                                 |
-| View    | 当前 CEF 渲染视口分辨率（像素）                                                              |
-| Mem     | UE 进程当前占用的物理内存（MB），包含 CEF 子进程开销                                                 |
-| Accel   | 渲染加速模式：`SharedTex`（Windows D3D11 共享纹理）、`DMA-BUF`（Linux Vulkan 零拷贝）、`CPU`（软渲染回退） |
+| Metric | Description                                                                                                                              |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| CEF FPS | The actual frame rate produced by the CEF compositor (sliding-window average based on the `OnAcceleratedPaint` callback count) |
+| Frames | Cumulative composited frames since the browser was created                                                                                |
+| View   | Current CEF rendering viewport resolution (pixels)                                                                                        |
+| Mem    | Physical memory currently used by the UE process (MB), including CEF child process overhead                                               |
+| Accel  | Rendering acceleration mode: `SharedTex` (Windows D3D11 shared texture), `DMA-BUF` (Linux Vulkan zero-copy), `CPU` (software render fallback) |
 
-> 注意  ：CEF FPS 是全页面合成频率，不等于视频帧率。视频播放由 GPU 内部解码管线独立处理，帧率不受限制。
+> **Note**: CEF FPS is the full-page compositing rate, not the video frame rate. Video playback is handled independently by the GPU internal decode pipeline and is not rate-limited.
 
-### 日志文件
+### Log Files
 
-插件的 UE\_LOG 输出（`LogWebNative` 类别）会自动写入独立日志文件：
-
-```
-<Project>/Saved/Logs/cef/WebNativeBrowser.log          # 插件日志
-<Project>/Saved/Logs/cef/cef.log                    # CEF Chromium 日志（如果有）
-```
-
-受支持的日志详细度级别：
-
-| 级别      | 说明         | 示例                                                           |
-| ------- | ---------- | ------------------------------------------------------------ |
-| Error   | 必须关注的故障    | `CopyDmaBufToTexture FAILED`、`VK_ERROR_DEVICE_LOST`          |
-| Warning | 异常但可恢复     | `DMA-BUF copy fence wait TIMED OUT`、`SendMouseClick SKIPPED` |
-| Display | 关键状态变化（默认） | `CEF initialized`、`Browser created`                          |
-| Verbose | 高频调试信息     | 鼠标事件、每帧纹理提交、FPS 计数                                           |
-
-运行时调整日志级别（控制台命令）：
+The plugin's UE_LOG output (the `LogWebNative` category) is automatically written to dedicated log files:
 
 ```
-Log LogWebNative Verbose         # 开启最高详细度（含鼠标事件等所有日志）
-Log LogWebNative Display         # 恢复默认详细度
-Log LogWebNative Warning         # 仅显示警告和错误
+<Project>/Saved/Logs/cef/WebNativeBrowser.log          # plugin log
+<Project>/Saved/Logs/cef/cef.log                    # CEF Chromium log (if any)
 ```
 
-`Verbose`
+**Supported log verbosity levels:**
 
-&#x20;
+| Level    | Description                        | Example                                                          |
+| -------- | ---------------------------------- | ---------------------------------------------------------------- |
+| Error    | Failures that require attention    | `CopyDmaBufToTexture FAILED`, `VK_ERROR_DEVICE_LOST`             |
+| Warning  | Abnormal but recoverable           | `DMA-BUF copy fence wait TIMED OUT`, `SendMouseClick SKIPPED`    |
+| Display  | Key state changes (default)        | `CEF initialized`, `Browser created`                             |
+| Verbose  | High-frequency debug information   | Mouse events, per-frame texture submissions, FPS counting        |
 
-级别会输出的内容包括：
+**Change the log level at runtime (console commands):**
 
-- `SendMouseMove` — 鼠标移动事件
-- `SendMouseClick` — 鼠标点击事件
-- `OnMouseButtonDown` — 鼠标按下路由
-- `OnAcceleratedPaint` — 每 60 帧的渲染帧信息（Linux DMA-BUF / Windows）
-- `SendExternalBeginFrame` — 外部帧同步调用
+```
+Log LogWebNative Verbose         # highest verbosity (all logs including mouse events)
+Log LogWebNative Display         # restore default verbosity
+Log LogWebNative Warning         # warnings and errors only
+```
 
-### DevTools 调试器
+**Output included at the `Verbose` level:**
+
+- `SendMouseMove` — mouse move events
+- `SendMouseClick` — mouse click events
+- `OnMouseButtonDown` — mouse button-down routing
+- `OnAcceleratedPaint` — render frame info every 60 frames (Linux DMA-BUF / Windows)
+- `SendExternalBeginFrame` — external frame sync calls
+
+### DevTools Debugger
 
 ```cpp
 // C++
-WebView->ShowDevTools();     // 打开 DevTools
-WebView->CloseDevTools();    // 关闭 DevTools
-WebView->ToggleDevTools();   // 切换开关
+WebView->ShowDevTools();     // open DevTools
+WebView->CloseDevTools();    // close DevTools
+WebView->ToggleDevTools();   // toggle
 ```
 
-***
+---
 
-## 高级功能
+## Advanced Features
 
-### 从 Web 拖拽或点击放置到 UE 场景
+### Drag or Click-to-Place from Web to the UE Scene
 
-想加快游戏与三维交互应用开发，可以让 Web 负责资产库、道具栏与复杂工具面板，让 UE 专注实时三维和场景对象。典型流程如下：
+To speed up game and 3D interactive application development, let the web handle asset libraries, item bars, and complex tool panels while UE focuses on real-time 3D and scene objects. The typical flow:
 
-1. 用户在 Web 页面拖拽或点击一个资源条目。
-2. 页面通过 `WebNative.send()` 发送资源 ID 和放置命令。
-3. UE 收到消息后调用 `SetFocusToGameViewport()`，把后续输入交给游戏视口。
-4. 调用 `GetRawPlatformCursorPos()` 和 `DeprojectCursorToWorld()` 获取当前世界空间射线。
-5. 项目执行射线检测、显示预览体，并在确认时创建 Actor。
+1. The user drags or clicks an asset entry on the web page.
+2. The page sends the asset ID and placement command via `WebNative.send()`.
+3. On receiving the message, UE calls `SetFocusToGameViewport()` to hand subsequent input to the game viewport.
+4. Calls `GetRawPlatformCursorPos()` and `DeprojectCursorToWorld()` to obtain the current world-space ray.
+5. The project performs raycasting, displays a preview volume, and creates the Actor on confirmation.
 
 ```javascript
-// 事件名称和业务字段由项目自行约定
+// Event names and business fields are agreed upon by the project
 WebNative.send("Placement.Begin", {
   assetId: "Prop.Chair.001",
   mode: "click"
 });
 ```
 
-公开蓝图/C++接口：
+Public Blueprint/C++ interfaces:
 
-| 接口                                                            | 用途                 |
-| ------------------------------------------------------------- | ------------------ |
-| `SetFocusToGameViewport()`                                    | 将输入焦点切换到 UE 游戏视口   |
-| `GetRawPlatformCursorPos(OutScreenPos)`                       | 获取当前平台光标屏幕坐标       |
-| `DeprojectCursorToWorld(ScreenPos, OutWorldPos, OutWorldDir)` | 将屏幕坐标反投影为世界空间起点和方向 |
+| Interface                                                       | Purpose                                              |
+| --------------------------------------------------------------- | ---------------------------------------------------- |
+| `SetFocusToGameViewport()`                                      | Switch input focus to the UE game viewport           |
+| `GetRawPlatformCursorPos(OutScreenPos)`                         | Get the current platform cursor screen coordinates   |
+| `DeprojectCursorToWorld(ScreenPos, OutWorldPos, OutWorldDir)`   | Deproject screen coordinates to a world-space origin and direction |
 
-拖拽/点击只负责开始放置流程。资源白名单、UClass/Static Mesh 映射、碰撞、吸附、撤销、联网权限和最终生成规则必须由项目蓝图/C++决定，不要让不可信网页直接指定任意对象路径。
+Drag/click only starts the placement flow. Asset whitelists, UClass/Static Mesh mapping, collision, snapping, undo, network permissions, and final spawning rules must be decided by the project's Blueprints/C++; never let untrusted web pages specify arbitrary object paths.
 
-### 透明背景叠加层
+### Transparent Background Overlay
 
-用于将网页 UI 叠加在 3D 场景上：
+For overlaying web UI on top of 3D scenes:
 
 ```ini
 [WebNative]
@@ -558,13 +546,13 @@ cef_args=show-background-color background-color=0x00000000
 ```
 
 ```cpp
-// Widget 属性
+// Widget property
 bTransparentBackground = true;
 ```
 
-### 视频/音频权限
+### Video/Audio Permissions
 
-支持完整的 WebRTC 媒体权限管理：
+Full WebRTC media permission management:
 
 ```ini
 [WebNative]
@@ -576,30 +564,30 @@ allow_desktop_capture=true
 allow_protected_media=true
 ```
 
-### 鼠标透明穿透
+### Mouse Transparent Hit-Through
 
-网页透明区域的鼠标事件穿透到 UE 场景：
+Mouse events over transparent areas of the web page pass through to the UE scene:
 
-| 属性                              | 值     | 说明                 |
-| ------------------------------- | ----- | ------------------ |
-| bEnableMouseTransparency        | true  | 启用透明穿透             |
-| MouseTransparencyAlphaThreshold | 0-255 | Alpha 小于或等于此阈值时穿透  |
-| MouseTransparencyMaskBlockSize  | 1-16  | 透明掩码块大小（性能 / 精度平衡） |
+| Property                           | Value | Description                            |
+| ---------------------------------- | ----- | -------------------------------------- |
+| bEnableMouseTransparency           | true  | Enable transparent hit-through         |
+| MouseTransparencyAlphaThreshold    | 0-255 | Pixels with Alpha less than or equal to this value pass through |
+| MouseTransparencyMaskBlockSize     | 1-16  | Transparent mask block size (performance / precision trade-off) |
 
-#### 透明区域场景 Primitive 事件桥（可选）
+#### Transparent Scene Primitive Event Bridge (Optional)
 
-| 属性                                          | 值     | 说明                                                                                                                                                 |
-| ------------------------------------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Use 3D Widget Component Mode`              | false | WebView 由世界空间 UWidgetComponent 承载时开启，指针路由交给 UE 3D 命中测试                                                                                             |
-| `Enable Transparent Scene Primitive Events` | false | 全屏 WebUI 的透明像素处，桥接场景 Actor/UPrimitiveComponent 的 Begin/End Cursor Over、Clicked、Released（需调用`SetTransparentScenePrimitiveEventsEnabled(true)` 显式开启） |
+| Property | Value | Description |
+| ---------------------------------- | ----- | -------------------------------------- |
+| `Use 3D Widget Component Mode`     | false | Enable when the WebView is hosted by a world-space UWidgetComponent; pointer routing is handed to UE's 3D hit testing |
+| `Enable Transparent Scene Primitive Events` | false | Bridges Begin/End Cursor Over, Clicked and Released of scene Actors/UPrimitiveComponents at transparent pixels of the fullscreen WebUI (explicitly enable it via `SetTransparentScenePrimitiveEventsEnabled(true)`) |
 
-## 配置参考
+## Configuration Reference
 
-所有配置项位于 `Config/DefaultGame.ini` 的 `[WebNative]` 节点下。以下列出插件读取的全部   35 个配置项  ，按功能分类说明。
+All configuration items live in the `[WebNative]` section of `Config/DefaultGame.ini`. The following lists all **35 configuration items** the plugin reads, grouped by category.
 
-> 配置优先级  ：打包后可在 `<Project>/Saved/Config/Windows/Game.ini`（或 `Linux/Game.ini`）中覆盖默认值。只需添加 `[WebNative]` 节点并写入要覆盖的键即可，未写入的键保持 `DefaultGame.ini` 的默认值。
+> **Configuration priority**: after packaging, defaults can be overridden in `<Project>/Saved/Config/Windows/Game.ini` (or `Linux/Game.ini`). Just add a `[WebNative]` section with the keys you want to override; keys that are not written keep the `DefaultGame.ini` defaults.
 >
-> 示例  ：假设默认启用了性能监视器，打包后需要关闭：
+> **Example**: suppose the performance monitor is enabled by default and you want to disable it in a packaged build:
 >
 > ```ini
 > ; <Project>/Saved/Config/Windows/Game.ini
@@ -607,106 +595,103 @@ allow_protected_media=true
 > show_cef_performance_monitor=false
 > ```
 >
-> 这样就只覆盖了 `show_cef_performance_monitor`，其余 35 项仍使用 `DefaultGame.ini` 的默认值。
+> This only overrides `show_cef_performance_monitor`; the other 35 items still use the `DefaultGame.ini` defaults.
 
-### 常规设置
+### General Settings
 
-| 配置键                            | 类型   | 默认值     | 说明                                                                                                                                                                                                                                                   |
-| ------------------------------ | ---- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `clear_cache`                  | bool | `false` | 程序关闭时清除 CEF 浏览器缓存（Cookie、LocalStorage 等）。在 CEF 已释放所有文件句柄后安全删除                                                                                                                                                                                        |
-| `clear_log`                    | bool | `true`  | 程序关闭时清除 CEF 日志文件。在 CEF 已释放所有文件句柄后安全删除                                                                                                                                                                                                                |
-| `offgpu`                       | bool | `false` | 禁用 GPU 加速渲染，强制使用 CPU 软渲染。仅在 GPU 不可用时开启                                                                                                                                                                                                               |
-| `touch_events`                 | bool | `true`  | 启用触摸输入支持（移动端/触屏设备）                                                                                                                                                                                                                                   |
-| `keyboard_f5`                  | bool | `false` | 允许 F5 键刷新网页                                                                                                                                                                                                                                          |
-| `ctrl_scale`                   | bool | `false` | 允许 Ctrl + 鼠标滚轮缩放网页                                                                                                                                                                                                                                   |
-| `gpu_shared_mutex_per_adapter` | bool | `false` | 按 GPU 适配器限制 shared\_texture 并发数（`true`：每物理 GPU 仅 1 个实例 GPU 加速，其余 CPU 降级；`false`：所有实例均可 GPU 加速，纯 D3D12 拷贝路径下已无跨设备冲突，，，推荐，， ，，`false`，，）                                                                                                               |
-| `multi_open`                   | bool | `false` | 多实例多开模式：`false`（默认）单实例独占锁模式，检测到其他进程已持有锁时自动回退多开（每实例独立缓存/日志目录，避免 SQLite 文件锁冲突）；`true` 直接以多开模式运行，每实例使用独立缓存与日志目录。。。云渲染/云游戏场景。。：建议 `multi_open=true` 并配合 `clear_cache=true`、`clear_log=true` 使用——云渲染下每个客户端进程相互独立、一般不依赖浏览器缓存，多开实例各自使用独立缓存/日志目录，会话结束时自动清空即可 |
-| `linux_single_process`         | bool | `false` | 仅 Linux：`true` 使用兼容性优先的单进程模式；`false`（默认）使用 Helper 多进程模式。CEF 初始化后不能动态切换，修改后需要重启程序                                                                                                                                                                     |
+| Config Key                        | Type | Default   | Description                                                                                                                                                                                                                                                                                                                                                                                           |
+| --------------------------------- | ---- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `clear_cache`                     | bool | `false`   | Clears CEF browser cache (cookies, LocalStorage, etc.) on application exit. Deleted safely after CEF has released all file handles                                                                                                                                                                                                                                                                    |
+| `clear_log`                       | bool | `true`    | Clears CEF log files on application exit. Deleted safely after CEF has released all file handles                                                                                                                                                                                                                                                                                                      |
+| `offgpu`                          | bool | `false`   | Disables GPU-accelerated rendering and forces CPU software rendering. Enable only when GPU is unavailable                                                                                                                                                                                                                                                                                              |
+| `touch_events`                    | bool | `true`    | Enables touch input support (mobile/touch devices)                                                                                                                                                                                                                                                                                                                                                    |
+| `keyboard_f5`                     | bool | `false`   | Allows F5 to refresh the web page                                                                                                                                                                                                                                                                                                                                                                     |
+| `ctrl_scale`                      | bool | `false`   | Allows Ctrl + mouse wheel to zoom the web page                                                                                                                                                                                                                                                                                                                                                        |
+| `gpu_shared_mutex_per_adapter`    | bool | `false`   | Limits shared_texture concurrency per GPU adapter (`true`: only 1 instance is GPU-accelerated per physical GPU, the rest fall back to CPU; `false`: all instances can use GPU acceleration; with the pure D3D12 copy path there is no cross-device conflict, **`false` is recommended**)                                                                                                      |
+| `multi_open`                      | bool | `false`   | Multi-instance mode: `false` (default) single-instance exclusive-lock mode; when another process already holds the lock it automatically falls back to multi-instance (each instance uses its own cache/log directory to avoid SQLite file-lock conflicts). `true` runs directly in multi-instance mode with independent cache and log directories per instance. **Cloud rendering / cloud gaming**: `multi_open=true` together with `clear_cache=true` and `clear_log=true` is recommended — under cloud rendering each client process is independent and generally does not rely on browser cache; each instance uses its own cache/log directory and clears them at session end |
+| `linux_single_process`            | bool | `false`   | Linux only: `true` uses a compatibility-first single-process mode; `false` (default) uses the Helper multi-process mode. Cannot be switched at runtime after CEF initialization; a restart is required after changing it                                                                                                                                                                             |
 
-### 调试与性能
+### Debugging & Performance
 
-| 配置键                            | 类型   | 默认值    | 说明                                                                                    |
-| ------------------------------ | ---- | ------ | ------------------------------------------------------------------------------------- |
-| `show_cef_performance_monitor` | bool | `true` | 在浏览器左上角显示实时性能叠加层（FPS、内存、渲染模式）                                                         |
-| `show_download_notification`   | bool | `true` | 显示内置下载进度条和完成/失败通知（白色 Material 风格 toast）。设为`false` 则仅广播 `WebNative` 下载事件，由开发者自行监听绘制 UI |
-| `debugging_port_min`           | int  | `19223` | 远程 DevTools 调试端口范围最小值。设为 0 则禁用远程调试                                                   |
-| `debugging_port_max`           | int  | `19262` | 远程 DevTools 调试端口范围最大值。插件会在此范围内选择首个可用端口。设定后可通过`http://localhost:<端口>` 访问 DevTools     |
+| Config Key                          | Type | Default  | Description                                                                                                                               |
+| ----------------------------------- | ---- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `show_cef_performance_monitor`      | bool | `true`   | Shows a real-time performance overlay in the top-left of the browser (FPS, memory, rendering mode)                                        |
+| `show_download_notification`        | bool | `true`   | Shows built-in download progress bar and completion/failure notifications (white Material style toast). Set to `false` to only broadcast `WebNative` download events for developers to draw their own UI |
+| `debugging_port_min`                | int  | `19223`  | Minimum remote DevTools debugging port. Set to 0 to disable remote debugging                                                              |
+| `debugging_port_max`                | int  | `19262`  | Maximum remote DevTools debugging port. The plugin picks the first available port in this range. Access DevTools via `http://localhost:<port>` |
 
-### 媒体权限策略
+### Media Permission Policies
 
-| 配置键                        | 类型     | 可选值                         | 说明                  |
-| -------------------------- | ------ | --------------------------- | ------------------- |
-| `media_permission_policy`  | string | `allow` / `deny` / `prompt` | 媒体设备（摄像头/麦克风）全局权限策略 |
-| `permission_prompt_policy` | string | `allow` / `deny` / `prompt` | 权限弹窗（通知/地理位置等）全局策略  |
+| Config Key                      | Type   | Allowed Values                  | Description                                        |
+| ------------------------------- | ------ | ------------------------------- | -------------------------------------------------- |
+| `media_permission_policy`       | string | `allow` / `deny` / `prompt`     | Global policy for media devices (camera/microphone) |
+| `permission_prompt_policy`      | string | `allow` / `deny` / `prompt`     | Global policy for permission prompts (notifications/geolocation, etc.) |
 
-### 单项权限开关（18 项）
+### Individual Permission Switches (18 Items)
 
-以下配置键均为 `bool` 类型，`true` = 允许，`false` = 禁止。
+All keys below are `bool` type; `true` = allowed, `false` = denied.
 
-| 配置键                              | 默认值     | 权限说明                             |
-| -------------------------------- | ------- | -------------------------------- |
-| `allow_microphone`               | `true`  | 麦克风访问                            |
-| `allow_camera`                   | `true`  | 摄像头访问                            |
-| `allow_desktop_capture`          | `true`  | 屏幕/窗口捕获（getDisplayMedia）         |
-| `allow_clipboard`                | `true`  | 剪贴板读写                            |
-| `allow_geolocation`              | `true`  | 地理位置                             |
-| `allow_notifications`            | `true`  | 桌面通知                             |
-| `allow_local_network_access`     | `true`  | 本地网络请求（局域网资源）                    |
-| `allow_file_system_access`       | `true`  | 本地文件系统访问（File System Access API） |
-| `allow_pointer_lock`             | `true`  | 鼠标指针锁定（Pointer Lock API，游戏用）     |
-| `allow_keyboard_lock`            | `true`  | 键盘锁定（Keyboard Lock API）          |
-| `allow_storage_access`           | `true`  | 第三方存储访问（Storage Access API）      |
-| `allow_protected_media`          | `true`  | 受保护内容播放（EME/Widevine DRM）        |
-| `allow_local_fonts`              | `true`  | 本地字体枚举（Local Font Access API）    |
-| `allow_midi_sysex`               | `false` | MIDI System Exclusive 消息         |
-| `allow_multiple_downloads`       | `true`  | 多文件并发下载                          |
-| `allow_window_management`        | `true`  | 多屏幕/窗口管理（Window Management API）  |
-| `allow_extended_reality`         | `false` | WebXR 扩展现实（VR/AR）                |
-| `allow_other_permission_prompts` | `false` | 其他未分类权限弹窗                        |
+| Config Key                           | Default    | Permission Description                        |
+| ------------------------------------ | ---------- | --------------------------------------------- |
+| `allow_microphone`                   | `true`     | Microphone access                             |
+| `allow_camera`                       | `true`     | Camera access                                 |
+| `allow_desktop_capture`              | `true`     | Screen/window capture (getDisplayMedia)       |
+| `allow_clipboard`                    | `true`     | Clipboard read/write                          |
+| `allow_geolocation`                  | `true`     | Geolocation                                   |
+| `allow_notifications`                | `true`     | Desktop notifications                         |
+| `allow_local_network_access`         | `true`     | Local network requests (LAN resources)        |
+| `allow_file_system_access`           | `true`     | Local file system access (File System Access API) |
+| `allow_pointer_lock`                 | `true`     | Mouse pointer lock (Pointer Lock API, for games) |
+| `allow_keyboard_lock`                | `true`     | Keyboard lock (Keyboard Lock API)             |
+| `allow_storage_access`               | `true`     | Third-party storage access (Storage Access API) |
+| `allow_protected_media`              | `true`     | Protected content playback (EME/Widevine DRM) |
+| `allow_local_fonts`                  | `true`     | Local font enumeration (Local Font Access API) |
+| `allow_midi_sysex`                   | `false`    | MIDI System Exclusive messages                |
+| `allow_multiple_downloads`           | `true`     | Concurrent multi-file downloads               |
+| `allow_window_management`            | `true`     | Multi-screen/window management (Window Management API) |
+| `allow_extended_reality`             | `false`    | WebXR extended reality (VR/AR)                |
+| `allow_other_permission_prompts`     | `false`    | Other uncategorized permission prompts        |
 
-### CEF 命令行参数
+### CEF Command-Line Arguments
 
-| 配置键        | 类型     | 说明                                                                                                                                                                                                                                                                          |
-| ---------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `cefcore`  | string | CEF 核心进程参数（CEF Core Args），影响所有子进程。常用：`disable-web-security`、`no-proxy-server`、`allow-file-access-from-files`、`allow-universal-access-from-files`                                                                                                                            |
-| `cef_args` | string | CEF 浏览器进程参数（CEF Extra Args），仅影响渲染进程。常用：`show-background-color`、`background-color=0x00000000`（透明背景）。。。站点隔离已默认禁用。。：插件内置已追加 `disable-features=SitePerProcess,IsolateOrigins,OutOfBlinkCors,...`，无需在 `cef_args` 中重复配置；若重复写 `disable-features` 会以最后值覆盖内置完整列表，导致嵌入式场景所需的其他禁用项重新启用 |
+| Config Key  | Type   | Description                                                                                                                                                                                                                                                                                                                                                                                       |
+| ----------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `cefcore`   | string | CEF core process arguments (CEF Core Args), affecting all child processes. Common values: `disable-web-security`, `no-proxy-server`, `allow-file-access-from-files`, `allow-universal-access-from-files`                                                                                                                            |
+| `cef_args`  | string | CEF browser process arguments (CEF Extra Args), affecting the renderer process only. Common values: `show-background-color`, `background-color=0x00000000` (transparent background). **Site isolation is disabled by default**: the plugin already appends `disable-features=SitePerProcess,IsolateOrigins,OutOfBlinkCors,...`; do not configure `disable-features` again in `cef_args`, otherwise the last value overwrites the built-in full list and re-enables other disabled features required by embedded scenarios |
 
-> 注意  ：`cefcore` 和 `cef_args` 的区别：
+> **Note**: the difference between `cefcore` and `cef_args`:
 >
-> - `cefcore` → CEF 核心命令行，所有 CEF 子进程（GPU、网络、渲染等）共用
-> - `cef_args` → 仅传递给渲染进程（Renderer Process），如背景色、Feature Flag 等
+> - `cefcore` → CEF core command line, shared by all CEF child processes (GPU, network, renderer, etc.)
+> - `cef_args` → passed only to the renderer process, e.g., background color, feature flags, etc.
 
-### Linux 单进程/多进程配置
+### Linux Single/Multi-Process Configuration
 
-Linux 默认使用多进程模式（`linux_single_process=false`），隔离性和并行能力更好；国产 CPU/GPU 等兼容性优先的环境建议切换到单进程模式。客户可以在项目配置中选择：
+Linux defaults to multi-process mode (`linux_single_process=false`) with better isolation and parallelism; for compatibility-first environments such as domestic CPUs/GPUs, switching to single-process mode is recommended. Clients can choose in the project config:
 
 ```ini
 [WebNative]
 linux_single_process=true
 ```
 
-| 配置值     | CEF 参数与行为                                                                                                       |
-| ------- | --------------------------------------------------------------------------------------------------------------- |
-| `true`  | 添加`--single-process`，并把 `NetworkService` 合并到唯一一条 `--disable-features` 参数中；适合国产 CPU/GPU 和兼容性优先的环境，退出时使用单进程兼容关闭流程 |
-| `false` | 不添加`--single-process`，不禁用 `NetworkService`；Renderer、GPU、Network、Utility 等使用 CEF Helper 多进程运行，隔离性和并行能力更好         |
+| Config Value | CEF arguments and behavior                                                                                                                                                    |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `true`       | Adds `--single-process` and merges `NetworkService` into the single `--disable-features` argument; suitable for domestic CPU/GPU and compatibility-first environments; uses the single-process compatible shutdown flow on exit |
+| `false`      | Does not add `--single-process` and does not disable `NetworkService`; Renderer, GPU, Network, Utility, etc. run as separate CEF Helper processes for better isolation and parallelism |
 
-配置在 CEF 第一次初始化时读取，运行过程中不能切换。修改项目的
-`DefaultGame.ini` 或打包后的 `Saved/Config/Linux/Game.ini` 后，需要完全退出并重启程序。
-多进程模式依赖随插件打包的对应架构 `WebNativeBrowserHelper`。
+The config is read at CEF's first initialization and cannot be switched at runtime. After modifying the project's `DefaultGame.ini` or the packaged `Saved/Config/Linux/Game.ini`, fully exit and restart the program.
+Multi-process mode relies on the architecture-matched `WebNativeBrowserHelper` shipped with the plugin.
 
-> 国产化环境兼容保证  ：插件不会自行关闭或替换 `linux_single_process=true`。部分国产 CPU + GPU 环境需要让 `NetworkService` 与 CEF 在进程内协同运行，才能正常加载网络视频。由于上游 CEF 的 `--single-process` 诊断模式在 Linux 调用 `CefShutdown()` 时可能触发 `SIGTRAP`，插件只在 UE 已进入最终退出阶段、所有 CEF Browser 均已请求关闭后跳过该调用，并清理残留 Helper；浏览、视频播放、消息通道及运行期行为不受影响。多进程模式仍执行完整的 `CefShutdown()`。
+> **Domestic environment compatibility guarantee**: the plugin will not disable or override `linux_single_process=true` on its own. Some domestic CPU + GPU environments need `NetworkService` and CEF to run cooperatively in-process to load network video correctly. Because upstream CEF's `--single-process` diagnostic mode may trigger `SIGTRAP` when calling `CefShutdown()` on Linux, the plugin only skips that call after UE has entered its final shutdown stage and all CEF browsers have requested shutdown, then cleans up leftover Helpers. Browsing, video playback, the message channel, and runtime behavior are unaffected. Multi-process mode still performs the full `CefShutdown()`.
 
-为什么国产化环境建议使用单进程？
+**Why is single-process recommended for domestic environments?**
 
-Chromium 144 默认将网络栈拆分为独立的 `NetworkService` 子进程，通过 Mojo IPC 与主进程通信。在国内 CPU（如飞腾、鲲鹏）+ 国产 GPU（如砺算）等硬件组合上，Mojo IPC 的 Unix domain socket / eventfd 机制可能卡死，导致后续 HTTP 请求全部 Pending，表现为网页图片加载不全、视频脚本加载失败等问题。
+Chromium 144 splits the network stack into a separate `NetworkService` child process communicating with the main process via Mojo IPC. On domestic CPU (e.g., Phytium, Kunpeng) + domestic GPU (e.g., Lisca) combinations, the Mojo IPC Unix domain socket / eventfd mechanism can hang, causing all subsequent HTTP requests to remain pending — web images fail to fully load, video scripts fail to load, etc.
 
-单进程配置会让 NetworkService 在进程内运行，绕过上述 IPC 通信。默认（`linux_single_process=false`）在验证过的 Intel/AMD
-或服务器环境直接使用多进程；国产化硬件建议先切换为单进程模式（`linux_single_process=true`），
-完成网页加载、视频播放、消息通道和长时间稳定性测试后再决定是否切换。
+Single-process mode runs NetworkService in-process, bypassing that IPC communication. The default (`linux_single_process=false`) uses multi-process directly on verified Intel/AMD or server environments; on domestic hardware, switch to single-process mode (`linux_single_process=true`) first, then decide after completing web loading, video playback, message channel, and long-running stability tests.
 
-### 推荐配置示例
+### Recommended Configuration Examples
 
-开发环境（调试全开）：
+**Development environment (debugging fully enabled):**
 
 ```ini
 [WebNative]
@@ -747,7 +732,7 @@ cefcore=disable-web-security no-proxy-server allow-file-access-from-files allow-
 cef_args=
 ```
 
-生产环境（安全加固）：
+**Production environment (security hardened):**
 
 ```ini
 [WebNative]
@@ -788,9 +773,9 @@ cefcore=no-proxy-server
 cef_args=
 ```
 
-云渲染（云游戏）多开：
+**Cloud rendering (cloud gaming) multi-instance:**
 
-云渲染/云游戏场景下，每个客户端进程都应相互独立、一般不依赖浏览器缓存。建议启用 `multi_open=true`，并配合 `clear_cache=true`、`clear_log=true` 在会话结束后清空各自缓存与日志；其余安全项按上方"生产环境（安全加固）"配置：
+In cloud rendering/cloud gaming scenarios, each client process should be independent and generally does not rely on browser cache. Enable `multi_open=true` with `clear_cache=true` and `clear_log=true` to clear each instance's cache and logs after the session; keep the other security items per the "Production environment (security hardened)" config above:
 
 ```ini
 [WebNative]
@@ -831,65 +816,65 @@ cefcore=no-proxy-server
 cef_args=
 ```
 
-***
+---
 
-## 技术规格
+## Technical Specifications
 
-| 项目     | 说明                                        |
-| ------ | ----------------------------------------- |
-| 引擎版本   | Unreal Engine 5.1-UE5.8                   |
-| CEF 版本 | Chromium 144 (CEF 131)                    |
-| 支持平台   | Windows 10+, Linux (Vulkan, GLIBC ≥ 2.17) |
-| 渲染后端   | D3D11/D3D12 (Windows), Vulkan (Linux)     |
-| 最大帧率   | 120 FP                                    |
-| C++ 标准 | C++17                                     |
+| Item       | Description                                  |
+| ---------- | -------------------------------------------- |
+| Engine     | Unreal Engine 5.1 - UE5.8                    |
+| CEF        | Chromium 144 (CEF 131)                       |
+| Platforms  | Windows 10+, Linux (Vulkan, GLIBC ≥ 2.17)    |
+| Rendering  | D3D11/D3D12 (Windows), Vulkan (Linux)        |
+| Max FPS    | 120 FPS                                      |
+| C++ Std    | C++17                                        |
 
-### Linux 发行版兼容性
+### Linux Distribution Compatibility
 
-> 最低要求：GLIBC 2.17  。低于此版本将无法启动，报 `GLIBC_X.XX not found` 错误。
+> **Minimum requirement: GLIBC 2.17**. Below this version the plugin will not start and reports a `GLIBC_X.XX not found` error.
 
-| 发行版                        | GLIBC | 兼容状态 | 备注                          |
-| -------------------------- | ----- | ---- | --------------------------- |
-| Ubuntu 22.04 / 24.04       | 2.35+ | ✅ 支持 | <br />                      |
-| Ubuntu 20.04               | 2.31  | ✅ 支持 | <br />                      |
-| Debian 11 (Bullseye)       | 2.31  | ✅ 支持 | <br />                      |
-| Debian 12 (Bookworm)       | 2.36  | ✅ 支持 | <br />                      |
-| CentOS Stream 9 / RHEL 9   | 2.34  | ✅ 支持 | <br />                      |
-| CentOS 8 / RHEL 8          | 2.28  | ✅ 支持 | 已 EOL，建议升级                  |
-| 麒麟 V10 SP1 (入门版/基础版)       | 2.28  | ✅ 支持 | x86\_64 版本，需确认 GLIBC ≥ 2.28 |
-| 麒麟 V10 SP1 (2503/增强版)      | 2.31  | ✅ 支持 | x86\_64 版本                  |
-| UOS Server 20 (A版/Debian系) | 2.31  | ✅ 支持 | 内核 5.x 版本                   |
-| UOS Server 20 (E版/欧拉版)     | 2.28  | ✅ 支持 | x86\_64 版本                  |
-| CentOS 7 / RHEL 7          | 2.17  | ✅ 支持 | 最低要求版本，已 EOL                |
+| Distribution                     | GLIBC | Compatible | Notes                             |
+| -------------------------------- | ----- | ---------- | --------------------------------- |
+| Ubuntu 22.04 / 24.04             | 2.35+ | ✅ Yes     |                                   |
+| Ubuntu 20.04                     | 2.31  | ✅ Yes     |                                   |
+| Debian 11 (Bullseye)             | 2.31  | ✅ Yes     |                                   |
+| Debian 12 (Bookworm)             | 2.36  | ✅ Yes     |                                   |
+| CentOS Stream 9 / RHEL 9         | 2.34  | ✅ Yes     |                                   |
+| CentOS 8 / RHEL 8                | 2.28  | ✅ Yes     | EOL; upgrade recommended          |
+| Kylin V10 SP1 (Entry/Basic)      | 2.28  | ✅ Yes     | x86_64; verify GLIBC ≥ 2.28       |
+| Kylin V10 SP1 (2503/Enhanced)    | 2.31  | ✅ Yes     | x86_64 version                    |
+| UOS Server 20 (A/Debian-based)   | 2.31  | ✅ Yes     | Kernel 5.x version                |
+| UOS Server 20 (E/openEuler)      | 2.28  | ✅ Yes     | x86_64 version                    |
+| CentOS 7 / RHEL 7                | 2.17  | ✅ Yes     | Minimum required version; EOL     |
 
-> 验证说明  ：2026-07-24 通过 `readelf -V` 在 GLIBC 2.28 环境实测确认，二进制仅依赖 GLIBC 2.17（`libc.so.6` 最高版本符号为 `GLIBC_2.17`）。
+> **Verification note**: on 2026-07-24, `readelf -V` verification on a GLIBC 2.28 environment confirmed the binary only depends on GLIBC 2.17 (the highest version symbol on `libc.so.6` is `GLIBC_2.17`).
 
-***
+---
 
-## 常见问题
+## FAQ
 
-Q: 透明背景已设置，但点击仍然有概率被阻挡无法穿透到 UE 场景？
+**Q: Transparent background is set, but clicks are still occasionally blocked and cannot pass through to the UE scene?**
 
-A: CEF 中透明穿透有三个常见陷阱，按以下规则设置 CSS 即可避免：
+A: There are three common transparent hit-through pitfalls in CEF. Avoid them with the following CSS rules:
 
-1. 不要用全屏     `<div>`     做视觉效果  （如闪屏）。用 `body` 伪元素替代，只覆盖需要的区域：
+1. **Don't use a full-screen `<div>` for visual effects** (e.g., flash effects). Use `body` pseudo-elements instead, covering only the needed area:
 
 ```css
-/* 错误 — 全屏 div 阻挡点击 */
+/* Wrong — full-screen div blocks clicks */
 .flash { position:fixed; inset:0; }
 
-/* 正确 — 伪元素只覆盖两侧 */
+/* Correct — pseudo-elements cover only the sides */
 body.flash::before, body.flash::after {
   content:''; position:fixed; top:0; bottom:0; width:60px; pointer-events:none;
 }
 ```
 
-1. `backdrop-filter`     必须显式加     `pointer-events:none`  ，且透明度为 0 时设为 `none`（不是 `blur(0px)`）：
+2. **`backdrop-filter` must explicitly add `pointer-events:none`**, and when transparency is 0 it must be set to `none` (not `blur(0px)`):
 
 ```css
 .overlay-bg {
   backdrop-filter: blur(10px);
-  pointer-events: none;  /* 必须显式声明 */
+  pointer-events: none;  /* must be declared explicitly */
 }
 ```
 
@@ -897,45 +882,39 @@ body.flash::before, body.flash::after {
 bg.style.backdropFilter = (alpha > 0) ? `blur(${px}px)` : 'none';
 ```
 
-1. 全屏遮罩容器设     `pointer-events:none`  ，只给需要交互的子元素设 `pointer-events:auto`：
+3. **Set full-screen mask containers to `pointer-events:none`**, and only give interactive child elements `pointer-events:auto`:
 
 ```css
-.overlay-panel { pointer-events: none; }   /* 全屏不拦截 */
-.panel-card    { pointer-events: auto; }   /* 卡片可交互 */
+.overlay-panel { pointer-events: none; }   /* full screen: no interception */
+.panel-card    { pointer-events: auto; }   /* cards: interactive */
 ```
 
-原则
+**Principle**: create fewer full-screen DOM elements, declare `pointer-events` explicitly on every layer, and turn off `backdrop-filter` when not in use.
 
-：少创建全屏 DOM 元素，每层都显式声明 `pointer-events`，`backdrop-filter` 不用就关掉。
+**Q: The web page does not render correctly?**
+A: Make sure `bUseGpuAcceleratedRendering = true`, and check the CEF initialization log `LogWebNative`.
 
-Q: 网页无法正确渲染？
+**Q: How do I check the CEF version and logs?**
+A: CEF logs are in `Saved/Logs/cef/cef.log`; you can also open the browser console via `ShowDevTools()`.
 
-A: 确保 `bUseGpuAcceleratedRendering = true`，并检查 CEF 初始化日志 `LogWebNative`。
+**Q: What is the JS message latency?**
+A: A single message is <1ms (in-process IPC). Batch send latency:
 
-Q: 如何查看 CEF 自身版本和日志？
+| Message count | Time     |
+| ------------- | -------- |
+| 10            | ~5 ms    |
+| 100           | ~5 ms    |
+| 1,000         | ~6 ms    |
+| 10,000        | ~30 ms   |
+| 100,000       | ~220 ms  |
 
-A: CEF 日志在 `Saved/Logs/cef/cef.log`，也可通过 `ShowDevTools()` 打开浏览器控制台查看。
+**Q: RSS keeps growing during long-running sessions on Linux?**
 
-Q: JS 消息延迟多少？
+A: This is a known behavior of the UE5.x Linux engine and is unrelated to the plugin. On Linux, UE5's `FMallocBinned2` uses `FPooledVirtualMemoryAllocator` to manage its memory pools, and under the default configuration `madvise(MADV_DONTNEED)` is never called (`GMemoryRangeDecommitIsNoOp=true`), so freed physical pages are not returned to the OS. The 8MB pool is almost never fully cleared after fragmentation, and RSS only grows.
 
-A: 单条消息 <1ms（进程内 IPC）。批量发送延迟如下：
+**Solution (reduces growth by 70-78%):**
 
-| 消息数       | 耗时       |
-| --------- | -------- |
-| <br />    | <br />   |
-| 10 条      | \~5 ms   |
-| 100 条     | \~5 ms   |
-| 1,000 条   | \~6 ms   |
-| 10,000 条  | \~30 ms  |
-| 100,000 条 | \~220 ms |
-
-Q: Linux 下长时间运行内存（RSS）持续增长怎么办？
-
-A: 这是 UE5.x Linux 引擎的已知行为，与 插件无关。在 Linux 上，UE5 的 `FMallocBinned2` 使用 `FPooledVirtualMemoryAllocator` 管理内存池，默认配置下 `madvise(MADV_DONTNEED)` 从不调用（`GMemoryRangeDecommitIsNoOp=true`），导致 free 后的物理页不归还 OS。8MB 池在碎片化后几乎不会完全清空，RSS 只增不减。
-
-解决方案（降低 70-78% 增长）：
-
-在启动脚本中添加 `-vmapoolevict -vmapoolscale=1.0` 参数：
+Add `-vmapoolevict -vmapoolscale=1.0` to the launch script:
 
 ```sh
 #!/bin/sh
@@ -946,45 +925,40 @@ exec "$UE_PROJECT_ROOT/YourProject/Binaries/Linux/YourProject" YourProject \
     -vmapoolevict -vmapoolscale=1.0 "$@"
 ```
 
-| 参数                  | 作用                                                     |
-| ------------------- | ------------------------------------------------------ |
-| `-vmapoolevict`     | 启用 decommit，free 时调用`madvise(MADV_DONTNEED)` 归还物理页给 OS |
-| `-vmapoolscale=1.0` | 阻止内存池指数增长（默认 Editor 为 1.4）                             |
+| Parameter            | Effect                                                              |
+| -------------------- | ------------------------------------------------------------------- |
+| `-vmapoolevict`      | Enables decommit; calls `madvise(MADV_DONTNEED)` on free to return physical pages to the OS |
+| `-vmapoolscale=1.0`  | Prevents exponential pool growth (default is 1.4 in the editor)     |
 
-效果对比
+**Result comparison** (12-minute EmptyProject test):
 
-（EmptyProject 12 分钟测试）：
+| Metric             | Without flags   | With flags     | Improvement |
+| ------------------ | --------------- | -------------- | ----------- |
+| 8MB anon growth    | 1.5/min         | 0.45/min       | ↓ 70%       |
+| RSS growth         | 13.2 MB/min     | 2.9 MB/min     | ↓ 78%       |
 
-| 指标           | 不加参数        | 加参数        | 改善    |
-| ------------ | ----------- | ---------- | ----- |
-| 8MB anon 增长率 | 1.5/min     | 0.45/min   | ↓ 70% |
-| RSS 增长率      | 13.2 MB/min | 2.9 MB/min | ↓ 78% |
+> **Note**: these flags affect free() performance (one extra syscall per free), but measured frame-rate impact is negligible. `FMemory::Trim()` and `r.Vulkan.*` cvars do not release Linux pool memory.
 
-> 注意  ：这些参数会影响 free 性能（每次 free 多一次系统调用），但实测对帧率影响可忽略不计。`FMemory::Trim()` 和 `r.Vulkan.*` cvar 对 Linux 池内存释放无效。
+**Q: Dev builds on some domestic Linux systems (e.g., Kylin) cannot play video or hardware decoding fails?**
 
-Q: 部分国产 Linux 系统（如银河麒麟）Dev 开发包无法播放视频或硬件解码失效？
+A: This is a known limitation of UE Development builds; Shipping packages are unaffected.
 
-A: 这是 UE Development 构建的已知限制，Shipping 包不受影响。
+**Cause:** UE Development builds install signal handlers (for crash reporting), which are inherited by forked CEF Helper child processes, causing the GPU process to fail to start and hardware video decoding to fail.
 
-原因：
+| Build config          | linux_single_process | Video/hardware decoding                      |
+| --------------------- | -------------------- | -------------------------------------------- |
+| **Shipping**          | `false` (default)    | ✅ Normal (multi-process + GPU hardware decode) |
+| **Dev**               | `false`              | ❌ May fail (GPU process disturbed by signal handlers) |
+| **Dev**               | `true`               | ⚠️ Single-process software rendering (plays but no hardware acceleration) |
 
-&#x20;UE Development 构建会安装信号处理器（用于崩溃报告），这些处理器会被 fork 出的 CEF Helper 子进程继承，导致 GPU 进程启动异常，硬件视频解码失效。
+**Solution (in order of priority):**
 
-| 构建配置     | linux\_single\_process | 视频/硬件解码                |
-| -------- | ---------------------- | ---------------------- |
-| Shipping | `false`（默认）            | ✅ 正常（多进程 + GPU 硬件解码）   |
-| Dev      | `false`                | ❌ 可能失效（GPU 进程被信号处理器干扰） |
-| Dev      | `true`                 | ⚠️ 单进程软件渲染（可播放但无硬件加速）  |
-
-解决方案（优先级排序）：
-
-1. 优先使用 Shipping 包   — 硬件解码完全正常，体验最佳
-2. 必须用 Dev 包时  ，修改配置为单进程模式：
+1. **Prefer Shipping packages** — hardware decoding works perfectly with the best experience
+2. **When a Dev package is required**, switch to single-process mode:
 
 ```ini
 [WebNative]
 linux_single_process=true
 ```
 
-> Shipping 包默认多进程（`linux_single_process=false`），所有 GPU 硬件解码功能正常，无需修改。
-
+> Shipping packages default to multi-process (`linux_single_process=false`) and all GPU hardware decoding features work normally — no changes needed.
