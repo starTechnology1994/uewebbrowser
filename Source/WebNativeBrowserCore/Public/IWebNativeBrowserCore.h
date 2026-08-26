@@ -20,7 +20,7 @@ struct FWebNativeBrowserRuntimeOptions
 	bool bClearCache = false;
 	bool bClearLog = true;
 	bool bOffGpu = false;
-	bool bTouch = false;
+	bool bTouch = true;
 	bool bKeyboardF5 = false;
 	bool bCtrlScale = false;
 #if PLATFORM_LINUX

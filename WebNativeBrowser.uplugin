@@ -1,4 +1,6 @@
 {
+    "EngineVersion":  "5.1.0",
+    "FabURL":  "https://www.fab.com/listings/4f480d4e-869a-4ebb-bafa-6bbb55b5b8a8",
     "FileVersion":  3,
     "Version":  1,
     "VersionName":  "1.0.0",
@@ -10,9 +12,12 @@
     "DocsURL":  "https://github.com/starTechnology1994/uewebbrowser/wiki",
     "MarketplaceURL":  "https://www.fab.com/listings/4f480d4e-869a-4ebb-bafa-6bbb55b5b8a8",
     "SupportURL":  "https://github.com/starTechnology1994/uewebbrowser/issues",
-    "EngineVersion":  "5.1.0",
     "CanContainContent":  true,
-    "Installed":  true,
+    "IsBetaVersion":  false,
+    "Installed":  false,
+    "Plugins":  [
+
+                ],
     "SupportedTargetPlatforms":  [
                                      "Win64",
                                      "Linux",
