@@ -1,0 +1,52 @@
+# ============================================
+# GitHub Linguist 语言统计配置
+# 让仓库主语言显示为 C++，不影响任何下载内容
+# ============================================
+
+# ===== HTML Demo 资源：不计入语言统计 =====
+Content/webnative/html/* linguist-detectable=false
+*.html linguist-detectable=false
+*.htm linguist-detectable=false
+
+# ===== Web 前端脚本/样式：标记为第三方 =====
+*.js linguist-vendored
+*.css linguist-vendored
+*.map linguist-vendored
+*.svg linguist-vendored
+
+# ===== 文档/数据 =====
+*.json linguist-vendored
+*.md linguist-vendored
+
+# ===== 图片/音频/视频资源 =====
+*.png linguist-vendored
+*.jpg linguist-vendored
+*.jpeg linguist-vendored
+*.gif linguist-vendored
+*.ico linguist-vendored
+*.wav linguist-vendored
+*.ogg linguist-vendored
+*.mp3 linguist-vendored
+*.mp4 linguist-vendored
+*.webm linguist-vendored
+*.earth-night.jpg linguist-vendored
+
+# ===== Unreal 资产与打包产物：按二进制 =====
+*.uasset binary
+*.umap binary
+*.pak binary
+*.uexp binary
+*.ubulk binary
+*.uptnl binary
+
+# ===== CEF / 原生二进制：按二进制 =====
+*.lib binary
+*.a binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.bin binary
+
+# ===== 调试符号 =====
+*.dSYM linguist-vendored
+*.pdb linguist-vendored
