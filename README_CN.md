@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿# WebNative Browser Plugin
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿# WebNative Browser Plugin
 
 WebNativeBrowser 是面向 Unreal Engine 5 的高性能企业级跨平台 Web UI
 与 Chromium 浏览器解决方案拥有原生级别的性能，提供原生浏览器体验，支持 Windows 和Linux（x86\_64、ARM64）。Linux 最低要求   GLIBC 2.17  ，详见
@@ -13,7 +13,7 @@ WebNativeBrowser 是面向 Unreal Engine 5 的高性能企业级跨平台 Web UI
 > - 商务联系（合作、技术支持）：：：<startechnology1994@163.com>：：
 > - 企业微信：<https://work.weixin.qq.com/ca/cawcdef9a4d05fef8c>
 >
-> 闭源发行版（Fab）面向已购买的用户；二进制与该仓库内容保持一致，源码仓库仅做对外公开版本与文档维护。
+> **安装说明（Fab 用户）**：插件从 Fab 下载后会默认安装到引擎目录 `Plugins/Marketplace` 下，**此时无法直接使用**。请将插件剪切到项目 `Plugins/` 目录，重命名为 `WebNativeBrowser`，生成解决方案编译后即可正常使用。
 
 ***
 
