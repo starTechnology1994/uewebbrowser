@@ -11,7 +11,7 @@ WebNativeBrowser is a high-performance, enterprise-grade, cross-platform Web UI 
 > - Business contact (licensing, partnership, technical support): **startechnology1994@163.com**
 > - WeChat Work: <https://work.weixin.qq.com/ca/cawcdef9a4d05fef8c>
 >
-> The closed-source release (Fab) is intended for licensed users; the binaries are kept consistent with the public repository, which is used only for publicly available versions and documentation.
+> **Installation Notes (Fab users)**: After downloading from Fab, the plugin is installed to the engine directory `Plugins/Marketplace` by default, where it **cannot be used directly**. Please cut the plugin folder to your project's `Plugins/` directory, rename it to `WebNativeBrowser`, then generate project files and build — the plugin will work normally.
 
 ---
 
