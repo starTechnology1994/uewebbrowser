@@ -146,6 +146,9 @@ public:
 		{
 			VK_KHR_EXTERNAL_MEMORY_FD_EXTENSION_NAME,
 			VK_EXT_EXTERNAL_MEMORY_DMA_BUF_EXTENSION_NAME,
+			// tiled dma-buf（NVIDIA block-linear）导入必需：没有它只能用 LINEAR 假设，
+			// 采样结果会是乱码。UE 5.1-5.7 不会自动启用，必须在这里主动请求。
+			VK_EXT_IMAGE_DRM_FORMAT_MODIFIER_EXTENSION_NAME,
 		};
 		IVulkanDynamicRHI::AddEnabledDeviceExtensionsAndLayers(
 			MakeArrayView(DeviceExtensions),

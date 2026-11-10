@@ -1,4 +1,4 @@
-# ============================================
+﻿# ============================================
 # GitHub Linguist 语言统计配置
 # 让仓库主语言显示为 C++，不影响任何下载内容
 # ============================================
@@ -50,3 +50,18 @@ Content/webnative/html/* linguist-detectable=false
 # ===== 调试符号 =====
 *.dSYM linguist-vendored
 *.pdb linguist-vendored
+
+# ============================================
+# Git LFS：大体积二进制必须走 LFS
+# 否则超过 GitHub 100MB 单文件硬限制，push 会被拒绝
+#
+# 注意：本节规则曾被 0ecd6d3（Linguist 配置）整文件覆盖而丢失，
+# 导致新增二进制会以普通 blob 提交。修改本文件时务必保留本节。
+# 8 个分支共享同一份 CEF 二进制（内容寻址，只存一份）。
+# ============================================
+*.so filter=lfs diff=lfs merge=lfs -text
+*.dll filter=lfs diff=lfs merge=lfs -text
+*.pak filter=lfs diff=lfs merge=lfs -text
+*.bin filter=lfs diff=lfs merge=lfs -text
+*.lib filter=lfs diff=lfs merge=lfs -text
+v8_context_snapshot_generator filter=lfs diff=lfs merge=lfs -text
