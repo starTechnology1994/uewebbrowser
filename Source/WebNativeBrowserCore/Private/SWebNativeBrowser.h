@@ -117,6 +117,13 @@ public:
 	bool OwnsMouseButtonSequence(const FKey& Button) const;
 	bool ContainsScreenPosition(const FVector2D& ScreenPosition) const;
 	void RequestCpuRenderingFallback();
+	/**
+	 * Abandon the accelerated paint path for this widget and re-create the
+	 * browser through CEF's CPU OnPaint path. Sticky: once committed, a later
+	 * SetRenderOptions / CreateBrowserInstance cannot re-enable GPU acceleration
+	 * unless WNB_ALLOW_GPU_REENABLE is set in the environment.
+	 */
+	void CommitAcceleratedCpuFallback(const FString& ReasonText);
 	/** Internal input-preprocessor hook: restore a deferred PlayerController flag lease after all physical mouse buttons are up. */
 	void FlushDeferredTransparentScenePrimitivePlayerFlags();
 
@@ -175,7 +182,16 @@ private:
 	void ReleaseDragTexture();
 	void CloseBrowserInstance();
 	void CreateBrowserInstance(bool bInUseGpuAcceleratedRendering);
-	void RecreateBrowserInstance(bool bInUseGpuAcceleratedRendering);
+	/**
+	 * Replace the CEF browser. InResumeURL (optional) is the page the new
+	 * browser must open instead of the widget's desired URL: the CPU fallback
+	 * captures the user's current page before the GPU browser is destroyed so
+	 * the replacement does not jump back to the initial URL. Navigation history
+	 * (back/forward) cannot survive a browser re-creation, CEF limitation.
+	 */
+	void RecreateBrowserInstance(bool bInUseGpuAcceleratedRendering, const FString& InResumeURL = FString());
+	/** Read the accelerated-fallback thresholds from [WebNative] once (game thread). */
+	void LoadAcceleratedFallbackConfig();
 	void UpdatePaintLifecycleState();
 	bool ShouldDropPaintCallbacks() const;
 	bool CreateAcceleratedTexture(int32 InWidth, int32 InHeight);
@@ -221,6 +237,8 @@ private:
 	void ResetHitTestAlphaCache();
 	void ResetHitTestAlphaCacheLocked();
 	void InvalidateAcceleratedHitTestAlpha(const TArray<FIntRect>& DirtyRects, const FIntPoint& SourceSize) const;
+	void LoadAlphaMaskConfig();
+	void LogAlphaMaskStatsLocked();
 	void StoreHitTestAlpha(const TArray<uint8>& FrameData, int32 InWidth, int32 InHeight, const TArray<FIntRect>& DirtyRects);
 	bool ReadAcceleratedHitTestAlpha(const FIntPoint& BrowserPoint, uint8& OutAlpha, bool bAllowReadbackRequest, bool bBlockingReadback = false) const;
 	void ConsumeCompletedGpuAlphaTile(const FWebNativeAlphaTileResult& Result) const;
@@ -299,6 +317,31 @@ private:
 	mutable FIntPoint HitTestAlphaSourceSize = FIntPoint::ZeroValue;
 	int32 HitTestAlphaBlockSize = 1;
 	mutable int32 CachedHitTestAlphaBlockSize = 0;
+	// Alpha-mask scan controls ([WebNative] alpha_mask_reduce / alpha_mask_sample /
+	// alpha_mask_skip_empty / alpha_mask_confirm, overridable with the matching
+	// WNB_ALPHA_MASK_* env vars).
+	// reduce=simd (default): SSE2 pmaxub byte-wise max over the block, exact at any
+	// threshold (stores the true block max, same as full).
+	// reduce=sample: legacy 1/4/16-point sampling (+ optional exact confirm).
+	// reduce=full: legacy per-pixel max scan (byte-identical baseline).
+	// skip_empty reuses the mask when CEF reports no dirty rects and the cached mask
+	// still matches the frame. confirm=1 re-scans sampled-transparent blocks exactly.
+	enum class EAlphaMaskReduceMode : uint8
+	{
+		Simd,
+		Sample,
+		Full
+	};
+	EAlphaMaskReduceMode AlphaMaskReduceMode = EAlphaMaskReduceMode::Simd;
+	int32 AlphaMaskSampleCount = 4;
+	bool bAlphaMaskSkipEmpty = true;
+	bool bAlphaMaskConfirm = true;
+	bool bAlphaMaskConfigLoaded = false;
+	int32 AlphaMaskLogRebuilds = 0;
+	int32 AlphaMaskLogRects = 0;
+	int32 AlphaMaskLogSkips = 0;
+	double AlphaMaskLogCostMs = 0.0;
+	double AlphaMaskLogWindowStart = 0.0;
 	mutable bool bHitTestAlphaUsesGpu = false;
 	mutable TArray<FGpuAlphaTile, TInlineAllocator<GpuAlphaTileCapacity>> GpuAlphaTiles;
 	mutable FPendingGpuAlphaTile PendingGpuAlphaTile;
@@ -406,9 +449,57 @@ private:
 	mutable FCriticalSection HitTestAlphaLock;
 	mutable FCriticalSection AcceleratedTextureLock;
 	FIntPoint PendingAcceleratedTextureSize = FIntPoint::ZeroValue;
+	// Coded-size frame that already asked for one texture rebuild. Frame sizing is
+	// driven by CEF's coded_size, never by ViewSize; this keeps a frame whose
+	// size does not match the texture yet from requesting a rebuild every frame.
+	FIntPoint LastRequestedFrameTextureSize = FIntPoint::ZeroValue;
 	TAtomic<bool> bHasAcceleratedFrame{ false };
 	TAtomic<bool> bAcceleratedFrameDirty{ false };
 	TAtomic<bool> bCpuRenderingFallbackRequested{ false };
+	// Accelerated-path health for Linux dma-buf frames. Written from CEF's paint
+	// callback thread; the sticky commit flag is also read on the game thread.
+	int32 AcceleratedFrameCounter = 0;
+	int32 AcceleratedEmptyFrameStreak = 0;
+	int32 AcceleratedFailureStreak = 0;
+	double FirstAcceleratedFrameSeconds = 0.0;
+	TAtomic<bool> bAcceleratedPathCommittedToCpu{ false };
+	// dma-buf empty-frame probe (Linux). The old rule — "3 consecutive probed
+	// frames are empty -> degrade to CPU" — fires within ~0.1 s of CEF's first
+	// dma-buf, i.e. far inside `accel_fallback_after_pageload` (default 2.0 s),
+	// so a transient empty burst during CEF start-up permanently killed the
+	// accelerated path on 4090. With `empty_frame_grace=1` (default) the probe
+	// must stay empty for the whole grace window before degrading; one non-empty
+	// probed frame resets the clock. `empty_frame_grace=0` (or env
+	// WNB_EMPTY_FRAME_GRACE=0) restores the legacy 3-frame rule verbatim.
+	// Written from CEF's paint callback thread, configured once on the game thread.
+	double EmptyFrameProbeStartSeconds = 0.0;
+	double LastEmptyFrameProbeLogSeconds = 0.0;
+	TAtomic<bool> bEmptyFrameGraceEnabled{ true };
+	// Accelerated-path fallback timers (game thread only).
+	//
+	// Two independent exit tests, both fed by "has an *accelerated* frame ever
+	// arrived" plus the page-load event anchor from CEF (FImpl, 方案 C):
+	//  1. Fast test: the page finished loading, CEF still has not delivered one
+	//     accelerated frame after `AcceleratedPageLoadFallbackSeconds` (default
+	//     2.0 s) -> the GPU path is broken on this machine, fall back now.
+	//     This is what turns the "blank screen for 8 s" wait into ~2 s.
+	//  2. Watchdog: no accelerated frame at all for
+	//     `AcceleratedNoFrameWatchdogTimeoutSeconds` (default 3.0 s, was a fixed
+	//     8.0) measured from browser creation / the last accelerated frame.
+	//     It stays as the outer net for the case where the page-load event never
+	//     arrives (load aborted, renderer crash, about:blank startup).
+	// Both thresholds are configurable in [WebNative]:
+	//   accel_fallback_after_pageload / accel_watchdog_timeout (Game.ini).
+	// The watchdog must only arm while the widget actually asked for GPU
+	// rendering, and it must count *accelerated* frames only: the CPU OnPaint
+	// path also sets FImpl::bEverPainted, so basing the timeout on "any frame"
+	// silently disables it (that was the "Frames: 0 + no watchdog" state).
+	bool bAcceleratedFallbackConfigLoaded = false;
+	double AcceleratedPageLoadFallbackSeconds = 2.0;
+	double AcceleratedNoFrameWatchdogTimeoutSeconds = 3.0;
+	double AcceleratedNoFrameWatchdogStart = 0.0;
+	double LastAcceleratedNoFrameWatchdogLogSeconds = 0.0;
+	double LastAcceleratedPageLoadWaitLogSeconds = 0.0;
 
 	// Deferred texture destruction queue. Slate may still have cached draw
 	// elements for several frames after a resize, so retirement has two stages:
