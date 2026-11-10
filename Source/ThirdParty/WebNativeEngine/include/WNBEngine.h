@@ -199,6 +199,12 @@ struct WNBBrowserCreateParams
 	WNBSize ViewSize{ 1280, 720 };
 	int FrameRate = 60;
 	bool bUseGpuAcceleratedRendering = true;
+	// 是否请求「共享纹理交付」（CEF windowless shared_texture_enabled）。
+	// 必须与 bUseGpuAcceleratedRendering（CEF 是否用 GPU 渲染）分开：
+	// Linux 的 GPU-Raster 档（shared_texture=0 + gpu_raster=1）要求 CEF 用 GPU 渲染，
+	// 但不请求 dma-buf；两者一旦绑在一起，CEF 永远等不到加速帧，2 秒后会被
+	// 「降级误判」重建为 CPU 浏览器。默认 true，既有调用方行为不变。
+	bool bWantSharedTexture = true;
 	bool bAllowCpuRenderFallback = true;
 	bool bTransparentBackground = true;
 	int MessageDispatchBudgetPerFrame = 5000;
