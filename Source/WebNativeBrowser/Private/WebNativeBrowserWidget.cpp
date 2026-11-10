@@ -231,7 +231,14 @@ void UWebNativeBrowserWidget::SynchronizeProperties()
 		{
 			View->SetViewSize(ViewSize);
 		}
-		View->SetRenderOptions(bUseGpuAcceleratedRendering && !RuntimeOptions.bOffGpu, bAllowCpuRenderFallback);
+		// CEF 的 GPU 渲染能力与"是否用共享纹理交付"解耦：
+	//   shared_texture=1 → CEF GPU 渲染 + dma-buf 共享纹理交付（零 CPU 回读）
+	//   shared_texture=0 + gpu_raster=1 → CEF 仍然 GPU 渲染，但走 CPU 位图交付
+	// 之前把两者绑在一起，导致 N 卡（shared_texture 被强制为 0）上 CEF 完全退化为
+	// 软件渲染，Game 线程被整帧软光栅打满（4090 上实测仅 ~35fps、单线程 94.6%）。
+	const bool bCefGpuRendering = !RuntimeOptions.bOffGpu
+		&& (RuntimeOptions.bSharedTexture || RuntimeOptions.bGpuRaster);
+	View->SetRenderOptions(bUseGpuAcceleratedRendering && bCefGpuRendering, bAllowCpuRenderFallback);
 		View->SetAcceptsInput(bAcceptsInput);
 		if (WebView != View)
 		{
@@ -282,7 +289,8 @@ TSharedRef<SWidget> UWebNativeBrowserWidget::RebuildWidget()
 	Args.InitialURL = InitialURL;
 	Args.ViewSize = ViewSize;
 	Args.FrameRate = FrameRate;
-	Args.bUseGpuAcceleratedRendering = bUseGpuAcceleratedRendering && !RuntimeOptions.bOffGpu;
+	Args.bUseGpuAcceleratedRendering = bUseGpuAcceleratedRendering && !RuntimeOptions.bOffGpu
+		&& (RuntimeOptions.bSharedTexture || RuntimeOptions.bGpuRaster);
 	Args.bAllowCpuRenderFallback = bAllowCpuRenderFallback;
 	Args.bShowCefPerformanceMonitor = RuntimeOptions.bShowCefPerformanceMonitor;
 	Args.bShowDownloadNotification = RuntimeOptions.bShowDownloadNotification;
