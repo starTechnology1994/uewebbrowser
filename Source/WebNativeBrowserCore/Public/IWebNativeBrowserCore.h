@@ -15,11 +15,31 @@ DECLARE_DELEGATE_OneParam(FWebNativeBrowserUrlChangedDelegate, const FString& /*
 DECLARE_DELEGATE_TwoParams(FWebNativeBrowserBeforePopupDelegate, const FString& /*TargetURL*/, const FString& /*TargetFrameName*/);
 DECLARE_DELEGATE_TwoParams(FWebNativeBrowserLoadEndDelegate, const FString& /*URL*/, int32 /*HttpStatusCode*/);
 
+// 显卡厂商。仅用于日志显示与加速选路决策，不参与渲染实现。
+enum class EWnbGpuVendor : uint8
+{
+	Unknown,
+	Nvidia,
+	Intel,
+	Amd,
+	Lisuan,   // 国产砺算（仅用于日志显示，路由规则同 Other）
+	Other
+};
+
 struct FWebNativeBrowserRuntimeOptions
 {
 	bool bClearCache = false;
 	bool bClearLog = true;
 	bool bOffGpu = false;
+	// Linux 加速选路结果（Windows 只读 bOffGpu，下列字段不参与 Win64 决策）：
+	// bGpuRaster     = 给 CEF 加 --enable-gpu*（GPU 光栅化：GPU 画、整帧读回 CPU）
+	// bSharedTexture = 请求共享纹理（DMA-BUF）；N 卡独占 DRM 时必须为 false
+	bool bGpuRaster = false;
+	bool bSharedTexture = true;
+	EWnbGpuVendor GpuVendor = EWnbGpuVendor::Unknown;
+	FString GpuAdapterName;
+	bool bGpuRasterExplicit = false;      // 用户在 ini/env 里显式设过
+	bool bSharedTextureExplicit = false;
 	bool bTouch = true;
 	bool bKeyboardF5 = false;
 	bool bCtrlScale = false;
