@@ -583,7 +583,7 @@ Mouse events over transparent areas of the web page pass through to the UE scene
 
 ## Configuration Reference
 
-All configuration items live in the `[WebNative]` section of `Config/DefaultGame.ini`. The following lists all **35 configuration items** the plugin reads, grouped by category.
+All configuration items live in the `[WebNative]` section of `Config/DefaultGame.ini`. The following lists all **41 configuration items** the plugin reads, grouped by category.
 
 > **Configuration priority**: after packaging, defaults can be overridden in `<Project>/Saved/Config/Windows/Game.ini` (or `Linux/Game.ini`). Just add a `[WebNative]` section with the keys you want to override; keys that are not written keep the `DefaultGame.ini` defaults.
 >
@@ -595,7 +595,7 @@ All configuration items live in the `[WebNative]` section of `Config/DefaultGame
 > show_cef_performance_monitor=false
 > ```
 >
-> This only overrides `show_cef_performance_monitor`; the other 35 items still use the `DefaultGame.ini` defaults.
+> This only overrides `show_cef_performance_monitor`; the other 41 items still use the `DefaultGame.ini` defaults.
 
 ### General Settings
 
@@ -610,6 +610,8 @@ All configuration items live in the `[WebNative]` section of `Config/DefaultGame
 | `gpu_shared_mutex_per_adapter`    | bool | `false`   | Limits shared_texture concurrency per GPU adapter (`true`: only 1 instance is GPU-accelerated per physical GPU, the rest fall back to CPU; `false`: all instances can use GPU acceleration; with the pure D3D12 copy path there is no cross-device conflict, **`false` is recommended**)                                                                                                      |
 | `multi_open`                      | bool | `false`   | Multi-instance mode: `false` (default) single-instance exclusive-lock mode; when another process already holds the lock it automatically falls back to multi-instance (each instance uses its own cache/log directory to avoid SQLite file-lock conflicts). `true` runs directly in multi-instance mode with independent cache and log directories per instance. **Cloud rendering / cloud gaming**: `multi_open=true` together with `clear_cache=true` and `clear_log=true` is recommended — under cloud rendering each client process is independent and generally does not rely on browser cache; each instance uses its own cache/log directory and clears them at session end |
 | `linux_single_process`            | bool | `false`   | Linux only: `true` uses a compatibility-first single-process mode; `false` (default) uses the Helper multi-process mode. Cannot be switched at runtime after CEF initialization; a restart is required after changing it                                                                                                                                                                             |
+| `gpu_raster`                      | bool | auto      | Linux only: whether CEF renders with GPU raster (`--enable-gpu`, `--enable-gpu-compositing`, `--enable-gpu-rasterization`, `--ignore-gpu-blocklist`). When omitted the plugin auto-selects: an NVIDIA card owning the DRM render node skips DMA-BUF and goes straight to GPU raster, while Intel/AMD/Lisuan try DMA-BUF first                                                                                |
+| `shared_texture`                  | bool | auto      | Linux only: whether to request and import CEF's dma-buf shared texture (zero copy). `0` bypasses DMA-BUF and delivers whole frames through GPU raster; `1` keeps the shared-texture path. For headless/cloud-rendering NVIDIA hosts set `gpu_raster=1` and `shared_texture=0` explicitly                                                                                                                |
 
 ### Debugging & Performance
 
@@ -619,6 +621,30 @@ All configuration items live in the `[WebNative]` section of `Config/DefaultGame
 | `show_download_notification`        | bool | `true`   | Shows built-in download progress bar and completion/failure notifications (white Material style toast). Set to `false` to only broadcast `WebNative` download events for developers to draw their own UI |
 | `debugging_port_min`                | int  | `19223`  | Minimum remote DevTools debugging port. Set to 0 to disable remote debugging                                                              |
 | `debugging_port_max`                | int  | `19262`  | Maximum remote DevTools debugging port. The plugin picks the first available port in this range. Access DevTools via `http://localhost:<port>` |
+| `alpha_mask_reduce`                 | string | `simd` | Reduction used by the mouse hit-test alpha mask: `simd` (SSE2 byte-wise max per block, byte-identical to `full` and the fastest), `sample` (see below), `full` (legacy per-pixel baseline, slowest). Override with `WNB_ALPHA_MASK_REDUCE` |
+| `alpha_mask_sample`                 | int  | `4`      | `sample` mode only: probes per block — `0` (per pixel), `1` (center), `4` (corners), `16` (4x4 grid). Invalid values fall back to 4. Override with `WNB_ALPHA_MASK_SAMPLE` |
+| `alpha_mask_skip_empty`             | bool | `true`   | Reuse the previous mask when CEF reports no dirty rects and the viewport geometry/block size is unchanged, avoiding a full rescan every frame (the main source of periodic hitches). Disable with `WNB_ALPHA_MASK_SKIP_EMPTY=0` |
+| `alpha_mask_confirm`                | bool | `true`   | `sample` mode only: re-scan sampled-transparent blocks exactly, removing false click-through caused by missed samples. Disable with `WNB_ALPHA_MASK_CONFIRM=0` |
+
+#### Hit-test alpha mask (mouse transparency)
+
+When mouse transparency is enabled the plugin reduces each frame's alpha into a per-block mask; a click is passed through to the 3D scene only where the mask says the pixel is transparent. The block size comes from the widget's `MouseTransparencyMaskBlockSize` (default 8).
+
+`alpha_mask_reduce` has three modes:
+
+| Value | Behavior | Use |
+| --- | --- | --- |
+| `simd` (default) | SSE2 `pmaxub` byte-wise max over each 8x8 block; **byte-identical to `full`** (exact, not sampled, so it cannot misclassify) | Recommended for production |
+| `sample` | Probes `alpha_mask_sample` points (0/1/4/16) and optionally re-scans suspicious blocks exactly via `alpha_mask_confirm` | A/B diagnostics only |
+| `full` | Per-pixel scan, the historical implementation | Performance baseline |
+
+Measured reduction cost (median): 1080p 0.96 -> 0.39 ms/frame (-59%), 4K 3.99 -> 1.85 ms/frame (-53%); roughly -80% on core-limited 4090/3060. Combined with `alpha_mask_skip_empty=1` it also skips redundant full scans on frames without dirty rects, removing periodic hitches.
+
+> This optimization does not apply to the Windows default shared-texture path (which never builds the CPU mask). It applies to Linux GPU-Raster/CPU and to Windows with `offgpu=true`.
+>
+> `simd` only engages when `BlockSize=8`; changing it to 4 or 16 falls back to the exact scalar `full` scan (still correct, no speed-up).
+>
+> Diagnostics: `[WNB][ALPHA] rebuild=.. rects=.. mode=.. skip=.. cost=..ms`, logged once every 60 seconds.
 
 ### Media Permission Policies
 
