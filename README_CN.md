@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿# WebNative Browser Plugin
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿# WebNative Browser Plugin
 
 WebNativeBrowser 是面向 Unreal Engine 5 的高性能企业级跨平台 Web UI
 与 Chromium 浏览器解决方案拥有原生级别的性能，提供原生浏览器体验，支持 Windows 和Linux（x86\_64、ARM64）。Linux 最低要求   GLIBC 2.17  ，详见
@@ -164,7 +164,7 @@ git lfs pull
 
 ***
 
-## FAQ 与已知问题
+## JS 与 UE 通信
 
 JS ↔ UE 双向通信
 
@@ -583,7 +583,7 @@ allow_protected_media=true
 | ------------------------------- | ----- | ------------------ |
 | bEnableMouseTransparency        | true  | 启用透明穿透             |
 | MouseTransparencyAlphaThreshold | 0-255 | Alpha 小于或等于此阈值时穿透  |
-| MouseTransparencyMaskBlockSize  | 1-16  | 透明掩码块大小（性能 / 精度平衡） |
+| MouseTransparencyMaskBlockSize  | 1-16  | 透明掩码块大小（性能 / 精度平衡）。**建议 8**：插件自带的 `BP_WebNative` / `BP_WebNative3D` 模板已设为 8，此时掩码归约走 SSE2 加速；改成 4 或 16 会回落到精确标量扫描（结果正确但无加速收益） |
 
 #### 透明区域场景 Primitive 事件桥（可选）
 
@@ -594,7 +594,7 @@ allow_protected_media=true
 
 ## 配置参考
 
-所有配置项位于 `Config/DefaultGame.ini` 的 `[WebNative]` 节点下。以下列出插件读取的全部   35 个配置项  ，按功能分类说明。
+所有配置项位于 `Config/DefaultGame.ini` 的 `[WebNative]` 节点下。以下列出插件读取的全部   41 个配置项  ，按功能分类说明。
 
 > 配置优先级  ：打包后可在 `<Project>/Saved/Config/Windows/Game.ini`（或 `Linux/Game.ini`）中覆盖默认值。只需添加 `[WebNative]` 节点并写入要覆盖的键即可，未写入的键保持 `DefaultGame.ini` 的默认值。
 >
@@ -606,7 +606,7 @@ allow_protected_media=true
 > show_cef_performance_monitor=false
 > ```
 >
-> 这样就只覆盖了 `show_cef_performance_monitor`，其余 35 项仍使用 `DefaultGame.ini` 的默认值。
+> 这样就只覆盖了 `show_cef_performance_monitor`，其余 41 项仍使用 `DefaultGame.ini` 的默认值。
 
 ### 常规设置
 
@@ -621,6 +621,8 @@ allow_protected_media=true
 | `gpu_shared_mutex_per_adapter` | bool | `false` | 按 GPU 适配器限制 shared\_texture 并发数（`true`：每物理 GPU 仅 1 个实例 GPU 加速，其余 CPU 降级；`false`：所有实例均可 GPU 加速，纯 D3D12 拷贝路径下已无跨设备冲突，，，推荐，， ，，`false`，，）                                                                                                               |
 | `multi_open`                   | bool | `false` | 多实例多开模式：`false`（默认）单实例独占锁模式，检测到其他进程已持有锁时自动回退多开（每实例独立缓存/日志目录，避免 SQLite 文件锁冲突）；`true` 直接以多开模式运行，每实例使用独立缓存与日志目录。。。云渲染/云游戏场景。。：建议 `multi_open=true` 并配合 `clear_cache=true`、`clear_log=true` 使用——云渲染下每个客户端进程相互独立、一般不依赖浏览器缓存，多开实例各自使用独立缓存/日志目录，会话结束时自动清空即可 |
 | `linux_single_process`         | bool | `false` | 仅 Linux：`true` 使用兼容性优先的单进程模式；`false`（默认）使用 Helper 多进程模式。CEF 初始化后不能动态切换，修改后需要重启程序                                                                                                                                                                     |
+| `gpu_raster`                   | bool | 自动 | 仅 Linux：是否让 CEF 走 GPU 光栅（注入 `--enable-gpu` / `--enable-gpu-compositing` / `--enable-gpu-rasterization` / `--ignore-gpu-blocklist`）。不写时按显卡自动选路：NVIDIA 独占 DRM 跳过 DMA-BUF 直接 GPU 光栅，Intel/AMD/砺算等先试 DMA-BUF                                                                                          |
+| `shared_texture`               | bool | 自动 | 仅 Linux：是否请求并导入 CEF 的 dma-buf 共享纹理（零拷贝）。`0` 时绕过 DMA-BUF，改走 GPU 光栅整帧读回；`1` 时保留共享纹理。N 卡无头/云渲染环境建议显式配置 `gpu_raster=1` + `shared_texture=0`                                                                                          |
 
 ### 调试与性能
 
@@ -630,6 +632,30 @@ allow_protected_media=true
 | `show_download_notification`   | bool | `true` | 显示内置下载进度条和完成/失败通知（白色 Material 风格 toast）。设为`false` 则仅广播 `WebNative` 下载事件，由开发者自行监听绘制 UI |
 | `debugging_port_min`           | int  | `19223` | 远程 DevTools 调试端口范围最小值。设为 0 则禁用远程调试                                                   |
 | `debugging_port_max`           | int  | `19262` | 远程 DevTools 调试端口范围最大值。插件会在此范围内选择首个可用端口。设定后可通过`http://localhost:<端口>` 访问 DevTools     |
+| `alpha_mask_reduce`            | string | `simd` | 鼠标穿透命中检测的 alpha 掩码归约方式：`simd`（SSE2 逐字节取块内最大 alpha，结果与 `full` 严格等价且最快）/ `sample`（采样，见下）/ `full`（逐像素基准实现，最慢）。可用环境变量 `WNB_ALPHA_MASK_REDUCE` 覆盖 |
+| `alpha_mask_sample`            | int  | `4` | 仅 `sample` 模式生效：每块采样点数，可选 `0`（逐像素）/ `1`（中心点）/ `4`（四角）/ `16`（4×4 网格）。非法值回落 4。可用 `WNB_ALPHA_MASK_SAMPLE` 覆盖 |
+| `alpha_mask_skip_empty`        | bool | `true` | CEF 报告无脏区且视口几何/块大小未变时，直接复用上一帧掩码，避免每帧全量重扫（这是周期性卡顿的主要来源）。可用 `WNB_ALPHA_MASK_SKIP_EMPTY=0` 关闭 |
+| `alpha_mask_confirm`           | bool | `true` | 仅 `sample` 模式生效：采样判定为透明的块再做一次精确全扫，消除采样漏点导致的误穿透。可用 `WNB_ALPHA_MASK_CONFIRM=0` 关闭 |
+
+#### 命中检测 alpha 掩码（鼠标穿透）
+
+启用鼠标穿透（`Enable Mouse Transparency`）后，插件需要把每帧画面的 alpha 归约成一张「块掩码」，鼠标落在掩码为透明的格子上时才把点击透传给后面的 3D 场景。掩码格尺寸由控件的 `MouseTransparencyMaskBlockSize` 决定（默认 8）。
+
+`alpha_mask_reduce` 共三档：
+
+| 取值 | 行为 | 适用 |
+| --- | --- | --- |
+| `simd`（默认） | 用 SSE2 `pmaxub` 对每个 8×8 块做逐字节最大值归约，结果与 `full` **逐字节完全一致**（不是采样，不会误判） | 生产环境推荐 |
+| `sample` | 按 `alpha_mask_sample` 取点（0/1/4/16），配合 `alpha_mask_confirm` 对可疑块精确复核 | 仅用于对照排查 |
+| `full` | 逐像素扫描，历史实现 | 性能基线对照 |
+
+实测（归约耗时中位）：1080p 0.96 → 0.39ms/帧（-59%），4K 3.99 → 1.85ms/帧（-53%）；限核 4090/3060 约 -80%。组合 `alpha_mask_skip_empty=1` 还会跳过「无脏区」帧的重复全扫，消除周期性卡顿。
+
+> 该优化对 Windows 的默认共享纹理档不生效（该档不走 CPU 掩码）；对 Linux 的 GPU-Raster 与 CPU 档、以及 Windows `offgpu=true` 档均生效。
+>
+> `simd` 仅在 `BlockSize=8` 时启用；改成 4 或 16 会自动回落到 `full` 的精确标量扫描（结果正确，但无加速收益）。
+>
+> 排查日志：`[WNB][ALPHA] rebuild=.. rects=.. mode=.. skip=.. cost=..ms`，默认 60 秒一条。
 
 ### 媒体权限策略
 

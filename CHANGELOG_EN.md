@@ -1,5 +1,57 @@
 # WebNative Browser Changelog
 
+## [2.0.0] - 2026-11-10
+
+### Added
+
+**Linux GPU acceleration selection**
+
+- New three-tier acceleration path: DMA-BUF (zero-copy shared texture), GPU-Raster (GPU rendering + full-frame readback), CPU (software). Selected automatically by GPU capability; failures only downgrade
+- On NVIDIA owning the DRM render node, DMA-BUF is skipped automatically and GPU-Raster is used, fixing the empty-frame problem on headless servers where dma-buf contents are not visible to third-party contexts
+- CEF GPU rendering is decoupled from shared-texture delivery: with `shared_texture=0` CEF still renders on the GPU instead of falling back to software raster
+- New `gpu_raster` and `shared_texture` options, overridable in the field with `WNB_GPU_RASTER` / `WNB_SHARED_TEXTURE`
+
+**Hit-test performance**
+
+- Alpha-mask reduction now uses SSE2 `pmaxub` byte-wise block maximum, byte-identical to the per-pixel implementation (exact, not sampled): about -59% at 1080p and -53% at 4K
+- Reuses the previous mask when CEF reports no dirty rects, removing periodic full-rescan hitches
+- Template widget default `MouseTransparencyMaskBlockSize` changed from 1 to 8
+
+**Diagnostics**
+
+- New log lines: `[WNB] GPU detect` (vendor detection), `[WNB] accel plan` (selected tier), `[WNB] accel tier` (actual downgrade), `[WNB][ALPHA]` (mask cost)
+
+### Improved
+
+- Linux dma-buf upload path prefers `HOST_CACHED` host-visible memory, with an explicit flush after copies into non-coherent memory
+- dma-buf CPU mappings are cached and reused by object identity (4-entry LRU) instead of re-faulting every frame; adds the missing `DMA_BUF_IOCTL_SYNC`
+- Empty-frame probing now uses a time window (2 s default) so a few empty frames during CEF compositor warm-up are not treated as a dead channel
+- Tuned the D3D12 wait polling interval to reduce idle CPU wake-ups
+
+### Fixed
+
+- Fixed GPU browsers being wrongly recreated as CPU browsers when `shared_texture=0` (doubled instance count, frame-rate collapse)
+- Fixed a mismatch between CEF command line and UE render mode when `offgpu=true` coexists with a leftover `gpu_raster=1`
+- Fixed premature downgrade when accelerated frames arrive shortly after page load on Linux
+
+### New options
+
+| Key | Default | Description |
+| --- | --- | --- |
+| `gpu_raster` | auto | Linux only: enable GPU raster |
+| `shared_texture` | auto | Linux only: request dma-buf shared texture |
+| `alpha_mask_reduce` | `simd` | Mask reduction: `simd` / `sample` / `full` |
+| `alpha_mask_sample` | `4` | Probes per block in `sample` mode |
+| `alpha_mask_skip_empty` | `true` | Reuse the previous mask when there are no dirty rects |
+| `alpha_mask_confirm` | `true` | Exact re-scan of suspicious blocks in `sample` mode |
+| `accel_fallback_after_pageload` | `2.0` | Grace period after page load before downgrading (seconds) |
+| `accel_watchdog_timeout` | `3.0` | Fallback timeout without accelerated frames (seconds) |
+| `empty_frame_grace` | `true` | Whether empty-frame probing uses a time window |
+
+See sections 5.3-5.5 of [06-CEF Configuration](https://github.com/starTechnology1994/uewebbrowser/wiki/06-CEF-Configuration).
+
+---
+
 ## [1.0.0] - 2026-07-12
 
 ### Added
