@@ -163,6 +163,11 @@ struct FWebNativeLinuxDmaBufFrame
 	TArray<FWebNativeLinuxDmaBufPlane> Planes;
 	FIntPoint SourceSize = FIntPoint::ZeroValue;
 };
+
+/** One tiled GPU copy still executing on the queue. Defined in
+ *  WebNativeBrowserRHIHelper.cpp; the header only needs the pointer type so
+ *  the destructor / device release can drain the queue. */
+struct FWebNativeTiledCopyInFlight;
 #endif
 
 const TCHAR* RHIInterfaceTypeToString(ERHIInterfaceType InType);
@@ -203,6 +208,19 @@ public:
 	bool ImportAndBarrierDmaBuf(const FWebNativeLinuxDmaBufFrame& Frame,
 		uint64& OutVkImage, uint64& OutVkMemory, void*& OutPayload,
 		FIntPoint& OutRhiSize, FIntPoint& OutContentSize, bool& bOutBGRA);
+
+	/** 一次性探测：能否把该帧的 dma-buf（含 DRM modifier）导入为 VkImage。
+	 *  仅用于诊断，导入成功后立即释放，不参与渲染。 */
+	bool ProbeDmaBufImport(const FWebNativeLinuxDmaBufFrame& Frame, const FIntPoint& ImageSize);
+
+	/** 判断该帧的 dma-buf 是否为空（抽样若干像素全为 0）。
+	 *  NVIDIA 的 GBM 无法分配可渲染缓冲，Chromium 会交付未填充的空缓冲；
+	 *  用它来触发自动降级到 CPU 渲染，避免画面空白。 */
+	bool IsDmaBufFrameEmpty(const FWebNativeLinuxDmaBufFrame& Frame, const FIntPoint& ContentSize);
+
+	/** tiled dma-buf 的 GPU 侧拷贝：在渲染线程把导入的 VkImage 拷进持久纹理。
+	 *  CPU 无法按行读取 tiled 布局，因此 tiled 帧只能走这条路径。 */
+	bool CopyTiledDmaBufToTexture(const FWebNativeLinuxDmaBufFrame& Frame, FSlateTexture2DRHIRef* DestTexture, const FIntPoint& ContentSize);
 
 	bool WrapDmaBufAsSlateTexture(
 		uint64 InVkImage, uint64 InVkMemory, void* InPayload,
@@ -270,6 +288,16 @@ private:
 	bool AllocateVulkanCommandBuffer(VkCommandBuffer& OutCommandBuffer);
 	void FreeVulkanCommandBuffer(VkCommandBuffer CommandBuffer);
 
+	/** Release one in-flight tiled copy: command buffer, fence, imported image,
+	 *  device memory and the destination texture's strong reference. */
+	void DestroyTiledCopyInFlight(FWebNativeTiledCopyInFlight* Entry);
+
+	/** Safety net for teardown: retire every in-flight tiled copy. Must run
+	 *  before vkDestroyCommandPool, i.e. from ~FWebNativeBrowserRHIHelper and
+	 *  ReleaseVulkanDevice, after the device has been idled. Same three-layer
+	 *  close-out the older async dma-buf queue already has. */
+	void DrainTiledCopiesInFlight();
+
 	struct FPendingDmaBufCleanup
 	{
 		VkFence Fence = VK_NULL_HANDLE;
@@ -290,9 +318,59 @@ private:
 		VkDeviceSize MappedSize = 0;
 		VkDeviceSize RowPitch = 0;
 		FIntPoint Size = FIntPoint::ZeroValue;
+		// [M1] 这块 VkDeviceMemory 的属性（HOST_VISIBLE 内存类型选择的结果）。
+		// bHostCoherent == false 时，上传路径每帧 memcpy 之后必须调用
+		// vkFlushMappedMemoryRanges，否则 GPU 会读到未回写的 CPU 缓存行。
+		uint32_t MemoryTypeIndex = 0;
+		VkMemoryPropertyFlags MemoryPropertyFlags = 0;
+		bool bHostCoherent = false;
 	};
 	TMap<FSlateTexture2DRHIRef*, FHostMappedTexture> HostMappedTextures;
 	FCriticalSection HostMappedTexturesLock;
+
+	/** [M2] 一条缓存的 dma-buf 映射。
+	 *  背景（麒麟 V10 + 海光 C86-4G + 砺算 7G100 实测）：mmap 调用本身只要
+	 *  0.22 ms，但 mmap 之后 8.29 MB 的 memcpy 要 43~54 ms —— 8.29 MB / 4 KB
+	 *  = 2025 个页，每帧一张新映射等于每帧重新付 2025 次缺页。把映射留着复用，
+	 *  缺页代价只在第一次付。
+	 *  身份 = (fd, dev/ino, offset, size, w, h, stride, modifier)：
+	 *   - fd 号会被内核回收复用，所以额外用 fstat 的 (st_dev, st_ino) 唯一标识
+	 *     这块 dma-buf 对象；任何一项变化都算未命中，绝不把旧映射误当成新
+	 *     buffer 读（那样会读到已释放内存 → SIGBUS / 花屏）。
+	 *  每条缓存只 munmap 一次：淘汰时或被 FlushCachedDmaBufMappings 清空时。 */
+	struct FCachedDmaBufMapping
+	{
+		int32 FileDescriptor = -1;
+		uint64 Inode = 0;
+		uint64 Device = 0;
+		int32 Offset = 0;
+		int32 MapSize = 0;
+		int32 Width = 0;
+		int32 Height = 0;
+		int32 Stride = 0;
+		uint64 Modifier = 0;
+		void* Ptr = nullptr;
+		uint32 RefCount = 0;
+		double LastUsedSeconds = 0.0;
+	};
+
+	static constexpr int32 MAX_CACHED_DMABUF_MAPPINGS = 4;
+	TArray<FCachedDmaBufMapping> CachedDmaBufMappings;
+	FCriticalSection CachedDmaBufMappingsLock;
+
+	/** [M2] 取一条可复用的映射；未命中则 mmap 并写入缓存。
+	 *  @return 失败返回 nullptr；bOutHit = 是否命中缓存；
+	 *          bOutCached = false 表示缓存满且每条都在用，本帧用完必须由调用方
+	 *          自己 munmap（不会写进缓存）。 */
+	void* AcquireCachedDmaBufMapping(
+		const FWebNativeLinuxDmaBufFrame& Frame, const FIntPoint& ImageSize, int32 MapSize,
+		bool& bOutHit, bool& bOutCached, int32& OutCacheSize);
+
+	/** [M2] 归还引用（只减引用计数，不 munmap —— 映射留给下一帧复用）。 */
+	void ReleaseCachedDmaBufMapping(void* Ptr);
+
+	/** [M2] 释放并清空全部缓存映射（析构 / 设备拆除 / 浏览器重建时调用）。 */
+	void FlushCachedDmaBufMappings();
 
 	struct FStagingBuffer
 	{
